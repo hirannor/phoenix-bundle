@@ -81,8 +81,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
             .cors()
             .and()
-//                .csrf().csrfTokenRepository(csrfTokenRepository()).ignoringAntMatchers(AUTH_WHITELIST)
-                .csrf().disable()
+                .csrf().csrfTokenRepository(csrfTokenRepository()).ignoringAntMatchers(AUTH_WHITELIST)
+            .and()
                 .httpBasic().disable()
             .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
             .and()
@@ -93,7 +93,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logout().invalidateHttpSession(true).deleteCookies(JSESSIONID).logoutSuccessHandler(logoutSuccessHandler)
             .and()
                 .addFilterBefore(phoenixAjaxLoginProcessingFilter(null, null), UsernamePasswordAuthenticationFilter.class)
-//                .addFilterAfter(csrfHeaderFilter, CsrfFilter.class)
+                .addFilterAfter(csrfHeaderFilter, CsrfFilter.class)
                 .authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll()
                 .anyRequest().fullyAuthenticated();
     }

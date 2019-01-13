@@ -40,8 +40,9 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authenticationService.login(this.form);
-
-
+    this.authenticationService.login(this.form).subscribe(data =>{
+      this.router.navigate([this.returnUrl]);
+    });
   }
+
 }

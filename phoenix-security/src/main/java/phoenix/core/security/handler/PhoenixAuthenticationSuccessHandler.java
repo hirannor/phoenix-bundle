@@ -21,6 +21,8 @@ import java.io.IOException;
 @Component
 public class PhoenixAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
+    private static int SESSION_TIMEOUT = 30 * 60;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         HttpSession session = request.getSession(false);
@@ -30,7 +32,7 @@ public class PhoenixAuthenticationSuccessHandler implements AuthenticationSucces
         }
 
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
-
+        session.setMaxInactiveInterval(SESSION_TIMEOUT);
         request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
                 SecurityContextHolder.getContext());
         ObjectMapperUtil.writeResponse("true", "You are successfuly logged in!", HttpStatus.OK, response);
