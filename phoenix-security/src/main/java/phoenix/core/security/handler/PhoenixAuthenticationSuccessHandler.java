@@ -1,11 +1,13 @@
 package phoenix.core.security.handler;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Component;
+import phoenix.util.ObjectMapperUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +33,8 @@ public class PhoenixAuthenticationSuccessHandler implements AuthenticationSucces
 
         request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
                 SecurityContextHolder.getContext());
+        ObjectMapperUtil.writeResponse("true", "You are successfuly logged in!", HttpStatus.OK, response);
+
     }
 }
 

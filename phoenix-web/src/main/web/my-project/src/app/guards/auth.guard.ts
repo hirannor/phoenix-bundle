@@ -7,8 +7,9 @@ export class AuthGuard implements CanActivate {
     constructor(private router: Router) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-   
-        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
+        // If user is authenticated then return true, otherwise route back to login
+
+        this.router.navigate(['/login']);
         return false;
     }
 }

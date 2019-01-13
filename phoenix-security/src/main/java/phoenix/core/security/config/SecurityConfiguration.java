@@ -19,6 +19,9 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import phoenix.core.security.filter.CsrfHeaderFilter;
 import phoenix.core.security.filter.PhoenixAjaxLoginProcessingFilter;
 
@@ -78,8 +81,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
             .cors()
             .and()
-                .csrf().csrfTokenRepository(csrfTokenRepository())
-            .and()
+//                .csrf().csrfTokenRepository(csrfTokenRepository()).ignoringAntMatchers(AUTH_WHITELIST)
+                .csrf().disable()
                 .httpBasic().disable()
             .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
             .and()
@@ -90,7 +93,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logout().invalidateHttpSession(true).deleteCookies(JSESSIONID).logoutSuccessHandler(logoutSuccessHandler)
             .and()
                 .addFilterBefore(phoenixAjaxLoginProcessingFilter(null, null), UsernamePasswordAuthenticationFilter.class)
-                .addFilterAfter(csrfHeaderFilter, CsrfFilter.class)
+//                .addFilterAfter(csrfHeaderFilter, CsrfFilter.class)
                 .authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll()
                 .anyRequest().fullyAuthenticated();
     }
@@ -114,5 +117,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
         repository.setHeaderName(CSRF_TOKEN_HEADER);
         return repository;
+    }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.addAllowedHeader("*");
+        config.addExposedHeader("Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, XSRF-TOKEN, Access-Control-Expose-Headers, set-cookie");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        config.addAllowedOrigin("http://localhost:4200");
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
     }
 }
