@@ -20,14 +20,17 @@
         <npm.version>6.3.0</npm.version>
     </properties>
 
-    <build>
+<profiles>
+	<profile>
+		<id>build-angular-frontend</id>
+		 <build>
         <plugins>
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
                 <version>${frontend-maven-plugin.version}</version>
                 <configuration>
-                    <workingDirectory>${project.basedir}/src/main/web/ng6/</workingDirectory>
+                    <workingDirectory>${project.basedir}/src/main/web/my-project/</workingDirectory>
                 </configuration>
                 <executions>
                     <execution>
@@ -40,7 +43,6 @@
                             <npmVersion>${npm.version}</npmVersion>
                         </configuration>
                     </execution>
-
                     <execution>
                         <id>npm install</id>
                         <goals>
@@ -63,4 +65,7 @@
             </plugin>
         </plugins>
     </build>
+	</profile>
+</profiles>
+   
 </project>
