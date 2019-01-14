@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import { AuthenticationService } from '../services';
+import {AlertService, AuthenticationService} from '../services';
 
 @Component({templateUrl: 'login.component.html'})
 export class LoginComponent implements OnInit {
@@ -16,12 +15,13 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService) {
+    private authenticationService: AuthenticationService,
+    private alertService: AlertService) {
   }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      userName: ['', Validators.required],
       password: ['', Validators.required]
     });
 
@@ -41,8 +41,11 @@ export class LoginComponent implements OnInit {
 
     this.loading = true;
     this.authenticationService.login(this.form).subscribe(data =>{
-      this.router.navigate([this.returnUrl]);
-    });
+      this.router.navigate([this.returnUrl, data]);
+    },
+      error => {
+        this.alertService.error(error);
+      });
   }
 
 }

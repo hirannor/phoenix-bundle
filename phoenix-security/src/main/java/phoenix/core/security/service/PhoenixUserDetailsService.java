@@ -27,13 +27,13 @@ public class PhoenixUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserPrincipal userPrincipal = authenticationCredentialsRepository.findByUsername(username);
+        UserPrincipal userPrincipal = authenticationCredentialsRepository.findByUserName(username);
         if(userPrincipal == null)
         {
             throw new UsernameNotFoundException("Username not found!");
         }
 
         GrantedAuthority authority = new SimpleGrantedAuthority(userPrincipal.getRole());
-        return new User(userPrincipal.getUsername(), userPrincipal.getPassword(), Arrays.asList(authority));
+        return new User(userPrincipal.getUserName(), userPrincipal.getPassword(), Arrays.asList(authority));
     }
 }

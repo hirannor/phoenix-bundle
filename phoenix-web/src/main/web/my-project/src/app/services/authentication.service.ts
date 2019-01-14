@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {Observable} from "rxjs/internal/Observable";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {map} from "rxjs/operators";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthenticationService {
 
   private httpOptions: any;
@@ -12,22 +13,27 @@ export class AuthenticationService {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest'
+        'X-Requested-With': 'XMLHttpRequest',
       }),
-      observe: 'response'
+      withCredentials: true
     }
   }
 
   login(form) {
-    return this.http.post<any>('/login', {
-      username: form.username.value,
+    return this.http.post('/auth', {
+      userName: form.userName.value,
       password: form.password.value
-    }, this.httpOptions).pipe(map((response: HttpResponse<any>) => {
-        if(response.status) {
-          localStorage.setItem('isLoggedIn', 'true');
-        }
-        return response;
+    }, this.httpOptions).pipe(map(baseresponse => {
+        sessionStorage.setItem('response', JSON.stringify(baseresponse));
+        return baseresponse;
+    }));
+  }
+
+  logout() {
+    return this.http.post('/logout', {}).pipe(map(baseresponse => {
+      return baseresponse;
     }));
   }
 }
+
 

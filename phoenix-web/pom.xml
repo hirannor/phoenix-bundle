@@ -13,12 +13,21 @@
 
     <name>phoenix-web</name>
     <description>phoenix-web</description>
+    <packaging>war</packaging>
 
     <properties>
         <frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
-        <node.version>v8.11.3</node.version>
-        <npm.version>6.3.0</npm.version>
+        <node.version>v10.15.0</node.version>
+        <npm.version>6.4.1</npm.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>phoenix</groupId>
+            <artifactId>phoenix-security</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 
     <profiles>
         <profile>
@@ -66,6 +75,50 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>copy-angular-frontend</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>copy-resources</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.directory}/classes/static/</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>
+                                                ${project.basedir}/src/main/web/my-project/dist/my-project
+                                            </directory>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

@@ -10,6 +10,6 @@ import phoenix.core.security.entity.UserPrincipal;
 @Repository
 public interface AuthenticationCredentialsRepository extends JpaRepository<UserPrincipal, Long> {
 
-    UserPrincipal findByUsername(String username);
+    UserPrincipal findByUserName(String userName);
 
 }

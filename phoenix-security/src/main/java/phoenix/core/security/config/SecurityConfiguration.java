@@ -33,21 +33,16 @@ import phoenix.core.security.filter.PhoenixAjaxLoginProcessingFilter;
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private static final String MAIN_ENTRY_POINT = "/login";
+    private static final String MAIN_ENTRY_POINT = "/auth";
     private static final String CSRF_TOKEN_HEADER = "X-XSRF-TOKEN";
     private static final String JSESSIONID = "JSESSIONID";
     private static final String[] AUTH_WHITELIST = {
             "/",
-            "/login",
+            "/auth",
             "/h2/**",
             "/index.html",
             "/favicon.ico",
             "/*.js"
-//            "/main.js",
-//            "/polyfills.js",
-//            "/styles.js",
-//            "/vendor.js",
-//            "/runtime.js"
     };
 
     @Qualifier("PhoenixUserDetailsService")

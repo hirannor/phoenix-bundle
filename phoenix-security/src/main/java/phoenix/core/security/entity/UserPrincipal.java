@@ -1,5 +1,6 @@
 package phoenix.core.security.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -17,22 +18,23 @@ public class UserPrincipal {
     }
 
     @Id
-    private String username;
+    @Column(name = "USERNAME")
+    private String userName;
     private String password;
     private String role;
 
-    public UserPrincipal(String username, String password, String role) {
-        this.username = username;
+    public UserPrincipal(String userName, String password, String role) {
+        this.userName = userName;
         this.password = password;
         this.role = role;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {

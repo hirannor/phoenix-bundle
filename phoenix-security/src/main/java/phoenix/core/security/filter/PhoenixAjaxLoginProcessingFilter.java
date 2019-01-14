@@ -42,11 +42,11 @@ public class PhoenixAjaxLoginProcessingFilter extends AbstractAuthenticationProc
         }
 
         UserPrincipal userPrincipal = (UserPrincipal) ObjectMapperUtil.deserialize(request, UserPrincipal.class);
-        if (StringUtils.isBlank(userPrincipal.getUsername()) || StringUtils.isBlank(userPrincipal.getPassword())) {
+        if (StringUtils.isBlank(userPrincipal.getUserName()) || StringUtils.isBlank(userPrincipal.getPassword())) {
             throw new InvalidCredentialsException("Username or password is not provided!");
         }
 
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userPrincipal.getUsername(), userPrincipal.getPassword());
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userPrincipal.getUserName(), userPrincipal.getPassword());
 
         Authentication authentication = this.getAuthenticationManager().authenticate(usernamePasswordAuthenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
