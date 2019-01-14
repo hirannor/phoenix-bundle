@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthenticationService, UserService} from "../services";
+import {AlertService, AuthenticationService, UserService} from "../services";
 import {User} from "../models/user";
 import {first} from "rxjs/operators";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {BaseResponse} from "../models/baseresponse";
 
 @Component({
   selector: 'app-home',
@@ -12,10 +13,14 @@ import {Router} from "@angular/router";
 export class HomeComponent implements OnInit {
 
   currentUser: User;
-  constructor(private userService: UserService, private authenticationService: AuthenticationService, private router: Router) { }
+  constructor(private userService: UserService, private authenticationService: AuthenticationService,
+              private activatedRoute: ActivatedRoute, private alertService: AlertService, private router: Router) { }
 
   ngOnInit() {
     this.getUser();
+    this.activatedRoute.params.subscribe(data => {
+      this.alertService.success((<BaseResponse> data).message);
+    })
   }
 
   private getUser() {
