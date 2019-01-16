@@ -1,0 +1,43 @@
+swagger: '2.0'
+info:
+  version: '0.3.1'
+  title: User API
+  description: User API
+
+basePath: /v1/api/user
+schemes:
+  - http
+  - https
+
+produces:
+  - application/json
+
+paths:
+  /user:
+    get:
+      description: Returns the currently authenticated user
+      operationId: getUser
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: user response
+          schema:
+            $ref: '#/definitions/User'
+
+definitions:
+  User:
+    id: User
+    type: object
+    properties:
+      userName:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      age:
+        type: integer
+        format: int64
+      emailAddress:
+        type: string

@@ -24,7 +24,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>phoenix-security</artifactId>
+            <artifactId>phoenix-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

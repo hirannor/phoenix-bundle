@@ -1,28 +1,27 @@
 package phoenix.user.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import phoenix.user.entity.User;
-import phoenix.user.service.UserService;
-
-import java.security.Principal;
 
 /**
  * @author mate.karolyi
  */
 @RestController
 @RequestMapping("/v1/api/")
-public class UserControllerImpl implements UserController {
+public class UserControllerImpl {
+        //implements UserApi {
 
-    private UserService userService;
-
-    public UserControllerImpl(UserService userService) {
-        this.userService = userService;
-    }
-
-    public User getPrincipal(Principal principal)
-    {
-        return userService.findByUserName(principal.getName());
-    }
+//    private UserService userService;
+//    private ModelMapper modelMapper;
+//
+//    public UserControllerImpl(UserService userService, ModelMapper modelMapper) {
+//        this.userService = userService;
+//        this.modelMapper = modelMapper;
+//    }
+//
+//    @Override
+//    public ResponseEntity<User> getUser() {
+//        UserPrincipal userPrincipal = (UserPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        return modelMapper.mapModels(userService.findByUserName(userPrincipal.getUserName()), User.class);
+//    }
 }

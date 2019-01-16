@@ -15,14 +15,32 @@
     <description>phoenix-controller</description>
 
     <properties>
+        <springfox.version>2.6.1</springfox.version>
+        <swagger-codegen.version>2.4.0</swagger-codegen.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
     </properties>
 
     <dependencies>
         <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${springfox.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${springfox.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>phoenix-core</artifactId>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -32,11 +50,36 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>phoenix-domain</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>java-jwt</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-codegen-maven-plugin</artifactId>
+                <version>${swagger-codegen.version}</version>
+                <executions>
+                    <execution>
+                        <id>generate-server</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/api/user.yaml</inputSpec>
+                            <language>spring</language>
+                            <apiPackage>phoenix.user.controller.api</apiPackage>
+                            <modelPackage>phoenix.user.dto</modelPackage>
+                            <output>${project.build.directory}/generated-sources</output>
+                            <configOptions>
+                                <java8>true</java8>
+                                <interfaceOnly>true</interfaceOnly>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
