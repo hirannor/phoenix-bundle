@@ -75,8 +75,6 @@
                             <output>${generated-sources-path}</output>
                             <generateSupportingFiles>false</generateSupportingFiles>
                             <configOptions>
-                                <sourceFolder>src/main/java</sourceFolder>
-                                <library>spring-boot</library>
                                 <java8>true</java8>
                                 <interfaceOnly>true</interfaceOnly>
                             </configOptions>

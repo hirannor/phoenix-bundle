@@ -6,5 +6,4 @@ Simple Java based web application, which uses Json Web Token Authentication & Au
 - H2
 - JPA & HIBERNATE
 - Swagger
-- Angular
 - Angular 7
