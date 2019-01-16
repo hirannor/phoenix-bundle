@@ -23,9 +23,21 @@
 
     <dependencies>
         <dependency>
-            <groupId>phoenix</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>phoenix-security</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>phoenix-domain</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>phoenix-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>phoenix-controller</artifactId>
         </dependency>
     </dependencies>
 

@@ -11,8 +11,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import phoenix.core.security.entity.UserPrincipal;
 import phoenix.core.security.exception.AuthenticationMethodNotSupportedException;
 import phoenix.core.security.exception.InvalidCredentialsException;
-import phoenix.util.AuthenticationValidator;
-import phoenix.util.ObjectMapperUtil;
+import phoenix.core.security.util.AuthenticationValidator;
+import phoenix.core.security.util.ObjectMapperUtil;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import phoenix.util.JwtTokenUtil;
-import phoenix.util.ObjectMapperUtil;
+import phoenix.core.security.util.JwtTokenUtil;
+import phoenix.core.security.util.ObjectMapperUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

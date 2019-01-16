@@ -5,7 +5,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
-import phoenix.util.ObjectMapperUtil;
+import phoenix.core.security.util.ObjectMapperUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

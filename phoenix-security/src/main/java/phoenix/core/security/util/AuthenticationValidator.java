@@ -1,4 +1,4 @@
-package phoenix.util;
+package phoenix.core.security.util;
 
 import org.springframework.http.HttpMethod;
 

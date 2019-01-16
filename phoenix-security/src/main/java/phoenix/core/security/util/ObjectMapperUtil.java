@@ -1,4 +1,4 @@
-package phoenix.util;
+package phoenix.core.security.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;

@@ -6,8 +6,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
-import phoenix.util.JwtConstants;
-import phoenix.util.JwtTokenUtil;
+import phoenix.core.security.util.JwtConstants;
+import phoenix.core.security.util.JwtTokenUtil;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static phoenix.util.JwtConstants.TOKEN_PREFIX;
+import static phoenix.core.security.util.JwtConstants.TOKEN_PREFIX;
 
 public class PhoenixJwtAuthorizationFilter extends OncePerRequestFilter {
 

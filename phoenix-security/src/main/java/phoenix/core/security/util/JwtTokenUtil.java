@@ -1,4 +1,4 @@
-package phoenix.util;
+package phoenix.core.security.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -17,8 +17,8 @@ import java.util.Date;
 import java.util.List;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
-import static phoenix.util.JwtConstants.EXPIRATION;
-import static phoenix.util.JwtConstants.SECRET_KEY;
+import static phoenix.core.security.util.JwtConstants.EXPIRATION;
+import static phoenix.core.security.util.JwtConstants.SECRET_KEY;
 
 public class JwtTokenUtil {
 

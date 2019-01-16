@@ -9,30 +9,24 @@
         <artifactId>phoenix-bundle</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>phoenix-security</artifactId>
+    <artifactId>phoenix-service</artifactId>
 
-    <name>phoenix-security</name>
-    <description>phoenix-security</description>
+    <name>phoenix-service</name>
+    <description>phoenix-service</description>
 
     <properties>
         <commons-lang3.version>3.8.1</commons-lang3.version>
-        <java-jwt.version>3.5.0</java-jwt.version>
     </properties>
 
     <dependencies>
         <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>phoenix-domain</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>java-jwt</artifactId>
-            <version>${java-jwt.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>phoenix</groupId>
-            <artifactId>phoenix-service</artifactId>
         </dependency>
     </dependencies>
 </project>
