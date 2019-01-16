@@ -15,6 +15,8 @@
     <description>phoenix-controller</description>
 
     <properties>
+        <yaml.file>${project.basedir}/src/main/resources/api/user.yaml</yaml.file>
+        <generated-sources-path>${project.build.directory}/generated-sources</generated-sources-path>
         <springfox.version>2.6.1</springfox.version>
         <swagger-codegen.version>2.4.0</swagger-codegen.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
@@ -66,12 +68,15 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/api/user.yaml</inputSpec>
+                            <inputSpec>${yaml.file}</inputSpec>
                             <language>spring</language>
                             <apiPackage>phoenix.user.controller.api</apiPackage>
                             <modelPackage>phoenix.user.dto</modelPackage>
-                            <output>${project.build.directory}/generated-sources</output>
+                            <output>${generated-sources-path}</output>
+                            <generateSupportingFiles>false</generateSupportingFiles>
                             <configOptions>
+                                <sourceFolder>src/main/java</sourceFolder>
+                                <library>spring-boot</library>
                                 <java8>true</java8>
                                 <interfaceOnly>true</interfaceOnly>
                             </configOptions>
