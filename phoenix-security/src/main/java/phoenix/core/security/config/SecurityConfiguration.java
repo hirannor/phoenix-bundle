@@ -12,13 +12,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.security.web.csrf.CsrfTokenRepository;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -26,7 +21,6 @@ import phoenix.core.security.filter.PhoenixJwtAuthenticationFilter;
 import phoenix.core.security.filter.PhoenixJwtAuthorizationFilter;
 import phoenix.core.security.handler.PhoenixAuthenticationFailureHandler;
 import phoenix.core.security.handler.PhoenixAuthenticationSuccessHandler;
-import phoenix.core.security.repository.AuthenticationCredentialsRepository;
 
 /**
  *

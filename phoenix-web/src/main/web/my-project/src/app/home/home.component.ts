@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AlertService, AuthenticationService, UserService} from "../services";
 import {User} from "../models/user";
-import {first} from "rxjs/operators";
 import {ActivatedRoute, Router} from "@angular/router";
-import {BaseResponse} from "../models/baseresponse";
 
 @Component({
   selector: 'app-home',
@@ -18,8 +16,10 @@ export class HomeComponent implements OnInit {
               private activatedRoute: ActivatedRoute, private alertService: AlertService, private router: Router) { }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(data => {
-      this.alertService.success((<BaseResponse> data).message);
+    this.activatedRoute.queryParamMap.subscribe(params => {
+      if(params.get('success')) {
+        this.alertService.success(params.get('success'))
+      }
     })
     this.getUser();
   }

@@ -1,19 +1,21 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {AlertService, AuthenticationService} from '../services';
 import {first} from "rxjs/operators";
+import {UserCredentials} from "../models/user-credentials";
 
 @Component({templateUrl: 'login.component.html'})
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
-  loading = false;
-  submitted = false;
+
+  credentials: UserCredentials = {
+    userName: '',
+    password: ''
+  }
+
   returnUrl: string;
 
   constructor(
-    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
@@ -21,31 +23,21 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      userName: ['', Validators.required],
-      password: ['', Validators.required]
-    });
-
+    this.route.queryParamMap.subscribe( params => {
+      if(params.get('error')) {
+        this.alertService.error(params.get('error'))
+      }
+    })
     this.returnUrl = '/home';
   }
 
-  get form() {
-    return this.loginForm.controls;
-  }
-
   onSubmit() {
-    this.submitted = true;
-
-    if (this.loginForm.invalid) {
-      return;
-    }
-
-    this.authenticationService.login(this.form).pipe(first()).subscribe(data =>{
-      this.router.navigate([this.returnUrl]);
+    this.authenticationService.login(this.credentials).pipe(first()).subscribe(data =>{
+      this.router.navigate([this.returnUrl], {queryParams: {success: data.message}},);
     },
-      error => {
+error => {
         this.alertService.error(error);
-      });
+    });
   }
 
 }
