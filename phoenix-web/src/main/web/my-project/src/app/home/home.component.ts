@@ -13,14 +13,15 @@ import {BaseResponse} from "../models/baseresponse";
 export class HomeComponent implements OnInit {
 
   currentUser: User;
+
   constructor(private userService: UserService, private authenticationService: AuthenticationService,
               private activatedRoute: ActivatedRoute, private alertService: AlertService, private router: Router) { }
 
   ngOnInit() {
-    this.getUser();
     this.activatedRoute.params.subscribe(data => {
       this.alertService.success((<BaseResponse> data).message);
     })
+    this.getUser();
   }
 
   private getUser() {
@@ -30,9 +31,7 @@ export class HomeComponent implements OnInit {
   }
 
   logout() {
-    this.authenticationService.logout().pipe(first()).subscribe(resp => {
-      sessionStorage.clear();
-      this.router.navigate(['/login']);
-    });
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
   }
 }

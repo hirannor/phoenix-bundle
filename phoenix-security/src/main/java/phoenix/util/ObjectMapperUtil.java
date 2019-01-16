@@ -1,6 +1,7 @@
 package phoenix.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -20,12 +21,16 @@ public class ObjectMapperUtil {
     private static final Logger LOGGER = LogManager.getLogger(ObjectMapperUtil.class);
     private static ObjectMapper objectMapper = new ObjectMapper();
 
-    public static void writeResponse(String success, String message, HttpStatus httpStatus, HttpServletResponse response)
+    public static void writeResponse(String success, String message, HttpStatus httpStatus, HttpServletResponse response, String token)
     {
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<String, String>(0);
 
         map.put("success", success);
         map.put("message", message);
+
+        if(StringUtils.isNotBlank(token)) {
+            map.put("token", token);
+        }
 
         response.setStatus(httpStatus.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);

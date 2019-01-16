@@ -16,14 +16,17 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-import phoenix.core.security.filter.CsrfHeaderFilter;
-import phoenix.core.security.filter.PhoenixAjaxLoginProcessingFilter;
+import phoenix.core.security.filter.PhoenixJwtAuthenticationFilter;
+import phoenix.core.security.filter.PhoenixJwtAuthorizationFilter;
+import phoenix.core.security.handler.PhoenixAuthenticationFailureHandler;
+import phoenix.core.security.handler.PhoenixAuthenticationSuccessHandler;
+import phoenix.core.security.repository.AuthenticationCredentialsRepository;
 
 /**
  *
@@ -33,12 +36,11 @@ import phoenix.core.security.filter.PhoenixAjaxLoginProcessingFilter;
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private static final String MAIN_ENTRY_POINT = "/auth";
-    private static final String CSRF_TOKEN_HEADER = "X-XSRF-TOKEN";
-    private static final String JSESSIONID = "JSESSIONID";
+    private static final String PROTECTED_API = "/v1/api/**";
+    private static final String MAIN_ENTRY_POINT = "/authenticate";
     private static final String[] AUTH_WHITELIST = {
             "/",
-            "/auth",
+            "/authenticate",
             "/h2/**",
             "/index.html",
             "/favicon.ico",
@@ -48,16 +50,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Qualifier("PhoenixUserDetailsService")
     private UserDetailsService userDetailsService;
     private AuthenticationEntryPoint authenticationEntryPoint;
-    private LogoutSuccessHandler logoutSuccessHandler;
-    private CsrfHeaderFilter csrfHeaderFilter;
+    private PhoenixAuthenticationSuccessHandler phoenixAuthenticationSuccessHandler;
+    private PhoenixAuthenticationFailureHandler phoenixAuthenticationFailureHandler;
 
-    public SecurityConfiguration( @Qualifier("PhoenixUserDetailsService") UserDetailsService userDetailsService, AuthenticationEntryPoint authenticationEntryPoint,
-                              LogoutSuccessHandler logoutSuccessHandler, CsrfHeaderFilter csrfHeaderFilter)
-    {
+    public SecurityConfiguration(@Qualifier("PhoenixUserDetailsService") UserDetailsService userDetailsService, AuthenticationEntryPoint authenticationEntryPoint,
+                                 PhoenixAuthenticationSuccessHandler phoenixAuthenticationSuccessHandler, PhoenixAuthenticationFailureHandler phoenixAuthenticationFailureHandler) {
         this.userDetailsService = userDetailsService;
         this.authenticationEntryPoint = authenticationEntryPoint;
-        this.logoutSuccessHandler = logoutSuccessHandler;
-        this.csrfHeaderFilter = csrfHeaderFilter;
+        this.phoenixAuthenticationSuccessHandler = phoenixAuthenticationSuccessHandler;
+        this.phoenixAuthenticationFailureHandler = phoenixAuthenticationFailureHandler;
     }
 
     @Override
@@ -74,44 +75,26 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .cors()
-            .and()
-                .csrf().csrfTokenRepository(csrfTokenRepository()).ignoringAntMatchers(AUTH_WHITELIST)
-            .and()
+                .cors()
+                .and()
                 .httpBasic().disable()
-            .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
-            .and()
+                .csrf().disable()
+                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
+                .and()
                 .headers().frameOptions().sameOrigin()
-            .and()
-                .sessionManagement().enableSessionUrlRewriting(false).sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-            .and()
-                .logout().invalidateHttpSession(true).deleteCookies(JSESSIONID).logoutSuccessHandler(logoutSuccessHandler)
-            .and()
-                .addFilterBefore(phoenixAjaxLoginProcessingFilter(null, null), UsernamePasswordAuthenticationFilter.class)
-                .addFilterAfter(csrfHeaderFilter, CsrfFilter.class)
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilterBefore(new PhoenixJwtAuthenticationFilter(MAIN_ENTRY_POINT, phoenixAuthenticationSuccessHandler, phoenixAuthenticationFailureHandler, authenticationManagerBean()), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new PhoenixJwtAuthorizationFilter(), BasicAuthenticationFilter.class)
                 .authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll()
-                .anyRequest().fullyAuthenticated();
-    }
-
-    @Bean
-    public PhoenixAjaxLoginProcessingFilter phoenixAjaxLoginProcessingFilter(AuthenticationSuccessHandler phoenixAuthenticationSuccessHandler, AuthenticationFailureHandler phoenixAuthenticationFailureHandler) throws Exception {
-        PhoenixAjaxLoginProcessingFilter phoenixAjaxLoginProcessingFilter = new PhoenixAjaxLoginProcessingFilter(MAIN_ENTRY_POINT, phoenixAuthenticationSuccessHandler, phoenixAuthenticationFailureHandler);
-        phoenixAjaxLoginProcessingFilter.setAuthenticationManager(authenticationManagerBean());
-        return phoenixAjaxLoginProcessingFilter;
+                .antMatchers(PROTECTED_API).fullyAuthenticated();
     }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder()
     {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public CsrfTokenRepository csrfTokenRepository()
-    {
-        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-        repository.setHeaderName(CSRF_TOKEN_HEADER);
-        return repository;
     }
 
     @Bean

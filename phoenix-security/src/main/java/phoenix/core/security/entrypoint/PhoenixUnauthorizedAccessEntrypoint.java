@@ -19,7 +19,7 @@ public class PhoenixUnauthorizedAccessEntrypoint implements AuthenticationEntryP
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        ObjectMapperUtil.writeResponse("false", "You dont have rights to view this page!", HttpStatus.FORBIDDEN, response);
+        ObjectMapperUtil.writeResponse("false", "You dont have rights to view this page!", HttpStatus.FORBIDDEN, response, null);
 
     }
 }

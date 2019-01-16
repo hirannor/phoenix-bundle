@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {map} from "rxjs/operators";
+import {BaseResponse} from "../models/baseresponse";
 
 @Injectable({
   providedIn: 'root'
@@ -14,25 +15,28 @@ export class AuthenticationService {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'X-Requested-With': 'XMLHttpRequest',
-      }),
-      withCredentials: true
+      })
     }
   }
 
+  getToken(): string {
+    return localStorage.getItem('token');
+  }
+
   login(form) {
-    return this.http.post('/auth', {
+    return this.http.post<any>('/authenticate', {
       userName: form.userName.value,
       password: form.password.value
-    }, this.httpOptions).pipe(map(baseresponse => {
-        sessionStorage.setItem('response', JSON.stringify(baseresponse));
-        return baseresponse;
+    }).pipe(map(resp => {
+        if (resp && resp.token) {
+          localStorage.setItem('token', resp.token);
+        }
+        return resp;
     }));
   }
 
   logout() {
-    return this.http.post('/logout', {}).pipe(map(baseresponse => {
-      return baseresponse;
-    }));
+    localStorage.removeItem('token');
   }
 }
 

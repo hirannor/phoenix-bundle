@@ -1,10 +1,10 @@
 package phoenix.core.security.filter;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -23,19 +23,21 @@ import java.io.IOException;
 /**
  * @author mate.karolyi
  */
-public class PhoenixAjaxLoginProcessingFilter extends AbstractAuthenticationProcessingFilter {
+public class PhoenixJwtAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
+    private AuthenticationManager authenticationManager;
     private AuthenticationSuccessHandler phoenixAuthenticationSuccessHandler;
     private AuthenticationFailureHandler phoenixAuthenticationFailureHandler;
 
-    public PhoenixAjaxLoginProcessingFilter(String processingUrl, AuthenticationSuccessHandler phoenixAuthenticationSuccessHandler, AuthenticationFailureHandler phoenixAuthenticationFailureHandler) {
+    public PhoenixJwtAuthenticationFilter(String processingUrl, AuthenticationSuccessHandler phoenixAuthenticationSuccessHandler, AuthenticationFailureHandler phoenixAuthenticationFailureHandler, AuthenticationManager authenticationManager) {
         super(processingUrl);
         this.phoenixAuthenticationSuccessHandler = phoenixAuthenticationSuccessHandler;
         this.phoenixAuthenticationFailureHandler = phoenixAuthenticationFailureHandler;
+        this.authenticationManager = authenticationManager;
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
         if (!AuthenticationValidator.isValidPreAuthenticationRequest(request)) {
             throw new AuthenticationMethodNotSupportedException("Authentication Method not supported!");
@@ -46,12 +48,10 @@ public class PhoenixAjaxLoginProcessingFilter extends AbstractAuthenticationProc
             throw new InvalidCredentialsException("Username or password is not provided!");
         }
 
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userPrincipal.getUserName(), userPrincipal.getPassword());
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userPrincipal.getUserName(), userPrincipal.getPassword(), null);
 
-        Authentication authentication = this.getAuthenticationManager().authenticate(usernamePasswordAuthenticationToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
-        return authentication;
     }
 
     @Override

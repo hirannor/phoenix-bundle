@@ -20,7 +20,7 @@ public class PhoenixAuthenticationFailureHandler implements AuthenticationFailur
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        ObjectMapperUtil.writeResponse("false", exception.getMessage(), HttpStatus.FORBIDDEN, response);
+        ObjectMapperUtil.writeResponse("false", exception.getMessage(), HttpStatus.FORBIDDEN, response, null);
         SecurityContextHolder.clearContext();
     }
 }

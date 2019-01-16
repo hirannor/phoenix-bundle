@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {AlertService, AuthenticationService} from '../services';
+import {first} from "rxjs/operators";
 
 @Component({templateUrl: 'login.component.html'})
 export class LoginComponent implements OnInit {
@@ -39,9 +40,8 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.loading = true;
-    this.authenticationService.login(this.form).subscribe(data =>{
-      this.router.navigate([this.returnUrl, data]);
+    this.authenticationService.login(this.form).pipe(first()).subscribe(data =>{
+      this.router.navigate([this.returnUrl]);
     },
       error => {
         this.alertService.error(error);
