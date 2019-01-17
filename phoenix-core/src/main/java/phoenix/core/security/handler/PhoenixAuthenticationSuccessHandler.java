@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * This implementation handles the successful authentication.
+ * In case of successful authentication it sends back an json response to the client
+ * with the appropiate Jwt token
  * @author mate.karolyi
  */
 @Component

@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * This implementation handles the unsuccessful authentications
+ * In case of unsuccessful authentication it sends back an json response to the client
+ * and clears the {@link SecurityContextHolder}
  * @author mate.karolyi
  */
 @Component

@@ -11,6 +11,7 @@ import phoenix.user.dto.User;
 import phoenix.user.service.UserService;
 
 /**
+ * Spring Controller Implementation of {@link UserApi}
  * @author mate.karolyi
  */
 @RestController

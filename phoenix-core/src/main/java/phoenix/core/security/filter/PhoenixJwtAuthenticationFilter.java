@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * A Jwt based authentication filter, which is responsible for the authentication process.
+ * It deserializes the request into an object for authentication.
  * @author mate.karolyi
  */
 public class PhoenixJwtAuthenticationFilter extends AbstractAuthenticationProcessingFilter {

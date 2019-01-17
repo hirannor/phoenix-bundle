@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
+ * UserPrincipal entity, used for authentication process
  * @author mate.karolyi
  */
 @Entity

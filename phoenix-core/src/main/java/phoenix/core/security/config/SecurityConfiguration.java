@@ -23,7 +23,7 @@ import phoenix.core.security.handler.PhoenixAuthenticationFailureHandler;
 import phoenix.core.security.handler.PhoenixAuthenticationSuccessHandler;
 
 /**
- *
+ * Security Configuration
  * @author mate.karolyi
  */
 @EnableWebSecurity

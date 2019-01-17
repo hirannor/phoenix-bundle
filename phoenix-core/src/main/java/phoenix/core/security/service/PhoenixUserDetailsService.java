@@ -13,6 +13,8 @@ import phoenix.core.security.repository.AuthenticationCredentialsRepository;
 import java.util.Arrays;
 
 /**
+ * Custom implementation of {@link UserDetailsService}
+ * Used for retrieving an user from a store during the authentication process.
  * @author mate.karolyi
  */
 @Service("PhoenixUserDetailsService")

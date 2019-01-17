@@ -2,10 +2,10 @@ package phoenix;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 /**
+ * Main Entry point of the web application
  * @author mate.karolyi
  */
 @SpringBootApplication

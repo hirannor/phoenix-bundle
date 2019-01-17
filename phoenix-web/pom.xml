@@ -43,7 +43,7 @@
 
     <profiles>
         <profile>
-            <id>build-angular-frontend</id>
+            <id>build-and-copy-angular-frontend</id>
             <build>
                 <plugins>
                     <plugin>
@@ -84,13 +84,6 @@
                             </execution>
                         </executions>
                     </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>copy-angular-frontend</id>
-            <build>
-                <plugins>
                     <plugin>
                         <artifactId>maven-resources-plugin</artifactId>
                         <executions>

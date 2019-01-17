@@ -4,6 +4,10 @@ import org.springframework.stereotype.Service;
 import phoenix.user.entity.User;
 import phoenix.user.repository.UserRepository;
 
+/**
+ * Service implementation of {@link UserService}
+ * @author mate.karolyi
+ */
 @Service
 public class UserServiceImpl implements UserService {
 

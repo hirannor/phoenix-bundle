@@ -3,6 +3,7 @@ package phoenix.core.security.exception;
 import org.springframework.security.core.AuthenticationException;
 
 /**
+ * Exception throw in case of Authentication method is not supported
  * @author mate.karolyi
  */
 public class AuthenticationMethodNotSupportedException extends AuthenticationException {

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import phoenix.core.security.entity.UserPrincipal;
 
 /**
+ * This Repository used for getting authentication credentials from a store.
  * @author mate.karolyi
  */
 @Repository

@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * ObjectMapper utility class
+ * The main purpose of this util class to deserialize json to java object and to provide a parametrized base reply
  * @author mate.karolyi
  */
 public class ObjectMapperUtil {

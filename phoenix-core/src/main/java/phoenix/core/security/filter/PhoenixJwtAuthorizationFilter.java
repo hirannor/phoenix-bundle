@@ -19,6 +19,12 @@ import java.util.List;
 
 import static phoenix.core.security.util.JwtConstants.TOKEN_PREFIX;
 
+/**
+ * A Jwt based authorization filter
+ * This filter is responsible for authorization.
+ * It reads the Jwt from Authorization header and uses the Jwt to validate the token.
+ * @author mate.karolyi
+ */
 public class PhoenixJwtAuthorizationFilter extends OncePerRequestFilter {
 
     @Override
@@ -46,5 +52,4 @@ public class PhoenixJwtAuthorizationFilter extends OncePerRequestFilter {
 
         return grantedAuthorities;
     }
-
 }

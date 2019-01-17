@@ -20,6 +20,10 @@ import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 import static phoenix.core.security.util.JwtConstants.EXPIRATION;
 import static phoenix.core.security.util.JwtConstants.SECRET_KEY;
 
+/**
+ * A Jwt utility class that is used for token generate and verify purpose
+ * @author mate.karolyi
+ */
 public class JwtTokenUtil {
 
     private static final Logger LOGGER = LogManager.getLogger(JwtTokenUtil.class);

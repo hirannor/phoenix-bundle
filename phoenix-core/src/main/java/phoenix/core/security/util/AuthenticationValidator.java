@@ -5,6 +5,7 @@ import org.springframework.http.HttpMethod;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * An utility class which validates the incoming request in case of authentication
  * @author mate.karolyi
  */
 public class AuthenticationValidator {

@@ -10,7 +10,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Configuration class for Swagger documentation
- *
  * @author mate.karolyi
  */
 @Configuration

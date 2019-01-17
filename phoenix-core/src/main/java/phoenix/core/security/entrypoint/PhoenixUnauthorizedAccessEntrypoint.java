@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * Unauthorized access point
+ *
  * @author mate.karolyi
  */
 @Component
