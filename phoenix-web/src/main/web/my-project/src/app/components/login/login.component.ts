@@ -1,18 +1,19 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
-import {AlertService, AuthenticationService} from '../services';
+import {AlertService, AuthenticationService} from '../../services';
 import {first} from "rxjs/operators";
-import {UserCredentials} from "../models/user-credentials";
+import {UserCredentials} from "../../models/user/user-credentials";
 
-@Component({templateUrl: 'login.component.html'})
+@Component({
+  templateUrl: './login.component.html',
+  styleUrls: [
+    './login.component.scss'
+  ]
+})
 export class LoginComponent implements OnInit {
 
-  credentials: UserCredentials = {
-    userName: '',
-    password: ''
-  }
-
+  credentials: UserCredentials;
   returnUrl: string;
 
   constructor(
@@ -20,6 +21,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private alertService: AlertService) {
+
+    this.credentials = new  UserCredentials();
   }
 
   ngOnInit() {
@@ -28,7 +31,7 @@ export class LoginComponent implements OnInit {
         this.alertService.error(params.get('error'))
       }
     })
-    this.returnUrl = '/home';
+    this.returnUrl = '/admin';
   }
 
   onSubmit() {

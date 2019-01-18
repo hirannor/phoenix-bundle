@@ -1,30 +1,27 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from "rxjs/operators";
-import {BaseResponse} from "../models/base-response";
+import {BaseResponse} from "../models/base/base-response";
+import {TokenStorage} from "../helpers/token.storage";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  constructor(private http: HttpClient) {}
-
-  getToken(): string {
-    return localStorage.getItem('token');
-  }
+  constructor(private http: HttpClient, private tokenStorage: TokenStorage) {}
 
   login(credentials) {
     return this.http.post<BaseResponse>('/authenticate', credentials).pipe(map(resp => {
         if (resp && resp.token) {
-          localStorage.setItem('token', resp.token);
+          this.tokenStorage.saveToken(resp.token);
         }
         return resp;
     }));
   }
 
   logout() {
-    localStorage.removeItem('token');
+    this.tokenStorage.removeToken();
   }
 }
 

@@ -1,0 +1,14 @@
+.jumbotron {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+@font-face {
+  font-family: myFirstFont;
+  src: url(~node_modules/font-awesome/fonts/fontawesome-webfont.woff);
+  font-weight: bold;
+}
+
+h1 {
+  font-family: myFirstFont;
+}

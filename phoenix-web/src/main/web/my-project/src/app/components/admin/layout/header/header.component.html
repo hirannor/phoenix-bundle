@@ -1,0 +1,15 @@
+<nav class="navbar navbar-dark bg-success mb-5">
+  <div class="navbar-expand mr-auto">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" [routerLink]="admin">Home</a>
+      <!--<a class="nav-item nav-link active" [routerLink]="[{ outlets: { adminContent: ['user'] } }]">User</a>-->
+    </div>
+  </div>
+  <div class="navbar-expand ml-auto navbar-nav">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="#" (click)="logout()">
+        Logout
+      </a>
+    </div>
+  </div>
+</nav>

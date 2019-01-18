@@ -6,7 +6,7 @@ package phoenix.core.security.util;
  */
 public class JwtConstants {
 
-    private static final long MINUTES = 10;
+    private static final long MINUTES = 1;
     public static final String HEADER_STRING = "Authorization";
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String SECRET_KEY = "s3cr3tk3yl0l";

@@ -5,11 +5,12 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {LoginComponent} from './login/login.component';
-import {HomeComponent} from './home/home.component';
-import {AlertComponent} from './directives/alert.component';
-import {ErrorInterceptor} from "./interceptor";
-import {TokenInterceptor} from "./interceptor/token.interceptor";
+import {LoginComponent} from './components/login';
+import {HomeComponent} from './components/admin/home';
+import {AlertComponent} from './directives';
+import {ErrorInterceptor, TokenInterceptor} from "./interceptors";
+import {AdminLayoutComponent, ContentComponent, FooterComponent, HeaderComponent} from "./components/admin/layout";
+import {TokenStorage} from "./helpers/token.storage";
 
 @NgModule({
   imports: [
@@ -22,9 +23,14 @@ import {TokenInterceptor} from "./interceptor/token.interceptor";
     AppComponent,
     LoginComponent,
     HomeComponent,
-    AlertComponent
+    AlertComponent,
+    AdminLayoutComponent,
+    HeaderComponent,
+    ContentComponent,
+    FooterComponent
   ],
   providers: [
+    TokenStorage,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
