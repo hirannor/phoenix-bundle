@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {AlertService, AuthenticationService, UserService} from "../../../services";
+import {AlertService, UserService} from "../../../services";
 import {User} from "../../../models/user/user";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {first} from "rxjs/operators";
 
 @Component({
@@ -13,13 +13,13 @@ export class HomeComponent implements OnInit {
 
   currentUser: User
 
-  constructor(private userService: UserService, private authenticationService: AuthenticationService,
-              private activatedRoute: ActivatedRoute, private alertService: AlertService, private router: Router) {
+  constructor(private userService: UserService,
+              private route: ActivatedRoute, private alertService: AlertService) {
     this.currentUser = new User();
   }
 
   ngOnInit() {
-    this.activatedRoute.queryParamMap.subscribe(params => {
+    this.route.queryParamMap.subscribe(params => {
       if(params.get('success')) {
         this.alertService.success(params.get('success'))
       }
@@ -33,8 +33,4 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  logout() {
-    this.authenticationService.logout();
-    this.router.navigate(['/login']);
-  }
 }

@@ -34,7 +34,7 @@ public class JwtTokenUtil {
             return JWT.create()
                     .withSubject(user.getUsername())
                     .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION))
-                    .withArrayClaim("AUTHORITIES", convertGrantedAuthoritiesToString(user.getAuthorities()))
+                    .withArrayClaim("role", convertGrantedAuthoritiesToString(user.getAuthorities()))
                     .sign(HMAC512(SECRET_KEY.getBytes()));
         }
         catch(JWTCreationException ex) {

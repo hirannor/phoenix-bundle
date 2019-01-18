@@ -3,7 +3,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 import {AlertService, AuthenticationService} from '../../services';
 import {first} from "rxjs/operators";
-import {UserCredentials} from "../../models/user/user-credentials";
+import decode from 'jwt-decode';
+import {TokenStorage} from "../../helpers/token.storage";
+import {RoleType} from "../../models/base";
+import {UserCredentials} from "../../models/user";
 
 @Component({
   templateUrl: './login.component.html',
@@ -14,15 +17,18 @@ import {UserCredentials} from "../../models/user/user-credentials";
 export class LoginComponent implements OnInit {
 
   credentials: UserCredentials;
-  returnUrl: string;
+  adminUrl: string;
+  userUrl: string;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private alertService: AlertService) {
+    private alertService: AlertService, private tokenStorage: TokenStorage) {
 
     this.credentials = new  UserCredentials();
+    this.adminUrl = '/admin';
+    this.userUrl = '/user'
   }
 
   ngOnInit() {
@@ -31,12 +37,17 @@ export class LoginComponent implements OnInit {
         this.alertService.error(params.get('error'))
       }
     })
-    this.returnUrl = '/admin';
   }
 
   onSubmit() {
     this.authenticationService.login(this.credentials).pipe(first()).subscribe(data =>{
-      this.router.navigate([this.returnUrl], {queryParams: {success: data.message}},);
+      let token = this.tokenStorage.getToken();
+        if(token) {
+          let tokenPayload = decode(token);
+          if(RoleType.ADMIN == tokenPayload.role[0]) {
+            this.router.navigate([this.adminUrl], {queryParams: {success: data.message}},);
+          }
+      }
     },
 error => {
         this.alertService.error(error);

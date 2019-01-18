@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from "rxjs/operators";
-import {BaseResponse} from "../models/base/base-response";
+import {BaseResponse} from "../models/base";
 import {TokenStorage} from "../helpers/token.storage";
 
 @Injectable({

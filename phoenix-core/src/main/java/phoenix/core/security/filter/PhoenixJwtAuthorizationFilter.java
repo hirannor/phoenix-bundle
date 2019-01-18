@@ -37,7 +37,7 @@ public class PhoenixJwtAuthorizationFilter extends OncePerRequestFilter {
 
         DecodedJWT decodedJWT = JwtTokenUtil.verifyToken(header.replace(TOKEN_PREFIX, ""));
 
-        List<GrantedAuthority> grantedAuthorities = convertAuthorityStringToGrantedAuthority(decodedJWT.getClaims().get("AUTHORITIES").asList(String.class));
+        List<GrantedAuthority> grantedAuthorities = convertAuthorityStringToGrantedAuthority(decodedJWT.getClaims().get("role").asList(String.class));
 
         SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(decodedJWT.getSubject(), null, grantedAuthorities));
         filterChain.doFilter(request, response);
