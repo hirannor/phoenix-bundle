@@ -1,9 +1,20 @@
 .alert-box {
   height: max-content;
   width: max-content;
-  position: absolute;
+  position: relative;
   width: 500px;
   margin-right: auto;
-  margin-left: 710px;
-  bottom: 50px;
+  margin-left: auto;
+  top: 10px;
+}
+
+a.close {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
 }
