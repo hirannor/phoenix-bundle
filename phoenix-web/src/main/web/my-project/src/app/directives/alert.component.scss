@@ -1,6 +1,9 @@
 .alert-box {
   height: max-content;
   width: max-content;
-  margin-left: auto; margin-right: auto;
-  margin-top: 20px;
+  position: absolute;
+  width: 500px;
+  margin-right: auto;
+  margin-left: 710px;
+  bottom: 50px;
 }

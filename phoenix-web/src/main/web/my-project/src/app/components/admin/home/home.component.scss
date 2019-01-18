@@ -1,6 +1,7 @@
 .jumbotron {
   max-width: 800px;
   margin: 0 auto;
+  position: relative;
 }
 
 @font-face {
@@ -11,4 +12,5 @@
 
 h1 {
   font-family: myFirstFont;
+  text-align: center;
 }
