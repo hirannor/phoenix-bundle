@@ -1,8 +1,9 @@
 .login-container {
-  position: relative;
-  width: 450px;
   margin-right: auto;
   margin-left: auto;
+  max-width: 500px;
+  padding-right: 5px;
+  padding-left: 5px;
 }
 
 form {
@@ -33,9 +34,4 @@ input[type=text], input[type=password] {
 
 button:hover {
   opacity: 0.8;
-}
-
-.credentials-text {
-  font-size:1vw;
-  font-weight: bold;
 }
