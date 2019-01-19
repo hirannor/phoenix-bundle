@@ -7,8 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import phoenix.core.security.entity.UserPrincipal;
-import phoenix.core.security.repository.AuthenticationCredentialsRepository;
+import phoenix.security.entity.UserPrincipal;
 import phoenix.security.repository.AuthenticationCredentialsRepository;
 
 import java.util.Arrays;

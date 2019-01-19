@@ -1,6 +1,5 @@
 package phoenix.user.controller;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,16 +18,14 @@ import phoenix.user.service.UserService;
 public class UserControllerImpl implements UserApi {
 
     private UserService userService;
-    private ModelMapper modelMapper;
 
-    public UserControllerImpl(UserService userService, ModelMapper modelMapper) {
+    public UserControllerImpl(UserService userService) {
         this.userService = userService;
-        this.modelMapper = modelMapper;
     }
 
     @Override
     public ResponseEntity<User> getUser() {
         String userName = (String)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return new ResponseEntity<User>(modelMapper.map(userService.findByUserName(userName), User.class), null, HttpStatus.OK);
+        return new ResponseEntity<User>(userService.findByUserName(userName), HttpStatus.OK);
     }
 }

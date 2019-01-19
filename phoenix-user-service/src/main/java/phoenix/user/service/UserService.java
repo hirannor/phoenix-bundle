@@ -1,6 +1,8 @@
 package phoenix.user.service;
 
-import phoenix.user.entity.User;
+
+import phoenix.user.dto.User;
+import phoenix.user.exception.UsernameAlreadyExistException;
 
 /**
  * User Service API
@@ -9,9 +11,16 @@ import phoenix.user.entity.User;
 public interface UserService {
 
     /**
-     * Retrieves an {@link User} from a store
+     * Retrieves a {@link User} from a store
      * @param userName {@link String}
      * @return the currently authenticated {@link User}
      */
     User findByUserName(String userName);
+
+    /**
+     * Add a user to the store
+     * @param user {@link User}
+     * @throws UsernameAlreadyExistException
+     */
+    void addUser(User user) throws UsernameAlreadyExistException;
 }

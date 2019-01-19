@@ -2,14 +2,14 @@ package phoenix.user.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import phoenix.user.entity.User;
+import phoenix.user.entity.UserEntity;
 
 /**
  * User related repository used for CRUD operations
  * @author mate.karolyi
  */
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-    User findByUserName(String userName);
+    UserEntity findByUserName(String userName);
 }

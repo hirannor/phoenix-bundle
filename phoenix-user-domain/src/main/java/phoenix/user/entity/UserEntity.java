@@ -11,7 +11,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "USER_DETAILS")
-public class User {
+public class UserEntity {
 
     @Id
     @Column(name = "USERNAME")
@@ -28,11 +28,11 @@ public class User {
     @Column(name = "EMAILADDRESS")
     private String emailAddress;
 
-    public User() {
+    public UserEntity() {
         super();
     }
 
-    public User(String userName, String firstName, String lastName, int age, String emailAddress) {
+    public UserEntity(String userName, String firstName, String lastName, int age, String emailAddress) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
