@@ -9,10 +9,10 @@
         <artifactId>phoenix-bundle</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>phoenix-service</artifactId>
+    <artifactId>phoenix-user-service</artifactId>
 
-    <name>phoenix-service</name>
-    <description>phoenix-service</description>
+    <name>phoenix-user-service</name>
+    <description>phoenix-user-service</description>
 
     <properties>
         <commons-lang3.version>3.8.1</commons-lang3.version>
@@ -21,7 +21,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>phoenix-domain</artifactId>
+            <artifactId>phoenix-user-domain</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>

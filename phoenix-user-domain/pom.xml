@@ -9,10 +9,10 @@
         <artifactId>phoenix-bundle</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>phoenix-domain</artifactId>
+    <artifactId>phoenix-user-domain</artifactId>
 
-    <name>phoenix-domain</name>
-    <description>phoenix-domain</description>
+    <name>phoenix-user-domain</name>
+    <description>phoenix-user-domain</description>
 
     <dependencies>
         <dependency>

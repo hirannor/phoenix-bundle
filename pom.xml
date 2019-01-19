@@ -28,17 +28,17 @@
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>phoenix-domain</artifactId>
+                <artifactId>phoenix-user-domain</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>phoenix-service</artifactId>
+                <artifactId>phoenix-user-service</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>phoenix-controller</artifactId>
+                <artifactId>phoenix-user-controller</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -51,9 +51,9 @@
 
     <modules>
         <module>phoenix-core</module>
-        <module>phoenix-domain</module>
-        <module>phoenix-service</module>
-        <module>phoenix-controller</module>
+        <module>phoenix-user-domain</module>
+        <module>phoenix-user-service</module>
+        <module>phoenix-user-controller</module>
         <module>phoenix-web</module>
     </modules>
 
