@@ -1,6 +1,7 @@
 package phoenix.security.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import phoenix.security.entity.UserPrincipal;
 
@@ -11,5 +12,5 @@ import phoenix.security.entity.UserPrincipal;
 @Repository
 public interface AuthenticationCredentialsRepository extends JpaRepository<UserPrincipal, Long> {
 
-    UserPrincipal findByUserName(String userName);
+    UserPrincipal findByUserNameOrEmailAddress(@Param(value = "userName")String userName, @Param(value = "emailAddress") String emailAddress);
 }

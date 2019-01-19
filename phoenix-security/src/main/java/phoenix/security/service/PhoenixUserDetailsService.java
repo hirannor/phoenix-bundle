@@ -29,7 +29,7 @@ public class PhoenixUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserPrincipal userPrincipal = authenticationCredentialsRepository.findByUserName(username);
+        UserPrincipal userPrincipal = authenticationCredentialsRepository.findByUserNameOrEmailAddress(username, null);
         if(userPrincipal == null)
         {
             throw new UsernameNotFoundException("Username not found!");

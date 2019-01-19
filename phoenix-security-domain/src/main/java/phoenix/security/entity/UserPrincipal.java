@@ -1,9 +1,8 @@
 package phoenix.security.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * UserPrincipal entity, used for authentication process
@@ -11,21 +10,30 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "USER_AUTH_DETAILS")
+@IdClass(UserPrincipal.AssignedEmailAddress.class)
 public class UserPrincipal {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @Column(name = "USERNAME")
+    private String userName;
+
+    @Id
+    @Column(name = "EMAILADDRESS", unique = true)
+    private String emailAddress;
+
+    private String password;
+    private String role;
 
     public UserPrincipal()
     {
         super();
     }
 
-    @Id
-    @Column(name = "USERNAME")
-    private String userName;
-    private String password;
-    private String role;
-
-    public UserPrincipal(String userName, String password, String role) {
+    public UserPrincipal(String userName, String emailAddress, String password, String role) {
         this.userName = userName;
+        this.emailAddress = emailAddress;
         this.password = password;
         this.role = role;
     }
@@ -36,6 +44,14 @@ public class UserPrincipal {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 
     public String getPassword() {
@@ -52,5 +68,32 @@ public class UserPrincipal {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public static class AssignedEmailAddress implements Serializable {
+        private String userName;
+        private String emailAddress;
+
+        public AssignedEmailAddress() {}
+
+        public AssignedEmailAddress(String userName, String emailAddress) {
+            this.userName = userName;
+            this.emailAddress = emailAddress;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            AssignedEmailAddress that = (AssignedEmailAddress) o;
+            return Objects.equals(userName, that.userName) &&
+                    Objects.equals(emailAddress, that.emailAddress);
+        }
+
+        @Override
+        public int hashCode() {
+
+            return Objects.hash(userName, emailAddress);
+        }
     }
 }

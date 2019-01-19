@@ -1,4 +1,4 @@
-package phoenix.signup;
+package phoenix.signup.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +21,7 @@ public class SignupControllerImpl implements SignupApi {
 
     @Override
     public ResponseEntity<Void> signup(@Valid User user) {
+        userService.addUser(user);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 }

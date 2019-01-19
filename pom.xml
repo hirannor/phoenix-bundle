@@ -23,6 +23,11 @@
         <dependencies>
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>phoenix-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>phoenix-security-domain</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -55,6 +60,7 @@
     </dependencyManagement>
 
     <modules>
+        <module>phoenix-core</module>
         <module>phoenix-security</module>
         <module>phoenix-security-domain</module>
         <module>phoenix-user-domain</module>

@@ -8,7 +8,6 @@ import phoenix.security.entity.UserPrincipal;
 import phoenix.security.repository.AuthenticationCredentialsRepository;
 import phoenix.user.dto.User;
 import phoenix.user.entity.UserEntity;
-import phoenix.user.exception.UsernameAlreadyExistException;
 import phoenix.user.repository.UserRepository;
 
 /**
@@ -23,8 +22,10 @@ public class UserServiceImpl implements UserService {
     private ModelMapper modelMapper;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelmapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, AuthenticationCredentialsRepository authenticationCredentialsRepository,
+                       ModelMapper modelmapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
+        this.authenticationCredentialsRepository = authenticationCredentialsRepository;
         this.modelMapper = modelmapper;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
@@ -35,11 +36,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUser(User user) throws UsernameAlreadyExistException {
-
-        if (authenticationCredentialsRepository.findByUserName(user.getUserName()) != null) {
-            throw new UsernameAlreadyExistException("Username already exist!");
-        }
+    public void addUser(User user) {
+        //TODO: throw UsernameAlreadyExistException if swagger codegen is fixed
 
         UserPrincipal userPrincipal = new UserPrincipal();
         userPrincipal.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
