@@ -42,7 +42,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>phoenix-core</artifactId>
+            <artifactId>phoenix-security</artifactId>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
