@@ -1,8 +1,8 @@
 package phoenix.core.message.exception;
 
 /**
- * Base exception type for checked exceptions.
- * Checked exceptions should extend this class.
+ * Base exception type
+ * @author mate.karolyi
  */
 public class MessageAwareException extends RuntimeException {
 
