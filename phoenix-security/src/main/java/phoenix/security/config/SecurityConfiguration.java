@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -31,9 +32,14 @@ import phoenix.security.handler.PhoenixAuthenticationSuccessHandler;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private static final String PROTECTED_API = "/v1/api/**";
+    private static final String PROTECTED_USER_API = "/v1/api/user/**";
+    private static final String PROTECTED_ADMIN_API = "/v1/api/admin/**";
+
     private static final String MAIN_ENTRY_POINT = "/authenticate";
     private static final String[] AUTH_WHITELIST = {
             "/",
+            "/signup",
+            "/h2/**",
             "/v2/api-docs",
             "/swagger-resources",
             "/swagger-resources/**",
@@ -41,8 +47,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/configuration/security",
             "/swagger-ui.html",
             "/webjars/**",
-            "/authenticate",
-            "/h2/**",
             "/index.html",
             "/favicon.ico",
             "/*.js"
@@ -88,8 +92,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilterBefore(new PhoenixJwtAuthenticationFilter(MAIN_ENTRY_POINT, phoenixAuthenticationSuccessHandler, phoenixAuthenticationFailureHandler, authenticationManagerBean()), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new PhoenixJwtAuthorizationFilter(), BasicAuthenticationFilter.class)
-                .authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll()
-                .antMatchers(PROTECTED_API).fullyAuthenticated();
+                .authorizeRequests().antMatchers(PROTECTED_USER_API).hasAnyRole("ADMIN", "USER")
+                .and()
+                    .authorizeRequests().antMatchers(PROTECTED_ADMIN_API).hasAnyRole("ADMIN", "USER")
+                    .antMatchers(PROTECTED_API).fullyAuthenticated();
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(AUTH_WHITELIST);
     }
 
     @Bean

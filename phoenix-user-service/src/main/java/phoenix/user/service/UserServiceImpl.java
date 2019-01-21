@@ -4,10 +4,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import phoenix.core.role.RoleType;
 import phoenix.security.entity.UserPrincipal;
 import phoenix.security.repository.AuthenticationCredentialsRepository;
 import phoenix.user.dto.User;
 import phoenix.user.entity.UserEntity;
+import phoenix.user.exception.UserAlreadyExistException;
 import phoenix.user.repository.UserRepository;
 
 /**
@@ -36,12 +38,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUser(User user) {
-        //TODO: throw UsernameAlreadyExistException if swagger codegen is fixed
+    public void addUser(User user) throws UserAlreadyExistException {
+
+        if(authenticationCredentialsRepository.findByUserNameOrEmailAddress(user.getUserName(), user.getEmailAddress()) != null) {
+            throw new UserAlreadyExistException("User already exist!");
+        }
 
         UserPrincipal userPrincipal = new UserPrincipal();
         userPrincipal.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userPrincipal.setUserName(user.getUserName());
+        userPrincipal.setEmailAddress(user.getEmailAddress());
+
+        userPrincipal.setRole(RoleType.ROLE_USER);
 
         authenticationCredentialsRepository.save(userPrincipal);
 

@@ -9,6 +9,10 @@ import phoenix.user.service.UserService;
 
 import javax.validation.Valid;
 
+/**
+ * Spring Controller Implementation of {@link SignupApi}
+ * @author mate.karolyi
+ */
 @RestController
 public class SignupControllerImpl implements SignupApi {
 

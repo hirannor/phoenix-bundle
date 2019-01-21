@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 
-import {AlertService} from '../services';
-import {AlertType} from "../models/alert/alert.type";
-import {Alert} from "../models/alert/alert";
+import {AlertService} from '../../services';
+import {AlertType} from "../../models/alert/alert.type";
+import {Alert} from "../../models/alert/alert";
 
 @Component({
   selector: 'alert',
@@ -12,7 +12,6 @@ import {Alert} from "../models/alert/alert";
     './alert.component.scss'
   ]
 })
-
 export class AlertComponent implements OnInit {
   private subscription: Subscription;
 

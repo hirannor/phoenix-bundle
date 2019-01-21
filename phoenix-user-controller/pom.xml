@@ -45,6 +45,10 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>phoenix-user-service</artifactId>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>phoenix-core</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -89,7 +93,7 @@
                             <generateSupportingFiles>false</generateSupportingFiles>
                             <importMappings>
                                 <importMapping>User=phoenix.user.dto.User</importMapping>
-                                <importMapping>UserAlreadyExist=phoenix.user.exception.UsernameAlreadyExistException</importMapping>
+                                <importMapping>UserAlreadyExist=phoenix.user.exception.UserAlreadyExistException</importMapping>
                             </importMappings>
                             <configOptions>
                                 <java8>true</java8>

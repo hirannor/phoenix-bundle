@@ -7,6 +7,8 @@ import decode from 'jwt-decode';
 import {TokenStorage} from "../../helpers/token.storage";
 import {RoleType} from "../../models/base";
 import {UserCredentials} from "../../models/user";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {ModalSignupComponent} from "../signup/modal-signup.component";
 
 @Component({
   templateUrl: './login.component.html',
@@ -21,10 +23,9 @@ export class LoginComponent implements OnInit {
   userUrl: string;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private authenticationService: AuthenticationService,
-    private alertService: AlertService, private tokenStorage: TokenStorage) {
+    private route: ActivatedRoute, private router: Router,
+    private authenticationService: AuthenticationService, private tokenStorage: TokenStorage,
+    private alertService: AlertService, private modalService: NgbModal) {
 
     this.credentials = new  UserCredentials();
     this.adminUrl = '/admin';
@@ -52,6 +53,11 @@ export class LoginComponent implements OnInit {
 error => {
         this.alertService.error(error);
     });
+  }
+
+  openModal() {
+    const modalRef = this.modalService.open(ModalSignupComponent);
+    modalRef.componentInstance.title = 'About';
   }
 
 }

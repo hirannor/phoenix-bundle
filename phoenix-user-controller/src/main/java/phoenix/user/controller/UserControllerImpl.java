@@ -2,6 +2,7 @@ package phoenix.user.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +15,8 @@ import phoenix.user.service.UserService;
  * @author mate.karolyi
  */
 @RestController
-@RequestMapping("/v1/api/")
+@RequestMapping("/v1/api/user/")
+@Secured({"ROLE_ADMIN", "ROLE_USER"})
 public class UserControllerImpl implements UserApi {
 
     private UserService userService;

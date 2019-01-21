@@ -1,18 +1,17 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {User} from "../models/user/user";
 import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class SignupService {
 
   constructor(private http: HttpClient) { }
 
-  getUser() {
-    return this.http.get<User>('/v1/api/user').pipe(map(user => {
-      return user;
+  signup(user) {
+    return this.http.post('/signup', user).pipe(map(response => {
+      return response;
     }));
   }
 }

@@ -2,6 +2,7 @@ package phoenix.user.service;
 
 
 import phoenix.user.dto.User;
+import phoenix.user.exception.UserAlreadyExistException;
 
 /**
  * User Service API
@@ -20,5 +21,5 @@ public interface UserService {
      * Add a user to the store
      * @param user {@link User}
      */
-    void addUser(User user);
+    void addUser(User user) throws UserAlreadyExistException;
 }

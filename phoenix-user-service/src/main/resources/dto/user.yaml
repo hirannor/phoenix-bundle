@@ -15,7 +15,6 @@ definitions:
         type: string
       age:
         type: integer
-        format: int64
       emailAddress:
         type: string
 
