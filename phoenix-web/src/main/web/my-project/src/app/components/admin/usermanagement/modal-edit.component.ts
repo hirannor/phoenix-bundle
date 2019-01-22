@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {User} from "../../../models/user";
 
 @Component({
   selector: 'phoenix-modal-edit',
@@ -6,8 +7,11 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ModalEditComponent  implements OnInit {
 
+  @Input() user: User;
   constructor() { }
 
   ngOnInit() {
+    console.log('Username: ' + this.user.userName);
   }
+
 }

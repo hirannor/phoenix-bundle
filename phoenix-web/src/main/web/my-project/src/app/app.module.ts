@@ -12,10 +12,8 @@ import {ErrorInterceptor, TokenInterceptor} from "./interceptors";
 import {AdminLayoutComponent, ContentComponent, FooterComponent, HeaderComponent} from "./components/admin/layout";
 import {TokenStorage} from "./helpers/token.storage";
 import {NgbActiveModal, NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
-import {ModalSignupComponent, SignupComponent} from "./components/signup";
-import {UserManagementComponent} from "./components/admin/usermanagement";
-import {ModalEditComponent} from "./components/admin/usermanagement/modal-edit.component";
-import {UserEditComponent} from "./components/admin/usermanagement/user-edit.component";
+import {ModalSignupComponent} from "./components/signup";
+import {ModalEditComponent, UserManagementComponent} from "./components/admin/usermanagement";
 
 @NgModule({
   imports: [
@@ -27,10 +25,8 @@ import {UserEditComponent} from "./components/admin/usermanagement/user-edit.com
 ],
   declarations: [
     AppComponent,
-    SignupComponent,
     ModalSignupComponent,
     ModalEditComponent,
-    UserEditComponent,
     LoginComponent,
     HomeComponent,
     AlertComponent,
