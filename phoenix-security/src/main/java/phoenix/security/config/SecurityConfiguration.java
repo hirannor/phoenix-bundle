@@ -32,8 +32,8 @@ import phoenix.security.handler.PhoenixAuthenticationSuccessHandler;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private static final String PROTECTED_API = "/v1/api/**";
-    private static final String PROTECTED_USER_API = "/v1/api/user/**";
-    private static final String PROTECTED_ADMIN_API = "/v1/api/admin/**";
+    private static final String PROTECTED_USER_API = "/v1/api/user";
+    private static final String PROTECTED_ADMIN_API = "/v1/api/usermanagement/**";
 
     private static final String MAIN_ENTRY_POINT = "/authenticate";
     private static final String[] AUTH_WHITELIST = {
@@ -94,7 +94,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new PhoenixJwtAuthorizationFilter(), BasicAuthenticationFilter.class)
                 .authorizeRequests().antMatchers(PROTECTED_USER_API).hasAnyRole("ADMIN", "USER")
                 .and()
-                    .authorizeRequests().antMatchers(PROTECTED_ADMIN_API).hasAnyRole("ADMIN", "USER")
+                    .authorizeRequests().antMatchers(PROTECTED_ADMIN_API).hasAnyRole("ADMIN")
                     .antMatchers(PROTECTED_API).fullyAuthenticated();
     }
 

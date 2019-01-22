@@ -1,7 +1,5 @@
 package phoenix.security.entity;
 
-import phoenix.core.role.RoleType;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -27,15 +25,14 @@ public class UserPrincipal {
 
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private RoleType role;
+    private String role;
 
     public UserPrincipal()
     {
         super();
     }
 
-    public UserPrincipal(String userName, String emailAddress, String password, RoleType role) {
+    public UserPrincipal(String userName, String emailAddress, String password, String role) {
         this.userName = userName;
         this.emailAddress = emailAddress;
         this.password = password;
@@ -66,11 +63,11 @@ public class UserPrincipal {
         this.password = password;
     }
 
-    public RoleType getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(RoleType role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

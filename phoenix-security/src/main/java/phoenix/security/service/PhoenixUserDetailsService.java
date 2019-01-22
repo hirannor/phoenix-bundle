@@ -35,7 +35,7 @@ public class PhoenixUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("Username not found!");
         }
 
-        GrantedAuthority authority = new SimpleGrantedAuthority(userPrincipal.getRole().name());
+        GrantedAuthority authority = new SimpleGrantedAuthority(userPrincipal.getRole());
         return new User(userPrincipal.getUserName(), userPrincipal.getPassword(), Arrays.asList(authority));
     }
 }

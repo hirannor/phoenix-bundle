@@ -10,8 +10,20 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  getUsers() {
+    return this.http.get<User[]>('/v1/api/usermanagement/users');
+  }
+
+  updateUser(user: User) {
+    return this.http.put('/v1/api/usermanagement/user/' + user.userName, user);
+  }
+
+  deleteUser(userName: string) {
+    return this.http.delete('/v1/api/usermanagement/user/' + userName);
+  }
+
   getUser() {
-    return this.http.get<User>('/v1/api/user/user').pipe(map(user => {
+    return this.http.get<User>('/v1/api/user').pipe(map(user => {
       return user;
     }));
   }

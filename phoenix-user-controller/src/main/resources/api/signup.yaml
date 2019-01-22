@@ -17,8 +17,8 @@ paths:
       consumes:
         - "application/json"
       parameters:
-        - in: "body"
-          name: "user"
+        - name: "user"
+          in: "body"
           description: "User object that needs to be added to the store"
           required: true
           schema:
@@ -26,4 +26,3 @@ paths:
       responses:
         201:
           description: "User registrated successfuly"
-

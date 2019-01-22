@@ -15,7 +15,7 @@ import phoenix.user.service.UserService;
  * @author mate.karolyi
  */
 @RestController
-@RequestMapping("/v1/api/user/")
+@RequestMapping("/v1/api/")
 @Secured({"ROLE_ADMIN", "ROLE_USER"})
 public class UserControllerImpl implements UserApi {
 

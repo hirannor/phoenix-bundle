@@ -57,7 +57,7 @@ error => {
 
   openModal() {
     const modalRef = this.modalService.open(ModalSignupComponent);
-    modalRef.componentInstance.title = 'About';
+    modalRef.componentInstance.title = 'Signup';
   }
 
 }

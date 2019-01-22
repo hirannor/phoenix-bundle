@@ -5,6 +5,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import phoenix.security.entity.UserPrincipal;
 
+import javax.transaction.Transactional;
+
 /**
  * This Repository used for getting authentication credentials from a store.
  * @author mate.karolyi
@@ -13,4 +15,7 @@ import phoenix.security.entity.UserPrincipal;
 public interface AuthenticationCredentialsRepository extends JpaRepository<UserPrincipal, Long> {
 
     UserPrincipal findByUserNameOrEmailAddress(@Param(value = "userName")String userName, @Param(value = "emailAddress") String emailAddress);
+
+    @Transactional
+    void deleteByUserName(String userName);
 }

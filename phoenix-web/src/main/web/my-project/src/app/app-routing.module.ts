@@ -4,6 +4,7 @@ import {LoginComponent} from './components/login/login.component';
 import {AuthGuard} from './guards';
 import {AdminLayoutComponent} from "./components/admin/layout/admin.layout.component";
 import {HomeComponent} from "./components/admin/home/home.component";
+import {UserManagementComponent} from "./components/admin/usermanagement";
 
 const routes: Routes = [
   {
@@ -14,6 +15,11 @@ const routes: Routes = [
       {
         path: '',
         component: HomeComponent,
+        outlet: 'adminContent'
+      },
+      {
+        path: 'usermanagement',
+        component: UserManagementComponent,
         outlet: 'adminContent'
       }
     ]
