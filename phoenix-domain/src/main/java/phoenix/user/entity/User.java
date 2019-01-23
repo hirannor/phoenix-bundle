@@ -1,9 +1,8 @@
 package phoenix.user.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import phoenix.role.entity.Role;
+
+import javax.persistence.*;
 
 /**
  * User entity
@@ -11,7 +10,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "USR_USER")
-public class UserEntity {
+public class User {
 
     private static final long serialVersionUID = 1L;
 
@@ -21,7 +20,9 @@ public class UserEntity {
 
     private String password;
 
-    private String role;
+    @ManyToOne
+    @JoinTable(name="USR_ROLE")
+    private Role role;
 
     @Column(name = "FIRSTNAME")
     private String firstName;
@@ -34,12 +35,12 @@ public class UserEntity {
     @Column(name = "EMAILADDRESS", unique = true)
     private String emailAddress;
 
-    public UserEntity()
+    public User()
     {
         super();
     }
 
-    public UserEntity(String userName, String password, String role, String firstName, String lastName, int age, String emailAddress) {
+    public User(String userName, String password, Role role, String firstName, String lastName, int age, String emailAddress) {
         this.userName = userName;
         this.password = password;
         this.role = role;
@@ -65,11 +66,11 @@ public class UserEntity {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

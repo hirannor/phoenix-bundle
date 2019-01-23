@@ -1,3 +1,9 @@
+INSERT INTO USR_ROLE VALUES (
+  'ROLE_ADMIN'
+);
+INSERT INTO USR_ROLE VALUES (
+  'ROLE_USER'
+);
 INSERT INTO USR_USER VALUES (
   'admin', '$2a$04$BT2NWmlIgbX.OWtOwSlmpO3U3bQ5r/8Gd96WmrL112.SYqUSiiCNm', 'ROLE_ADMIN', 'Mate', 'Karolyi', 27, 'test1@opx.hu'
 );

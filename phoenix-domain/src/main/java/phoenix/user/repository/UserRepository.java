@@ -2,7 +2,7 @@ package phoenix.user.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import phoenix.user.entity.UserEntity;
+import phoenix.user.entity.User;
 
 import javax.transaction.Transactional;
 
@@ -10,13 +10,13 @@ import javax.transaction.Transactional;
  * @author mate.karolyi
  */
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
     /**
      * @param userName
      * @return
      */
-    UserEntity findByUserName(String userName);
+    User findByUserName(String userName);
 
     /**
      * @param userName

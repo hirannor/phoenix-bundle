@@ -18,6 +18,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import phoenix.role.entity.RoleType;
 import phoenix.security.filter.PhoenixJwtAuthenticationFilter;
 import phoenix.security.filter.PhoenixJwtAuthorizationFilter;
 import phoenix.security.handler.PhoenixAuthenticationFailureHandler;
@@ -92,7 +93,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilterBefore(new PhoenixJwtAuthenticationFilter(MAIN_ENTRY_POINT, phoenixAuthenticationSuccessHandler, phoenixAuthenticationFailureHandler, authenticationManagerBean()), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new PhoenixJwtAuthorizationFilter(), BasicAuthenticationFilter.class)
-                .authorizeRequests().antMatchers(PROTECTED_USER_API).hasAnyRole("ADMIN", "USER")
+                .authorizeRequests().antMatchers(PROTECTED_USER_API).hasAnyRole(RoleType.ROLE_AMIN.name(), RoleType.ROLE_USER.name())
                 .and()
                     .authorizeRequests().antMatchers(PROTECTED_ADMIN_API).hasAnyRole("ADMIN")
                     .antMatchers(PROTECTED_API).fullyAuthenticated();
