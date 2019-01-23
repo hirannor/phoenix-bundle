@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import phoenix.user.entity.UserPrincipalEntity;
-import phoenix.user.repository.AuthenticationCredentialsRepository;
+import phoenix.user.entity.UserEntity;
+import phoenix.user.repository.UserRepository;
 
 import java.util.Arrays;
 
@@ -20,22 +20,22 @@ import java.util.Arrays;
 @Service("PhoenixUserDetailsService")
 public class PhoenixUserDetailsService implements UserDetailsService {
 
-    private AuthenticationCredentialsRepository authenticationCredentialsRepository;
+    private UserRepository userRepository;
 
-    public PhoenixUserDetailsService(AuthenticationCredentialsRepository authenticationCredentialsRepository)
+    public PhoenixUserDetailsService(UserRepository userRepository)
     {
-        this.authenticationCredentialsRepository = authenticationCredentialsRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserPrincipalEntity UserPrincipalEntity = authenticationCredentialsRepository.findByUserName(username);
-        if(UserPrincipalEntity == null)
+        UserEntity userEntity = userRepository.findByUserName(username);
+        if(userEntity == null)
         {
             throw new UsernameNotFoundException("Username not found!");
         }
 
-        GrantedAuthority authority = new SimpleGrantedAuthority(UserPrincipalEntity.getRole());
-        return new User(UserPrincipalEntity.getUserName(), UserPrincipalEntity.getPassword(), Arrays.asList(authority));
+        GrantedAuthority authority = new SimpleGrantedAuthority(userEntity.getRole());
+        return new User(userEntity.getUserName(), userEntity.getPassword(), Arrays.asList(authority));
     }
 }

@@ -6,16 +6,22 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * User Entity
+ * User entity
  * @author mate.karolyi
  */
 @Entity
-@Table(name = "USER_DETAILS")
-public class UserProfileEntity {
+@Table(name = "USR_USER")
+public class UserEntity {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "USERNAME")
     private String userName;
+
+    private String password;
+
+    private String role;
 
     @Column(name = "FIRSTNAME")
     private String firstName;
@@ -28,12 +34,15 @@ public class UserProfileEntity {
     @Column(name = "EMAILADDRESS", unique = true)
     private String emailAddress;
 
-    public UserProfileEntity() {
+    public UserEntity()
+    {
         super();
     }
 
-    public UserProfileEntity(String userName, String firstName, String lastName, int age, String emailAddress) {
+    public UserEntity(String userName, String password, String role, String firstName, String lastName, int age, String emailAddress) {
         this.userName = userName;
+        this.password = password;
+        this.role = role;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -46,6 +55,22 @@ public class UserProfileEntity {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getFirstName() {

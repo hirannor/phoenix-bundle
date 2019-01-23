@@ -12,7 +12,7 @@ import phoenix.security.exception.AuthenticationMethodNotSupportedException;
 import phoenix.security.exception.InvalidCredentialsException;
 import phoenix.security.util.AuthenticationValidator;
 import phoenix.security.util.ObjectMapperUtil;
-import phoenix.user.entity.UserPrincipalEntity;
+import phoenix.user.entity.UserEntity;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -45,12 +45,12 @@ public class PhoenixJwtAuthenticationFilter extends AbstractAuthenticationProces
             throw new AuthenticationMethodNotSupportedException("Authentication Method not supported!");
         }
 
-        UserPrincipalEntity UserPrincipalEntity = (UserPrincipalEntity) ObjectMapperUtil.deserialize(request, UserPrincipalEntity.class);
-        if (StringUtils.isBlank(UserPrincipalEntity.getUserName()) || StringUtils.isBlank(UserPrincipalEntity.getPassword())) {
+        UserEntity userEntity = (UserEntity) ObjectMapperUtil.deserialize(request, UserEntity.class);
+        if (StringUtils.isBlank(userEntity.getUserName()) || StringUtils.isBlank(userEntity.getPassword())) {
             throw new InvalidCredentialsException("Username or password is not provided!");
         }
 
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(UserPrincipalEntity.getUserName(), UserPrincipalEntity.getPassword(), null);
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userEntity.getUserName(), userEntity.getPassword(), null);
 
         return authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 

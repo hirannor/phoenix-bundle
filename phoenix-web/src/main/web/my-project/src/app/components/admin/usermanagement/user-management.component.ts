@@ -4,6 +4,7 @@ import {first} from "rxjs/operators";
 import {User} from "../../../models/user";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ModalEditComponent} from "./modal-edit.component";
+import * as cloneDeep from 'lodash';
 
 @Component({
   selector: 'user-management',
@@ -34,7 +35,10 @@ export class UserManagementComponent implements OnInit {
 
   openEditModal(user: User) {
     const modalRef = this.modalService.open(ModalEditComponent);
-    modalRef.componentInstance.user = user;
+    modalRef.componentInstance.user =  cloneDeep(user);
+    modalRef.result.then((user: User) => {
+
+    })
   }
 
   private loadAllUsers() {
