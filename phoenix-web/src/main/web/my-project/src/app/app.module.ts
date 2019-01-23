@@ -14,6 +14,8 @@ import {TokenStorage} from "./helpers/token.storage";
 import {NgbActiveModal, NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
 import {ModalSignupComponent} from "./components/signup";
 import {ModalEditComponent, UserManagementComponent} from "./components/admin/usermanagement";
+import {CustomMinDirective} from "./directives/validator/custom-min-validator.directive";
+import {CustomMaxDirective} from "./directives/validator/custom-max-validator.directive";
 
 @NgModule({
   imports: [
@@ -35,7 +37,9 @@ import {ModalEditComponent, UserManagementComponent} from "./components/admin/us
     AdminLayoutComponent,
     HeaderComponent,
     ContentComponent,
-    FooterComponent
+    FooterComponent,
+    CustomMinDirective,
+    CustomMaxDirective
   ],
   providers: [
     NgbActiveModal,

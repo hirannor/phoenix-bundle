@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import phoenix.security.entity.UserPrincipal;
-import phoenix.security.repository.AuthenticationCredentialsRepository;
+import phoenix.user.entity.UserPrincipalEntity;
+import phoenix.user.repository.AuthenticationCredentialsRepository;
 
 import java.util.Arrays;
 
@@ -29,13 +29,13 @@ public class PhoenixUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserPrincipal userPrincipal = authenticationCredentialsRepository.findByUserNameOrEmailAddress(username, null);
-        if(userPrincipal == null)
+        UserPrincipalEntity UserPrincipalEntity = authenticationCredentialsRepository.findByUserName(username);
+        if(UserPrincipalEntity == null)
         {
             throw new UsernameNotFoundException("Username not found!");
         }
 
-        GrantedAuthority authority = new SimpleGrantedAuthority(userPrincipal.getRole());
-        return new User(userPrincipal.getUserName(), userPrincipal.getPassword(), Arrays.asList(authority));
+        GrantedAuthority authority = new SimpleGrantedAuthority(UserPrincipalEntity.getRole());
+        return new User(UserPrincipalEntity.getUserName(), UserPrincipalEntity.getPassword(), Arrays.asList(authority));
     }
 }

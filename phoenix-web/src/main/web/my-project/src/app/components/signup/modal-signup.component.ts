@@ -12,6 +12,9 @@ export class ModalSignupComponent implements OnInit {
 
   user: User;
 
+  minAge: number = 18;
+  maxAge: number = 99;
+
   constructor(private signupService: SignupService, private alertService: AlertService,  private modalService: NgbModal){
     this.user = new User();
   }

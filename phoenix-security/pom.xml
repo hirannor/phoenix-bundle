@@ -22,7 +22,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>phoenix-security-domain</artifactId>
+            <artifactId>phoenix-domain</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>

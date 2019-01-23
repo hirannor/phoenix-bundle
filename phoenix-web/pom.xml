@@ -29,7 +29,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>phoenix-security-domain</artifactId>
+            <artifactId>phoenix-domain</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -39,15 +39,11 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>phoenix-user-domain</artifactId>
+            <artifactId>phoenix-service</artifactId>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>phoenix-user-service</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>phoenix-user-controller</artifactId>
+            <artifactId>phoenix-controller</artifactId>
         </dependency>
     </dependencies>
 
