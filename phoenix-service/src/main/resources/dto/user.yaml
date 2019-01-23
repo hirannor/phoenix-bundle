@@ -1,0 +1,23 @@
+swagger: '2.0'
+
+definitions:
+  User:
+    id: User
+    type: object
+    properties:
+      userName:
+        type: string
+      password:
+        type: string
+      role:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      age:
+        type: integer
+      emailAddress:
+        type: string
+
+paths: {}
