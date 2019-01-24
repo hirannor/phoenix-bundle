@@ -4,9 +4,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import phoenix.role.RoleType;
 import phoenix.role.entity.Role;
-import phoenix.role.entity.RoleType;
-import phoenix.user.entity.User;
+import phoenix.user.dto.User;
 import phoenix.user.exception.UserAlreadyExistException;
 import phoenix.user.exception.UserNotFoundException;
 import phoenix.user.repository.UserRepository;
@@ -37,35 +37,34 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public phoenix.user.dto.User findByUserName(String userName) {
-        User user = userRepository.findByUserName(userName);
-        return modelMapper.map(userRepository.findByUserName(userName), phoenix.user.dto.User.class);
+        return modelMapper.map(userRepository.findByUserName(userName), User.class);
     }
 
     @Override
-    public void addUser(phoenix.user.dto.User user)  {
+    public void addUser(User user)  {
         if (userRepository.findByUserName(user.getUserName()) != null) {
             throw new UserAlreadyExistException("User already exist!");
         }
 
-        User userEntity = new User();
+        phoenix.user.entity.User userEntity = new  phoenix.user.entity.User();
         BeanUtils.copyProperties(user, userEntity);
         userEntity.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         Role role =  new Role();
         role.setRoleType(RoleType.ROLE_USER);
         userEntity.setRole(role);
 
-
         userRepository.save(userEntity);
     }
 
     @Override
-    public List<phoenix.user.dto.User> getUsers() {
-        List<phoenix.user.dto.User> users = new ArrayList<phoenix.user.dto.User>(0);
-        List<User> userEntites = userRepository.findAll();
+    public List<User> getUsers() {
+        List<User> users = new ArrayList<User>(0);
+        List<phoenix.user.entity.User> userEntites = userRepository.findAll();
 
-        for (User userEntity : userEntites) {
-            phoenix.user.dto.User user = new phoenix.user.dto.User();
+        for (phoenix.user.entity.User userEntity : userEntites) {
+            User user = new User();
             modelMapper.map(userEntity, user);
+            user.setRole(userEntity.getRole().getRoleType().getValue());
             users.add(user);
         }
         return users;
@@ -77,12 +76,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(String userName, phoenix.user.dto.User user) {
+    public void updateUser(String userName, User user) {
         if(userRepository.findByUserName(userName) == null) {
             throw new UserNotFoundException("User with the given id is not found");
         }
-        User userEntity = new User();
+        phoenix.user.entity.User userEntity = new  phoenix.user.entity.User();
         BeanUtils.copyProperties(user, userEntity);
+
+        Role role = new Role();
+        role.setRoleType(RoleType.valueOf(user.getRole()));
+        userEntity.setRole(role);
 
         userRepository.save(userEntity);
     }

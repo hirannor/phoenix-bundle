@@ -3,6 +3,7 @@ package phoenix.user.entity;
 import phoenix.role.entity.Role;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * User entity
@@ -10,7 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "USR_USER")
-public class User {
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -21,7 +22,9 @@ public class User {
     private String password;
 
     @ManyToOne
-    @JoinTable(name="USR_ROLE")
+    @JoinTable(name="USR_ROLE", joinColumns = @JoinColumn(name = "USERNAME", referencedColumnName = "USERNAME"),
+            inverseJoinColumns = @JoinColumn(name = "ROLE",
+                    referencedColumnName = "ROLE"))
     private Role role;
 
     @Column(name = "FIRSTNAME")

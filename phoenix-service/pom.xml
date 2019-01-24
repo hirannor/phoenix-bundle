@@ -63,7 +63,7 @@
                 <version>${swagger-codegen.version}</version>
                 <executions>
                     <execution>
-                        <id>generate-server</id>
+                        <id>generate-user-dto</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>generate</goal>
@@ -84,3 +84,4 @@
         </plugins>
     </build>
 </project>
+

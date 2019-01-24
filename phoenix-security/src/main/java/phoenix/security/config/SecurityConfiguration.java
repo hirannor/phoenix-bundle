@@ -18,7 +18,6 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-import phoenix.role.entity.RoleType;
 import phoenix.security.filter.PhoenixJwtAuthenticationFilter;
 import phoenix.security.filter.PhoenixJwtAuthorizationFilter;
 import phoenix.security.handler.PhoenixAuthenticationFailureHandler;
@@ -34,7 +33,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private static final String PROTECTED_API = "/v1/api/**";
     private static final String PROTECTED_USER_API = "/v1/api/user";
-    private static final String PROTECTED_ADMIN_API = "/v1/api/usermanagement/**";
+    private static final String[] PROTECTED_ADMIN_API = {
+            "/v1/api/usermanagement/**",
+            "v1/api/rolemanagement/**"
+    };
 
     private static final String MAIN_ENTRY_POINT = "/authenticate";
     private static final String[] AUTH_WHITELIST = {
@@ -93,7 +95,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilterBefore(new PhoenixJwtAuthenticationFilter(MAIN_ENTRY_POINT, phoenixAuthenticationSuccessHandler, phoenixAuthenticationFailureHandler, authenticationManagerBean()), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new PhoenixJwtAuthorizationFilter(), BasicAuthenticationFilter.class)
-                .authorizeRequests().antMatchers(PROTECTED_USER_API).hasAnyRole(RoleType.ROLE_AMIN.name(), RoleType.ROLE_USER.name())
+                .authorizeRequests().antMatchers(PROTECTED_USER_API).hasAnyRole("ADMIN", "USER")
                 .and()
                     .authorizeRequests().antMatchers(PROTECTED_ADMIN_API).hasAnyRole("ADMIN")
                     .antMatchers(PROTECTED_API).fullyAuthenticated();

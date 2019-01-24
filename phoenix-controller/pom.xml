@@ -17,6 +17,7 @@
     <properties>
         <user-api-yaml.file>${project.basedir}/src/main/resources/api/user.yaml</user-api-yaml.file>
         <usermanagement-api-yaml.file>${project.basedir}/src/main/resources/api/usermanagement.yaml</usermanagement-api-yaml.file>
+        <rolemanagement-api-yaml.file>${project.basedir}/src/main/resources/api/rolemanagement.yaml</rolemanagement-api-yaml.file>
         <signup-api-yaml.file>${project.basedir}/src/main/resources/api/signup.yaml</signup-api-yaml.file>
         <generated-sources-path>${project.build.directory}/generated-sources</generated-sources-path>
         <springfox.version>2.6.1</springfox.version>
@@ -94,7 +95,6 @@
                             <generateSupportingFiles>false</generateSupportingFiles>
                             <importMappings>
                                 <importMapping>User=phoenix.user.dto.User</importMapping>
-                                <importMapping>UserAlreadyExist=phoenix.user.exception.UserAlreadyExistException</importMapping>
                             </importMappings>
                             <configOptions>
                                 <java8>true</java8>
@@ -117,6 +117,24 @@
                             <importMappings>
                                 <importMapping>User=phoenix.user.dto.User</importMapping>
                             </importMappings>
+                            <configOptions>
+                                <java8>true</java8>
+                                <interfaceOnly>true</interfaceOnly>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-rolemanagement-api</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${rolemanagement-api-yaml.file}</inputSpec>
+                            <language>spring</language>
+                            <apiPackage>phoenix.rolemanagement.controller.api</apiPackage>
+                            <output>${generated-sources-path}</output>
+                            <generateSupportingFiles>false</generateSupportingFiles>
                             <configOptions>
                                 <java8>true</java8>
                                 <interfaceOnly>true</interfaceOnly>

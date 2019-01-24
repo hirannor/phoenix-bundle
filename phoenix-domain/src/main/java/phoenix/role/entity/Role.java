@@ -1,8 +1,10 @@
 package phoenix.role.entity;
 
+import phoenix.role.RoleType;
 import phoenix.user.entity.User;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -10,12 +12,12 @@ import java.util.Set;
  * @author mate.karolyi
  */
 @Entity
-@Table(name = "USR_ROLE")
-public class Role {
+@Table(name = "ROL_ROLE")
+public class Role implements Serializable {
 
     @Id
     @Enumerated(EnumType.STRING)
-    @Column(name = "ROLE")
+    @Column(name = "ROLE", nullable = false)
     private RoleType roleType;
 
     public Role() { super(); }
