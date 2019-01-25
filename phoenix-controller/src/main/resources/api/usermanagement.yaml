@@ -13,6 +13,24 @@ produces:
   - "application/json"
 
 paths:
+  /usermanagement/resetPassword/{userName}:
+    post:
+      summary: "Resets password for a user"
+      description: "Resets password for a user"
+      operationId: "resetPassword"
+      consumes:
+        - "application/json"
+      parameters:
+        - name: "userName"
+          in: "path"
+          description: "Username of user"
+          required: true"
+          type: "string"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "User not found"
   /usermanagement/users:
     get:
       summary: "Retrieves all users"

@@ -1,8 +1,10 @@
 package phoenix.user.service;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import phoenix.notification.service.NotificationService;
 import phoenix.role.RoleType;
 import phoenix.role.entity.Role;
 import phoenix.user.dto.User;
@@ -23,9 +25,11 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private NotificationService notificationService;
 
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, NotificationService notificationService) {
         this.userRepository = userRepository;
+        this.notificationService = notificationService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -54,6 +58,8 @@ public class UserServiceImpl implements UserService {
         userEntity.setRole(role);
 
         userRepository.save(userEntity);
+
+        notificationService.sendMessage(user.getEmailAddress(), buildRegistrationNotification(user));
     }
 
     @Override
@@ -78,7 +84,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(String userName, User user) {
         if(userRepository.findByUserName(userName) == null) {
-            throw new UserNotFoundException("User with the given id is not found");
+            throw new UserNotFoundException("User with the given username is not found");
         }
         phoenix.user.entity.User userEntity = new  phoenix.user.entity.User();
         BeanUtils.copyProperties(user, userEntity);
@@ -88,5 +94,48 @@ public class UserServiceImpl implements UserService {
         userEntity.setRole(role);
 
         userRepository.save(userEntity);
+    }
+
+    @Override
+    public void resetPassword(String userName) {
+        phoenix.user.entity.User userEntity = userRepository.findByUserName(userName);
+        if(userEntity == null) {
+            throw new UserNotFoundException("User with the given username is not found");
+        }
+        String generatedPassword = RandomStringUtils.randomAlphanumeric(8);
+        String hashedPassword = bCryptPasswordEncoder.encode(generatedPassword);
+
+        userEntity.setPassword(hashedPassword);
+
+        userRepository.save(userEntity);
+
+        notificationService.sendMessage(userEntity.getEmailAddress(), buildResetPasswordNotification(generatedPassword));
+    }
+
+    private String buildRegistrationNotification(User user) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Dear " + user.getFirstName() + " " + user.getLastName() + " your registration was successfull! \n\n");
+        sb.append("Your details: \n\n");
+        sb.append("Username: " + user.getUserName() + "\n");
+        sb.append("Password: " + user.getPassword() + "\n");
+        sb.append("Firstname: " + user.getFirstName() + "\n");
+        sb.append("Lastname: " + user.getFirstName() + "\n");
+        sb.append("Age: " + user.getAge() + "\n");
+        sb.append("Email: " + user.getEmailAddress() + "\n\n");
+        sb.append("This is an automaticly generated email.");
+
+        return sb.toString();
+    }
+
+    private String buildResetPasswordNotification(String newPassword)
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Dear User! your password has been changed successfully! \n\n");
+        sb.append("Your new password is: " + newPassword + "\n\n");
+        sb.append("This is an automaticly generated email.");
+
+        return sb.toString();
     }
 }

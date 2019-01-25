@@ -42,4 +42,6 @@ public interface UserService {
      * @param user {@link User} to be updated
      */
     void updateUser(String userName, User user);
+
+    void resetPassword(String userName);
 }

@@ -44,5 +44,11 @@ public class UserManagementControllerImpl implements UsermanagementApi {
         userService.updateUser(userName, user);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<Void> resetPassword(String userName) {
+        userService.resetPassword(userName);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
 }
 
