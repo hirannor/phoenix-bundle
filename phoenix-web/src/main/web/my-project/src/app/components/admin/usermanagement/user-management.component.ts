@@ -36,11 +36,13 @@ export class UserManagementComponent implements OnInit {
 
   openEditModal(user: User) {
     const modalRef = this.modalService.open(ModalEditComponent);
-    modalRef.componentInstance.user = user;
     modalRef.componentInstance.user = _.cloneDeep(user);
-    // modalRef.result.then(() => {
-    //   console.log('success');
-    // })
+    modalRef.result.then((result)=> {
+      modalRef.close();
+      this.loadAllUsers();
+    }, (result) => {
+      console.log("Rejected");
+    });
   }
 
   private loadAllUsers() {

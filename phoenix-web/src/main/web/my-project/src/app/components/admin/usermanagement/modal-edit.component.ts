@@ -28,11 +28,9 @@ export class ModalEditComponent  implements OnInit {
 
   onSubmit() {
     this.userService.updateUser(this.user).pipe(first()).subscribe(() => {
-        this.modalService.dismissAll();
         this.alertService.success('Edited successfuly!');
       },
       error => {
-        this.modalService.dismissAll();
         this.alertService.error(error);
       });
   }
