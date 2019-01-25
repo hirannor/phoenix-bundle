@@ -2,8 +2,16 @@ package phoenix.core.config;
 
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
+/**
+ * Configuration properties class for Email
+ * @author mate.karolyi
+ */
 @ConfigurationProperties(prefix = "phoenix.core.mail")
+@PropertySource("classpath:mail.properties")
+@Configuration
 public class EmailConfigurationProperties {
 
     private String host = "127.0.0.1";
@@ -13,6 +21,10 @@ public class EmailConfigurationProperties {
     private String password = "admin";
     private String auth = "mail.smtp.auth";
 
+    /**
+     * Retrieves the host name
+     * @return host name
+     */
     public String getHost() {
         return host;
     }
@@ -21,6 +33,10 @@ public class EmailConfigurationProperties {
         this.host = host;
     }
 
+    /**
+     * Retrieves the port number
+     * @return port number
+     */
     public int getPort() {
         return port;
     }
@@ -29,6 +45,10 @@ public class EmailConfigurationProperties {
         this.port = port;
     }
 
+    /**
+     * Retrieves the mailing protocol
+     * @return protocol
+     */
     public String getProtocol() {
         return protocol;
     }
@@ -37,6 +57,10 @@ public class EmailConfigurationProperties {
         this.protocol = protocol;
     }
 
+    /**
+     * Retrieves the username
+     * @return username
+     */
     public String getUsername() {
         return username;
     }
@@ -45,6 +69,10 @@ public class EmailConfigurationProperties {
         this.username = username;
     }
 
+    /**
+     * Retrieves the password
+     * @return password
+     */
     public String getPassword() {
         return password;
     }
@@ -53,6 +81,10 @@ public class EmailConfigurationProperties {
         this.password = password;
     }
 
+    /**
+     * Retrieves the authentication mode
+     * @return authentication
+     */
     public String getAuth() {
         return auth;
     }

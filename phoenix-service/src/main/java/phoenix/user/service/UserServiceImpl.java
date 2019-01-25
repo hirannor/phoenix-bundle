@@ -1,7 +1,10 @@
 package phoenix.user.service;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.BeanUtils;
+import org.springframework.mail.MailException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import phoenix.notification.service.NotificationService;
@@ -22,6 +25,8 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl implements UserService {
+
+    private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
 
     private UserRepository userRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -51,15 +56,21 @@ public class UserServiceImpl implements UserService {
         }
 
         phoenix.user.entity.User userEntity = new  phoenix.user.entity.User();
+
         BeanUtils.copyProperties(user, userEntity);
         userEntity.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+
         Role role =  new Role();
         role.setRoleType(RoleType.ROLE_USER);
         userEntity.setRole(role);
 
         userRepository.save(userEntity);
 
-        notificationService.sendMessage(user.getEmailAddress(), buildRegistrationNotification(user));
+        try {
+            notificationService.sendMessage(user.getEmailAddress(), buildRegistrationNotification(user));
+        } catch(MailException ex) {
+            LOGGER.error(ex);
+        }
     }
 
     @Override
@@ -99,17 +110,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public void resetPassword(String userName) {
         phoenix.user.entity.User userEntity = userRepository.findByUserName(userName);
+
         if(userEntity == null) {
             throw new UserNotFoundException("User with the given username is not found");
         }
+
         String generatedPassword = RandomStringUtils.randomAlphanumeric(8);
         String hashedPassword = bCryptPasswordEncoder.encode(generatedPassword);
 
         userEntity.setPassword(hashedPassword);
-
         userRepository.save(userEntity);
 
-        notificationService.sendMessage(userEntity.getEmailAddress(), buildResetPasswordNotification(generatedPassword));
+        try {
+            notificationService.sendMessage(userEntity.getEmailAddress(), buildResetPasswordNotification(generatedPassword));
+        } catch(MailException ex) {
+            LOGGER.error(ex);
+        }
     }
 
     private String buildRegistrationNotification(User user) {

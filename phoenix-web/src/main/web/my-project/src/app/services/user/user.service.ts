@@ -30,4 +30,8 @@ export class UserService {
       return user;
     }));
   }
+
+  resetPassword(userName: string) {
+    return this.http.post('/v1/api/usermanagement/resetPassword/' + userName, {});
+  }
 }

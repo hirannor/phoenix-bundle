@@ -9,6 +9,10 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
 
+/**
+ * Core Configuration
+ * @author mate.karolyi
+ */
 @Configuration
 @EnableConfigurationProperties(EmailConfigurationProperties.class)
 public class CoreConfiguration {

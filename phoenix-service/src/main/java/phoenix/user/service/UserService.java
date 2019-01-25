@@ -43,5 +43,9 @@ public interface UserService {
      */
     void updateUser(String userName, User user);
 
+    /**
+     * Resets password for a user
+     * @param userName
+     */
     void resetPassword(String userName);
 }

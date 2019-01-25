@@ -26,6 +26,12 @@ export class ModalEditComponent  implements OnInit {
     this.loadAllRoles();
   }
 
+  resetPassword(userName: string) {
+    this.userService.resetPassword(userName).subscribe(() => {
+      console.log("Mail sent to: " + userName);
+    });
+  }
+
   onSubmit() {
     this.userService.updateUser(this.user).pipe(first()).subscribe(() => {
         this.activeModal.close();

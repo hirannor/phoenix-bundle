@@ -6,7 +6,7 @@
     </Properties>
 
     <Appenders>
-        <File name="SpringBoot-File-Appender" fileName="${log-path}/security.log">
+        <File name="File-Appender" fileName="${log-path}/app.log">
             <PatternLayout
                     pattern="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n" />
         </File>
@@ -18,19 +18,23 @@
 
     <Loggers>
         <Logger name="org.springframework" level="debug" additivity="false">
-            <AppenderRef ref="SpringBoot-File-Appender"/>
+            <AppenderRef ref="File-Appender"/>
             <AppenderRef ref="Console-Appender"/>
         </Logger>
         <Logger name="org.springframework.boot" level="debug" additivity="false">
-            <AppenderRef ref="SpringBoot-File-Appender"/>
+            <AppenderRef ref="File-Appender"/>
             <AppenderRef ref="Console-Appender"/>
         </Logger>
         <Logger name="org.springframework.security" level="debug" additivity="false">
-            <AppenderRef ref="SpringBoot-File-Appender"/>
+            <AppenderRef ref="File-Appender"/>
             <AppenderRef ref="Console-Appender"/>
         </Logger>
         <Logger name="org.springframework.beans" level="debug" additivity="false">
-            <AppenderRef ref="SpringBoot-File-Appender"/>
+            <AppenderRef ref="File-Appender"/>
+            <AppenderRef ref="Console-Appender"/>
+        </Logger>
+        <Logger name="phoenix.user.service" level="error" additivity="false">
+            <AppenderRef ref="File-Appender"/>
             <AppenderRef ref="Console-Appender"/>
         </Logger>
         <Root>
