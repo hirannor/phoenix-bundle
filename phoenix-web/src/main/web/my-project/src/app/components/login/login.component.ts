@@ -27,13 +27,13 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthenticationService, private tokenStorage: TokenStorage,
     private alertService: AlertService, private modalService: NgbModal) {
 
-    this.credentials = new  UserCredentials();
+    this.credentials = new UserCredentials();
     this.adminUrl = '/admin';
     this.userUrl = '/user'
   }
 
   ngOnInit() {
-    this.route.queryParamMap.subscribe( params => {
+    this.route.queryParamMap.subscribe(params => {
       if (params.get('error')) {
         this.alertService.error(params.get('error'))
       }
@@ -41,15 +41,15 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authenticationService.login(this.credentials).pipe(first()).subscribe(data =>{
-      let token = this.tokenStorage.getToken();
-        if(token) {
+    this.authenticationService.login(this.credentials).pipe(first()).subscribe(data => {
+        let token = this.tokenStorage.getToken();
+        if (token) {
           this.routeByRole(decode(token).role[0]);
         }
-    },
-error => {
+      },
+      error => {
         this.alertService.error(error);
-    });
+      });
   }
 
   openModal() {

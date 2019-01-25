@@ -5,7 +5,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 /**
- * Implementation of {@link NotificationService}
+ * Service implementation of {@link NotificationService}
  * @author mate.karolyi
  */
 @Service
@@ -24,6 +24,7 @@ public class NotificationServiceImpl implements NotificationService {
         SimpleMailMessage message = new SimpleMailMessage(this.simpleMailMessage);
         message.setTo(to);
         message.setText(msgBody);
+
         mailSender.send(message);
     }
 }

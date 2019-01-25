@@ -33,7 +33,7 @@
             <AppenderRef ref="File-Appender"/>
             <AppenderRef ref="Console-Appender"/>
         </Logger>
-        <Logger name="phoenix.user.service" level="error" additivity="false">
+        <Logger name="phoenix.notification.service" level="error" additivity="false">
             <AppenderRef ref="File-Appender"/>
             <AppenderRef ref="Console-Appender"/>
         </Logger>

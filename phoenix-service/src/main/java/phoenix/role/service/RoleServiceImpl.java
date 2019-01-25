@@ -8,15 +8,18 @@ import phoenix.role.repository.RoleRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Service implementation of {@link RoleService}
+ * @author mate.karolyi
+ */
 @Service
 public class RoleServiceImpl implements RoleService {
 
     private RoleRepository roleRepository;
     private ModelMapper modelMapper;
 
-    public RoleServiceImpl(RoleRepository roleRepository,  ModelMapper modelMapper) {
+    public RoleServiceImpl(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
-        this.modelMapper = modelMapper;
     }
 
     @Override

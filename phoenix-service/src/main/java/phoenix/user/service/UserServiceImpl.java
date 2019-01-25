@@ -1,10 +1,7 @@
 package phoenix.user.service;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.BeanUtils;
-import org.springframework.mail.MailException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import phoenix.notification.service.NotificationService;
@@ -20,13 +17,10 @@ import java.util.List;
 
 /**
  * Service implementation of {@link UserService}
- *
  * @author mate.karolyi
  */
 @Service
 public class UserServiceImpl implements UserService {
-
-    private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
 
     private UserRepository userRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -65,12 +59,8 @@ public class UserServiceImpl implements UserService {
         userEntity.setRole(role);
 
         userRepository.save(userEntity);
+        notificationService.sendMessage(user.getEmailAddress(), buildRegistrationNotification(user));
 
-        try {
-            notificationService.sendMessage(user.getEmailAddress(), buildRegistrationNotification(user));
-        } catch(MailException ex) {
-            LOGGER.error(ex);
-        }
     }
 
     @Override
@@ -121,11 +111,7 @@ public class UserServiceImpl implements UserService {
         userEntity.setPassword(hashedPassword);
         userRepository.save(userEntity);
 
-        try {
-            notificationService.sendMessage(userEntity.getEmailAddress(), buildResetPasswordNotification(generatedPassword));
-        } catch(MailException ex) {
-            LOGGER.error(ex);
-        }
+        notificationService.sendMessage(userEntity.getEmailAddress(), buildResetPasswordNotification(generatedPassword));
     }
 
     private String buildRegistrationNotification(User user) {
