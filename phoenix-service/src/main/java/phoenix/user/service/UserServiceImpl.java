@@ -1,6 +1,5 @@
 package phoenix.user.service;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,22 +21,23 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static final String ROLE_USER = "ROLE_USER";
-
     private UserRepository userRepository;
-    private ModelMapper modelMapper;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository,
-                           ModelMapper modelmapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
-        this.modelMapper = modelmapper;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
-    public phoenix.user.dto.User findByUserName(String userName) {
-        return modelMapper.map(userRepository.findByUserName(userName), User.class);
+    public User findByUserName(String userName) {
+        User user = new User();
+        phoenix.user.entity.User userEntity = userRepository.findByUserName(userName);
+
+        BeanUtils.copyProperties(userEntity, user);
+        user.setRole(userEntity.getRole().getRoleType().getValue());
+
+        return user;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
 
         for (phoenix.user.entity.User userEntity : userEntites) {
             User user = new User();
-            modelMapper.map(userEntity, user);
+            BeanUtils.copyProperties(userEntity, user);
             user.setRole(userEntity.getRole().getRoleType().getValue());
             users.add(user);
         }

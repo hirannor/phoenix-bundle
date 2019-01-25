@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParamMap.subscribe( params => {
-      if(params.get('error')) {
+      if (params.get('error')) {
         this.alertService.error(params.get('error'))
       }
     })
@@ -44,11 +44,8 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.credentials).pipe(first()).subscribe(data =>{
       let token = this.tokenStorage.getToken();
         if(token) {
-          let tokenPayload = decode(token);
-          if(RoleType.ADMIN == tokenPayload.role[0]) {
-            this.router.navigate([this.adminUrl], {queryParams: {success: data.message}},);
-          }
-      }
+          this.routeByRole(decode(token).role[0]);
+        }
     },
 error => {
         this.alertService.error(error);
@@ -60,4 +57,19 @@ error => {
     modalRef.componentInstance.title = 'Signup';
   }
 
+  routeByRole(role: String) {
+    switch (role) {
+      case RoleType.ADMIN: {
+        this.router.navigate([this.adminUrl]);
+        break;
+      }
+      case RoleType.USER: {
+        this.router.navigate([this.userUrl]);
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+  }
 }

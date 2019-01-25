@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'phoenix-admin-layout',
-  templateUrl: './admin.layout.component.html',
-  styleUrls: ['./admin.layout.component.scss']
+  templateUrl: './admin-layout.component.html',
+  styleUrls: ['./admin-layout.component.scss']
 })
 export class AdminLayoutComponent implements OnInit {
 

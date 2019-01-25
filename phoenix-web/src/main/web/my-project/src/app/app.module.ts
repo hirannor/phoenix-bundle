@@ -6,16 +6,28 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './components/login';
-import {HomeComponent} from './components/admin/home';
+import {AdminHomeComponent} from './components/admin/home';
+import {UserHomeComponent} from './components/user/home';
 import {AlertComponent, ModalComponent} from './directives';
 import {ErrorInterceptor, TokenInterceptor} from "./interceptors";
-import {AdminLayoutComponent, ContentComponent, FooterComponent, HeaderComponent} from "./components/admin/layout";
+import {
+  AdminContentComponent,
+  AdminFooterComponent,
+  AdminHeaderComponent,
+  AdminLayoutComponent
+} from "./components/admin/layout";
+import {
+  UserContentComponent,
+  UserFooterComponent,
+  UserHeaderComponent,
+  UserLayoutComponent
+} from "./components/user/layout";
 import {TokenStorage} from "./helpers/token.storage";
 import {NgbActiveModal, NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
 import {ModalSignupComponent} from "./components/signup";
 import {ModalEditComponent, UserManagementComponent} from "./components/admin/usermanagement";
-import {CustomMinDirective} from "./directives/validator/custom-min-validator.directive";
-import {CustomMaxDirective} from "./directives/validator/custom-max-validator.directive";
+import {PhoenixMinDirective} from "./directives/validator/phoenix-min-validator.directive";
+import {PhoenixMaxDirective} from "./directives/validator/phoenix-max-validator.directive";
 
 @NgModule({
   imports: [
@@ -30,16 +42,21 @@ import {CustomMaxDirective} from "./directives/validator/custom-max-validator.di
     ModalSignupComponent,
     ModalEditComponent,
     LoginComponent,
-    HomeComponent,
+    AdminHomeComponent,
+    UserHomeComponent,
     AlertComponent,
     ModalComponent,
     UserManagementComponent,
     AdminLayoutComponent,
-    HeaderComponent,
-    ContentComponent,
-    FooterComponent,
-    CustomMinDirective,
-    CustomMaxDirective
+    AdminHeaderComponent,
+    AdminContentComponent,
+    AdminFooterComponent,
+    UserLayoutComponent,
+    UserHeaderComponent,
+    UserContentComponent,
+    UserFooterComponent,
+    PhoenixMinDirective,
+    PhoenixMaxDirective
   ],
   providers: [
     NgbActiveModal,

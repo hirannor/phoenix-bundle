@@ -53,16 +53,16 @@
     <div class="form-group">
       <label for="age" class="label label-default">Age</label>
       <input type="number" name="age" class="form-control" [(ngModel)]="user.age" required #age="ngModel"
-             [ngClass]="{'is-invalid':age.invalid}" [customMin]="minAge" [customMax]="maxAge"/>
+             [ngClass]="{'is-invalid':age.invalid}" [min]="minAge" [max]="maxAge"/>
       <div *ngIf="age.invalid && (age.dirty || age.touched)"
            class="alert alert-danger">
         <div *ngIf="age.errors.required">
           Age is required
         </div>
-        <div *ngIf="age.errors?.customMin">
+        <div *ngIf="age.errors?.min">
           Minimum age should be atleast {{minAge}}
         </div>
-        <div *ngIf="age.errors?.customMax">
+        <div *ngIf="age.errors?.max">
           Maximum age can't be higher than {{maxAge}}
         </div>
       </div>

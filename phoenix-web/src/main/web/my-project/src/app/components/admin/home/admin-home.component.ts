@@ -6,10 +6,10 @@ import {first} from "rxjs/operators";
 
 @Component({
   selector: 'phoenix-admin-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  templateUrl: './admin-home.component.html',
+  styleUrls: ['./admin-home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class AdminHomeComponent implements OnInit {
 
   currentUser: User
 
