@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 
 import {AlertService} from '../../services';
@@ -12,26 +12,21 @@ import {Alert} from "../../models/alert/alert";
     './alert.component.scss'
   ]
 })
-export class AlertComponent implements OnInit {
+export class AlertComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
-  alerts: Alert[] = [];
+  alert: Alert;
 
   constructor(private alertService: AlertService) { }
 
   ngOnInit() {
-    this.alertService.getMessage().subscribe((message: Alert) => {
-      if (!message) {
-        this.alerts = [];
-        return;
-      }
-
-      this.alerts.push(message);
+    this.subscription = this.alertService.getMessage().subscribe(alert => {
+      this.alert = alert;
     });
   }
 
   removeAlert(alert: Alert) {
-    this.alerts = this.alerts.filter(x => x !== alert);
+    this.alert = null;
   }
 
   cssClass(alert: Alert) {
@@ -49,5 +44,9 @@ export class AlertComponent implements OnInit {
       case AlertType.Warning:
         return 'alert alert-warning';
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

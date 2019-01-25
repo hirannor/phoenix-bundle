@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AlertService, SignupService} from "../../services";
 import {User} from "../../models/user";
 import {first} from "rxjs/operators";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'phoenix-modal-signup',
@@ -15,21 +15,19 @@ export class ModalSignupComponent implements OnInit {
   minAge: number = 18;
   maxAge: number = 99;
 
-  constructor(private signupService: SignupService, private alertService: AlertService,  private modalService: NgbModal){
+  constructor(private signupService: SignupService, private alertService: AlertService,  private activeModal: NgbActiveModal){
     this.user = new User();
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   onSubmit() {
     this.signupService.signup(this.user).pipe(first()).subscribe(data => {
-        this.modalService.dismissAll();
+        this.activeModal.close();
         this.alertService.success('Registered successfuly!');
       },
       error => {
-        this.modalService.dismissAll();
+        this.activeModal.dismiss();
         this.alertService.error(error);
       });
   }

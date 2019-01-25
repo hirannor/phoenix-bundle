@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from "../../../models/user";
 import {AlertService, UserService} from "../../../services";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {first} from "rxjs/operators";
 import {RoleService} from "../../../services/role/role.service";
 
@@ -18,7 +18,7 @@ export class ModalEditComponent  implements OnInit {
   minAge: number = 18;
   maxAge: number = 99;
 
-  constructor(private userService: UserService, private alertService: AlertService,  private modalService: NgbModal, private roleService: RoleService){
+  constructor(private userService: UserService, private alertService: AlertService, private roleService: RoleService, private activeModal: NgbActiveModal){
     this.user = new User();
   }
 
@@ -28,9 +28,11 @@ export class ModalEditComponent  implements OnInit {
 
   onSubmit() {
     this.userService.updateUser(this.user).pipe(first()).subscribe(() => {
+        this.activeModal.close();
         this.alertService.success('Edited successfuly!');
       },
       error => {
+        this.activeModal.dismiss();
         this.alertService.error(error);
       });
   }

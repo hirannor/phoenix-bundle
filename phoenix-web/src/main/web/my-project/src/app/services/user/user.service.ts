@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {User} from "../../models/user/user";
 import {map} from "rxjs/operators";
+import * as _ from "lodash";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,9 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getUsers() {
-    return this.http.get<User[]>('/v1/api/usermanagement/users');
+    return this.http.get<User[]>('/v1/api/usermanagement/users').pipe(map((users: User[]) => {
+      return _.orderBy(users, [(user: User) => user.userName.toLocaleLowerCase()], ['asc']);
+    }));
   }
 
   updateUser(user: User) {
