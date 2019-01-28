@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
         userEntity.setRole(role);
 
         userRepository.save(userEntity);
-        notificationService.sendMessage(user.getEmailAddress(), buildRegistrationNotification(user));
+        notificationService.sendMessage(user.getEmailAddress(), buildRegistrationNotification(userEntity));
     }
 
     @Override
@@ -120,11 +120,12 @@ public class UserServiceImpl implements UserService {
         }
 
         String generatedPassword = RandomStringUtils.randomAlphanumeric(8);
-        String hashedPassword = bCryptPasswordEncoder.encode(generatedPassword);
 
         phoenix.user.entity.User userEntity = resetPasswordToken.getUser();
-        userEntity.setPassword(hashedPassword);
+        userEntity.setPassword(bCryptPasswordEncoder.encode(generatedPassword));
         userRepository.save(userEntity);
+
+        notificationService.sendMessage(userEntity.getEmailAddress(), buildPasswordChangeNotification(userEntity, generatedPassword));
     }
 
     @Override
@@ -143,24 +144,32 @@ public class UserServiceImpl implements UserService {
         resetPasswordToken.setUser(userEntity);
         resetPasswordTokenRepository.save(resetPasswordToken);
 
-        String msgBody = buildResetPasswordNotification(resetPasswordUrl + token);
-
-        notificationService.sendMessage(userEntity.getEmailAddress(), msgBody);
+        notificationService.sendMessage(userEntity.getEmailAddress(), buildResetPasswordNotification(resetPasswordUrl + token));
     }
 
-    private String buildRegistrationNotification(User user) {
+    private String buildPasswordChangeNotification(phoenix.user.entity.User userEntity, String rawPassword) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<h1>Dear " + userEntity.getFirstName() + " " + userEntity.getLastName() + " your password was changed successfuly!</h1><br>");
+        sb.append("<p>Your new password is: " + rawPassword + "</p>");
+        sb.append("<br>");
+        sb.append("<p>This is an automaticly generated email.</p>");
+
+        return sb.toString();
+    }
+
+    private String buildRegistrationNotification(phoenix.user.entity.User userEntity) {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("<h1>Dear " + user.getFirstName() + " " + user.getLastName() + " your registration was successful!</h1><br>");
+        sb.append("<h1>Dear " + userEntity.getFirstName() + " " + userEntity.getLastName() + " your registration was successful!</h1><br>");
         sb.append("<p>Your details:</p><br>");
         sb.append("<ul>");
-        sb.append("<li>Username: " + user.getUserName() + "</li>");
-        sb.append("<li>Password: " + user.getPassword() + "</li>");
-        sb.append("<li>First Name: " + user.getFirstName() + "</li>");
-        sb.append("<li>Last Name: " + user.getFirstName() + "</li>");
-        sb.append("<li>Age: " + user.getAge() + "</li>");
-        sb.append("<li>E-mail: " + user.getEmailAddress() + "</li>");
-        sb.append("</ul><br>");
+        sb.append("<li>Username: " + userEntity.getUserName() + "</li>");
+        sb.append("<li>First Name: " + userEntity.getFirstName() + "</li>");
+        sb.append("<li>Last Name: " + userEntity.getFirstName() + "</li>");
+        sb.append("<li>Age: " + userEntity.getAge() + "</li>");
+        sb.append("<li>E-mail: " + userEntity.getEmailAddress() + "</li>");
+        sb.append("</ul>");
+        sb.append("<br>");
         sb.append("<p>This is an automaticly generated email.</p>");
 
         return sb.toString();
@@ -170,6 +179,8 @@ public class UserServiceImpl implements UserService {
         StringBuilder sb = new StringBuilder();
 
         sb.append("<h1>To reset your password please click on the below</h1></br><a href=\"" + callbackUrl + ">link</a>");
+        sb.append("<br>");
+        sb.append("<p>This is an automaticly generated email.</p>");
 
         return sb.toString();
     }

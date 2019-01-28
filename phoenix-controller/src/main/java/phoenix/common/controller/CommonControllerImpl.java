@@ -2,6 +2,7 @@ package phoenix.common.controller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,8 +12,6 @@ import phoenix.user.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.UUID;
 
 /**
@@ -35,20 +34,14 @@ public class CommonControllerImpl implements CommonApi {
 
     @Override
     public ResponseEntity<Void> resetPassword(UUID token) {
-        URI location = null;
         userService.resetPassword(token);
-        try {
-            location = new URI(getAppUrl(httpServletRequest));
-        } catch (URISyntaxException ex) {
-            LOGGER.error(ex);
-        }
-
-        return ResponseEntity.created(location).build();
+        return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).header(HttpHeaders.LOCATION, getAppUrl(httpServletRequest)).build();
     }
 
     @Override
     public ResponseEntity<Void> sendConfirmation(String userName) {
-        userService.sendResetPasswordNotification(userName, getAppUrl(httpServletRequest) + "/common/resetPassword/");
+        //userService.sendResetPasswordNotification(userName, getAppUrl(httpServletRequest) + "/common/resetPassword/");
+        userService.sendResetPasswordNotification(userName, "http://localhost:4200/common/resetPassword/");
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 

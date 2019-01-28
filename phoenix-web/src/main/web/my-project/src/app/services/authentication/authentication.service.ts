@@ -13,7 +13,7 @@ export class AuthenticationService {
   constructor(private http: HttpClient, private tokenStorage: TokenStorage) {}
 
   login(credentials: UserCredentials) {
-    return this.http.post<BaseResponse>('/commnon/authenticate', credentials).pipe(map(resp => {
+    return this.http.post<BaseResponse>('/authenticate', credentials).pipe(map(resp => {
         if (resp && resp.token) {
           this.tokenStorage.saveToken(resp.token);
         }

@@ -1,8 +1,13 @@
 package phoenix.notification.service;
 
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.stereotype.Service;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
 /**
  * Service implementation of {@link NotificationService}
@@ -11,20 +16,26 @@ import org.springframework.stereotype.Service;
 @Service
 public class NotificationServiceImpl implements NotificationService {
 
-    private MailSender mailSender;
-    private SimpleMailMessage simpleMailMessage;
+    private static final Logger LOGGER = LogManager.getLogger(NotificationServiceImpl.class);
+    private static final String MAIL_CONTENT_TYPE = "text/html";
 
-    public NotificationServiceImpl(MailSender mailSender, SimpleMailMessage simpleMailMessage) {
+    private JavaMailSender mailSender;
+    private MimeMailMessage mimeMailMessage;
+
+    public NotificationServiceImpl(JavaMailSender mailSender, MimeMailMessage mimeMailMessage) {
         this.mailSender = mailSender;
-        this.simpleMailMessage = simpleMailMessage;
+        this.mimeMailMessage = mimeMailMessage;
     }
 
     @Override
     public void sendMessage(String to, String msgBody) {
-        SimpleMailMessage message = new SimpleMailMessage(this.simpleMailMessage);
-        message.setTo(to);
-        message.setText(msgBody);
-
-        mailSender.send(message);
+        try {
+            //FIXME: Investigate why NPE occurs during notification sending
+            MimeMessage mimeMessage = mimeMailMessage.getMimeMessage();
+            mimeMessage.setContent(msgBody, MAIL_CONTENT_TYPE);
+            mailSender.send(mimeMessage);
+        } catch(MessagingException ex) {
+            LOGGER.error(ex);
+        }
     }
 }

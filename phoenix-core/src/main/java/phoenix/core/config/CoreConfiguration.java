@@ -3,10 +3,11 @@ package phoenix.core.config;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMailMessage;
 
+import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 /**
@@ -30,19 +31,20 @@ public class CoreConfiguration {
         javaMailSender.setPassword(emailConfigurationProperties.getPassword());
 
         Properties props = javaMailSender.getJavaMailProperties();
+        props.put("mail.smtp.host", "true");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.debug", "true");
-
         return javaMailSender;
     }
 
     @Bean
-    public SimpleMailMessage getSimpleMailMessage(EmailConfigurationProperties emailConfigurationProperties)
+    public MimeMailMessage getMimeMailMessage(EmailConfigurationProperties emailConfigurationProperties, JavaMailSender javaMailSender)
     {
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setFrom(emailConfigurationProperties.getUsername());
-        simpleMailMessage.setSubject(EMAIL_SUBJECT);
-        return simpleMailMessage;
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMailMessage mimeMailMessage = new MimeMailMessage(mimeMessage);
+        mimeMailMessage.setFrom(emailConfigurationProperties.getUsername());
+        mimeMailMessage.setSubject(EMAIL_SUBJECT);
+        return mimeMailMessage;
     }
 }

@@ -49,8 +49,6 @@ paths:
       summary: "Resets password for a user"
       description: "Resets password for a user"
       operationId: "resetPassword"
-      consumes:
-        - "application/json"
       parameters:
         - name: "token"
           in: "path"
