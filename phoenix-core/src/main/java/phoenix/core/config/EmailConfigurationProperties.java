@@ -19,7 +19,6 @@ public class EmailConfigurationProperties {
     private String protocol = "smtp";
     private String username = "admin@localhost.com";
     private String password = "admin";
-    private String auth = "mail.smtp.auth";
 
     /**
      * Retrieves the host name
@@ -79,17 +78,5 @@ public class EmailConfigurationProperties {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    /**
-     * Retrieves the authentication mode
-     * @return authentication
-     */
-    public String getAuth() {
-        return auth;
-    }
-
-    public void setAuth(String auth) {
-        this.auth = auth;
     }
 }

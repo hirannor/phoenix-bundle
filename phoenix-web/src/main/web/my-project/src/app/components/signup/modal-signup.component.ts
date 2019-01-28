@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AlertService, SignupService} from "../../services";
+import {AlertService, CommonService} from "../../services";
 import {User} from "../../models/user";
 import {first} from "rxjs/operators";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
@@ -15,14 +15,14 @@ export class ModalSignupComponent implements OnInit {
   minAge: number = 18;
   maxAge: number = 99;
 
-  constructor(private signupService: SignupService, private alertService: AlertService,  private activeModal: NgbActiveModal){
+  constructor(private commonService: CommonService, private alertService: AlertService, private activeModal: NgbActiveModal){
     this.user = new User();
   }
 
   ngOnInit(): void {}
 
   onSubmit() {
-    this.signupService.signup(this.user).pipe(first()).subscribe(data => {
+    this.commonService.signup(this.user).pipe(first()).subscribe(data => {
         this.activeModal.close();
         this.alertService.success('Registered successfuly!');
       },

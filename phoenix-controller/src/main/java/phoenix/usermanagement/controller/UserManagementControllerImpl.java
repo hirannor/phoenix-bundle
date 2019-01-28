@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import phoenix.role.service.RoleService;
 import phoenix.user.dto.User;
 import phoenix.user.service.UserService;
 import phoenix.usermanagement.controller.api.UsermanagementApi;
@@ -22,9 +23,11 @@ import java.util.List;
 public class UserManagementControllerImpl implements UsermanagementApi {
 
     private UserService userService;
+    private RoleService roleService;
 
-    public UserManagementControllerImpl(UserService userService) {
+    public UserManagementControllerImpl(UserService userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     @Override
@@ -46,9 +49,8 @@ public class UserManagementControllerImpl implements UsermanagementApi {
     }
 
     @Override
-    public ResponseEntity<Void> resetPassword(String userName) {
-        userService.resetPassword(userName);
-        return new ResponseEntity<Void>(HttpStatus.OK);
+    public ResponseEntity<List<String>> getRoles() {
+        return new ResponseEntity<List<String>>(roleService.getRoles(), HttpStatus.OK);
     }
 }
 

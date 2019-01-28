@@ -34,14 +34,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String PROTECTED_API = "/v1/api/**";
     private static final String PROTECTED_USER_API = "/v1/api/user";
     private static final String[] PROTECTED_ADMIN_API = {
-            "/v1/api/usermanagement/**",
-            "v1/api/rolemanagement/**"
+            "/v1/api/usermanagement/**"
     };
 
-    private static final String MAIN_ENTRY_POINT = "/authenticate";
+    private static final String MAIN_ENTRY_POINT = "/common/authenticate";
     private static final String[] AUTH_WHITELIST = {
-            "/",
-            "/signup",
+            "/common/**",
             "/h2/**",
             "/v2/api-docs",
             "/swagger-resources",
@@ -83,22 +81,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .cors()
-                .and()
-                .httpBasic().disable()
-                .csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
-                .and()
-                .headers().frameOptions().sameOrigin()
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .addFilterBefore(new PhoenixJwtAuthenticationFilter(MAIN_ENTRY_POINT, phoenixAuthenticationSuccessHandler, phoenixAuthenticationFailureHandler, authenticationManagerBean()), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new PhoenixJwtAuthorizationFilter(), BasicAuthenticationFilter.class)
-                .authorizeRequests().antMatchers(PROTECTED_USER_API).hasAnyRole("ADMIN", "USER")
-                .and()
-                    .authorizeRequests().antMatchers(PROTECTED_ADMIN_API).hasAnyRole("ADMIN")
-                    .antMatchers(PROTECTED_API).fullyAuthenticated();
+            .cors()
+            .and()
+            .httpBasic().disable()
+            .csrf().disable()
+            .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
+            .and()
+            .headers().frameOptions().sameOrigin()
+            .and()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .addFilterBefore(new PhoenixJwtAuthenticationFilter(MAIN_ENTRY_POINT, phoenixAuthenticationSuccessHandler, phoenixAuthenticationFailureHandler, authenticationManagerBean()), UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(new PhoenixJwtAuthorizationFilter(), BasicAuthenticationFilter.class)
+            .authorizeRequests().antMatchers(PROTECTED_USER_API).hasAnyRole("ADMIN", "USER")
+            .and()
+                .authorizeRequests().antMatchers(PROTECTED_ADMIN_API).hasAnyRole("ADMIN")
+                .antMatchers(PROTECTED_API).fullyAuthenticated();
     }
 
     @Override

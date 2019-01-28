@@ -6,12 +6,12 @@ import {User} from "../../models/user";
 @Injectable({
   providedIn: 'root'
 })
-export class SignupService {
+export class CommonService {
 
   constructor(private http: HttpClient) { }
 
   signup(user: User) {
-    return this.http.post('/signup', user).pipe(map(response => {
+    return this.http.post('/common/signup', user).pipe(map(response => {
       return response;
     }));
   }

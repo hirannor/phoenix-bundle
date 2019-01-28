@@ -4,6 +4,7 @@ package phoenix.user.service;
 import phoenix.user.dto.User;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * User Service API
@@ -24,7 +25,6 @@ public interface UserService {
      */
     void addUser(User user);
 
-
     /**
      * Returns all users from a store
      * @return  list of users
@@ -33,6 +33,7 @@ public interface UserService {
 
     /**
      * Deletes a user by username
+     * @param userName {@link String}
      */
     void deleteUser(String userName);
 
@@ -44,8 +45,15 @@ public interface UserService {
     void updateUser(String userName, User user);
 
     /**
-     * Resets password for a user
-     * @param userName
+     * Resets password for a given user, which is associated with the token
+     * @param token {@link UUID}
      */
-    void resetPassword(String userName);
+    void resetPassword(UUID token);
+
+    /**
+     * Sends a reset password notification trough email for the given user
+     * @param userName {@link String}
+     * @param resetPasswordUrl {@link String}
+     */
+    void sendResetPasswordNotification(String userName, String resetPasswordUrl);
 }

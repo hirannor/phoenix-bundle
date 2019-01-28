@@ -3,7 +3,6 @@ import {User} from "../../../models/user";
 import {AlertService, UserService} from "../../../services";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {first} from "rxjs/operators";
-import {RoleService} from "../../../services/role/role.service";
 
 @Component({
   selector: 'phoenix-modal-edit',
@@ -18,7 +17,7 @@ export class ModalEditComponent  implements OnInit {
   minAge: number = 18;
   maxAge: number = 99;
 
-  constructor(private userService: UserService, private alertService: AlertService, private roleService: RoleService, private activeModal: NgbActiveModal){
+  constructor(private userService: UserService, private alertService: AlertService, private activeModal: NgbActiveModal){
     this.user = new User();
   }
 
@@ -44,7 +43,7 @@ export class ModalEditComponent  implements OnInit {
   }
 
   private loadAllRoles() {
-    this.roleService.getRoles().pipe(first()).subscribe(roles => {
+    this.userService.getRoles().pipe(first()).subscribe(roles => {
       this.roles = roles;
     });
   }

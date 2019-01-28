@@ -34,4 +34,8 @@ export class UserService {
   resetPassword(userName: string) {
     return this.http.post('/v1/api/usermanagement/resetPassword/' + userName, {});
   }
+
+  getRoles() {
+    return this.http.get<String[]>('/v1/api/usermanagement/role');
+  }
 }

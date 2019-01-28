@@ -17,7 +17,7 @@ import java.util.Properties;
 @EnableConfigurationProperties(EmailConfigurationProperties.class)
 public class CoreConfiguration {
 
-    private final static String EMAIL_SUBJECT = "noreply";
+    private final static String EMAIL_SUBJECT = "NOREPLY";
 
     @Bean
     public JavaMailSender getJavaMailSender(EmailConfigurationProperties emailConfigurationProperties) {
@@ -29,10 +29,10 @@ public class CoreConfiguration {
         javaMailSender.setUsername(emailConfigurationProperties.getUsername());
         javaMailSender.setPassword(emailConfigurationProperties.getPassword());
 
-        Properties prop = new Properties();
-        prop.setProperty(emailConfigurationProperties.getAuth(), "true");
-
-        javaMailSender.setJavaMailProperties(prop);
+        Properties props = javaMailSender.getJavaMailProperties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "true");
 
         return javaMailSender;
     }
