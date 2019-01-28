@@ -29,8 +29,8 @@ When the build is done run **phoenix-bundle/phoenix-web/src/main/java/phoenix/Sp
 |----------|-----------|-------|
 |  admin   | password  | ADMIN |
 |  user1   | password  | USER  |
-|  user1   | password  | USER  | 
-|  user    | password  | USER  |
-|  user1   | password  | USER  | 
-|  user1   | password  | USER  | 
-|  user1   | password  | USER  | 
+|  user2   | password  | USER  | 
+|  user3   | password  | USER  |
+|  user4   | password  | USER  | 
+|  user5   | password  | USER  | 
+|  user6   | password  | USER  | 
