@@ -9,7 +9,7 @@ import {LoginComponent} from './components/login';
 import {AdminHomeComponent} from './components/admin/home';
 import {UserHomeComponent} from './components/user/home';
 import {AlertComponent, ModalComponent} from './directives';
-import {ErrorInterceptor, TokenInterceptor} from "./interceptors";
+import {ErrorInterceptor, LoaderInterceptor, TokenInterceptor} from "./interceptors";
 import {
   AdminContentComponent,
   AdminFooterComponent,
@@ -28,6 +28,7 @@ import {ModalSignupComponent} from "./components/signup";
 import {ModalEditComponent, UserManagementComponent} from "./components/admin/usermanagement";
 import {PhoenixMinDirective} from "./directives/validator/phoenix-min-validator.directive";
 import {PhoenixMaxDirective} from "./directives/validator/phoenix-max-validator.directive";
+import {LoaderComponent} from "./components/loader";
 
 @NgModule({
   imports: [
@@ -56,13 +57,15 @@ import {PhoenixMaxDirective} from "./directives/validator/phoenix-max-validator.
     UserContentComponent,
     UserFooterComponent,
     PhoenixMinDirective,
-    PhoenixMaxDirective
+    PhoenixMaxDirective,
+    LoaderComponent
   ],
   providers: [
     NgbActiveModal,
     TokenStorage,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
   entryComponents: [

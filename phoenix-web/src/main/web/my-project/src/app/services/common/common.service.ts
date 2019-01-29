@@ -15,4 +15,8 @@ export class CommonService {
       return response;
     }));
   }
+
+  sendResetPasswordNotification(userName: string) {
+    return this.http.post('/common/resetPassword/' + userName, {});
+  }
 }

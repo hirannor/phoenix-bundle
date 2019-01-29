@@ -39,7 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private static final String MAIN_ENTRY_POINT = "/authenticate";
     private static final String[] AUTH_WHITELIST = {
-            "/authenticate",
+            "/",
             "/common/**",
             "/h2/**",
             "/v2/api-docs",

@@ -39,9 +39,8 @@ public class CommonControllerImpl implements CommonApi {
     }
 
     @Override
-    public ResponseEntity<Void> sendConfirmation(String userName) {
-        //userService.sendResetPasswordNotification(userName, getAppUrl(httpServletRequest) + "/common/resetPassword/");
-        userService.sendResetPasswordNotification(userName, "http://localhost:4200/common/resetPassword/");
+    public ResponseEntity<Void> sendResetPasswordNotification(String userName) {
+        userService.sendResetPasswordNotification(userName, getAppUrl(httpServletRequest) + "/common/resetPassword/");
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
@@ -52,6 +51,8 @@ public class CommonControllerImpl implements CommonApi {
     }
 
     private String getAppUrl(HttpServletRequest request) {
-        return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+        return "http://localhost:4200";
+        // uncomment the below line for production build
+        // return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
     }
 }

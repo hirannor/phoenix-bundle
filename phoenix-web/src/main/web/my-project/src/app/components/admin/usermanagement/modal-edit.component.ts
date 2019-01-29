@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from "../../../models/user";
-import {AlertService, UserService} from "../../../services";
+import {AlertService, CommonService, UserService} from "../../../services";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {first} from "rxjs/operators";
 
@@ -17,7 +17,7 @@ export class ModalEditComponent  implements OnInit {
   minAge: number = 18;
   maxAge: number = 99;
 
-  constructor(private userService: UserService, private alertService: AlertService, private activeModal: NgbActiveModal){
+  constructor(private userService: UserService, private commonService: CommonService, private alertService: AlertService, private activeModal: NgbActiveModal){
     this.user = new User();
   }
 
@@ -25,9 +25,10 @@ export class ModalEditComponent  implements OnInit {
     this.loadAllRoles();
   }
 
-  resetPassword(userName: string) {
-    this.userService.resetPassword(userName).subscribe(() => {
-      console.log("Mail sent to: " + userName);
+  sendResetPasswordNotification(userName: string) {
+    this.commonService.sendResetPasswordNotification(userName).subscribe(() => {
+      this.activeModal.close();
+      this.alertService.success('Password reset notification sent to the given destination address');
     });
   }
 

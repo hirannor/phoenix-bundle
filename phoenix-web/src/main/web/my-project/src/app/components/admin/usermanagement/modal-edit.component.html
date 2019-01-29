@@ -61,5 +61,5 @@
     </div>
     <button class="btn btn-primary" [disabled]="!editForm.form.valid">Save</button>
   </form>
-  <button class="btn btn-info" (click)="resetPassword(user.userName)">Reset Password</button>
+  <button class="btn btn-info" (click)="sendResetPasswordNotification(user.userName)">Reset Password</button>
 </phoenix-modal>

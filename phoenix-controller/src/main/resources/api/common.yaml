@@ -30,7 +30,7 @@ paths:
     post:
       summary: "Sends a reset password notification for a user"
       description: "Sends a reset password notification for a user"
-      operationId: "sendConfirmation"
+      operationId: "sendResetPasswordNotification"
       consumes:
         - "application/json"
       parameters:
