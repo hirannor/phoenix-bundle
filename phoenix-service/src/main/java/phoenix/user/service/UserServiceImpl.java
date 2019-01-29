@@ -149,7 +149,8 @@ public class UserServiceImpl implements UserService {
 
     private String buildPasswordChangeNotification(phoenix.user.entity.User userEntity, String rawPassword) {
         StringBuilder sb = new StringBuilder();
-        sb.append("<h1>Dear " + userEntity.getFirstName() + " " + userEntity.getLastName() + " your password was changed successfuly!</h1><br>");
+        sb.append("<h1>Dear " + userEntity.getFirstName() + " " + userEntity.getLastName() + " your password was changed successfuly!</h1>");
+        sb.append("<br>");
         sb.append("<p>Your new password is: " + rawPassword + "</p>");
         sb.append("<br>");
         sb.append("<p>This is an automaticly generated email.</p>");
@@ -160,8 +161,10 @@ public class UserServiceImpl implements UserService {
     private String buildRegistrationNotification(phoenix.user.entity.User userEntity) {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("<h1>Dear " + userEntity.getFirstName() + " " + userEntity.getLastName() + " your registration was successful!</h1><br>");
-        sb.append("<p>Your details:</p><br>");
+        sb.append("<h1>Dear " + userEntity.getFirstName() + " " + userEntity.getLastName() + " your registration was successful!</h1>");
+        sb.append("<br>");
+        sb.append("<p>Your details:</p>");
+        sb.append("<br>");
         sb.append("<ul>");
         sb.append("<li>Username: " + userEntity.getUserName() + "</li>");
         sb.append("<li>First Name: " + userEntity.getFirstName() + "</li>");
@@ -178,7 +181,8 @@ public class UserServiceImpl implements UserService {
     private String buildResetPasswordNotification(String callbackUrl) {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("<h1>To reset your password please click on the below</h1></br><a href=\"" + callbackUrl + ">link</a>");
+        sb.append("<h1>To reset your password please click on the below</h1>");
+        sb.append("<a href=" + callbackUrl + ">link</a>");
         sb.append("<br>");
         sb.append("<p>This is an automaticly generated email.</p>");
 
