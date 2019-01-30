@@ -29,8 +29,14 @@ http://localhost:8080
 ## Swagger UI URL
 http://localhost:8080/swagger-ui.html
 
-## H2 Database URL
-http://localhost:8080/h2
+## H2 Database 
+**URL**:  http://localhost:8080/h2
+
+**Datasource:**
+ - url: jdbc:h2:file:~/phoenixdb
+ - username: hirannor
+ - password: pwnd
+
 
 ## Demo users for the application
 
