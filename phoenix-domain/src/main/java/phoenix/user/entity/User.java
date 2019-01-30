@@ -24,7 +24,7 @@ public class User implements Serializable {
     @ManyToOne
     @JoinTable(name="USR_ROLE", joinColumns = @JoinColumn(name = "USERNAME", referencedColumnName = "USERNAME"),
             inverseJoinColumns = @JoinColumn(name = "ROLE",
-                    referencedColumnName = "ROLE"))
+                    referencedColumnName = "ROLE_ID"))
     private Role role;
 
     @Column(name = "FIRSTNAME")

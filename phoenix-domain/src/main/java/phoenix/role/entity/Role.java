@@ -17,7 +17,7 @@ public class Role implements Serializable {
 
     @Id
     @Enumerated(EnumType.STRING)
-    @Column(name = "ROLE", nullable = false)
+    @Column(name = "ROLE_ID", nullable = false)
     private RoleType roleType;
 
     public Role() { super(); }

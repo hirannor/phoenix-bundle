@@ -13,13 +13,22 @@ import javax.transaction.Transactional;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     /**
-     * @param userName
-     * @return
+     * Retrieves a user by username
+     * @param userName username of the user
+     * @return {@link User}
      */
     User findByUserName(String userName);
 
     /**
-     * @param userName
+     * Retrieves a user by emailaddress
+     * @param emailAddress emailAddress of the user
+     * @return {@link User}
+     */
+    User findByEmailAddress(String emailAddress);
+
+    /**
+     * Deletes a user by username
+     * @param userName {@link String} username of user
      */
     @Transactional
     void deleteByUserName(String userName);

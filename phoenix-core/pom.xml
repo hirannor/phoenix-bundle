@@ -14,9 +14,15 @@
     <name>phoenix-core</name>
     <description>phoenix-core</description>
 
-    <properties/>
+    <properties>
+        <liquibase-maven-plugin.version>3.5.3</liquibase-maven-plugin.version>
+    </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
@@ -28,4 +34,50 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>dbdeployment</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.liquibase</groupId>
+                        <artifactId>liquibase-maven-plugin</artifactId>
+                        <version>${liquibase-maven-plugin.version}</version>
+                        <configuration>
+                            <propertyFile>src/main/resources/properties/liquibase.properties</propertyFile>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>dropAll</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>dropAll</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>update</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>update</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+     <!--<build>-->
+         <!--<plugins>-->
+             <!--<plugin>-->
+                 <!--<groupId>org.liquibase</groupId>-->
+                 <!--<artifactId>liquibase-maven-plugin</artifactId>-->
+                 <!--<version>${liquibase-maven-plugin.version}</version>-->
+                 <!--<configuration>-->
+                     <!--<propertyFile>src/main/resources/properties/liquibase.properties</propertyFile>-->
+                 <!--</configuration>-->
+             <!--</plugin>-->
+         <!--</plugins>-->
+     <!--</build>-->
 </project>

@@ -10,7 +10,7 @@ import org.springframework.context.annotation.PropertySource;
  * @author mate.karolyi
  */
 @ConfigurationProperties(prefix = "phoenix.core.mail")
-@PropertySource("classpath:mail.properties")
+@PropertySource("classpath:properties/mail.properties")
 @Configuration
 public class EmailConfigurationProperties {
 

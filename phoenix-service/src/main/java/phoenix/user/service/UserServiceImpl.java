@@ -11,8 +11,9 @@ import phoenix.role.entity.Role;
 import phoenix.user.dto.User;
 import phoenix.user.entity.UserConfirmOperation;
 import phoenix.user.entity.UserToken;
-import phoenix.user.exception.UserAlreadyExistException;
+import phoenix.user.exception.EmailAddressAlreadyTakenException;
 import phoenix.user.exception.UserNotFoundException;
+import phoenix.user.exception.UsernameAlreadyTakenException;
 import phoenix.user.repository.UserRepository;
 import phoenix.user.repository.UserTokenRepository;
 
@@ -56,11 +57,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public void signup(User user, String confirmSignupUrl) {
         if (userRepository.findByUserName(user.getUserName()) != null) {
-            throw new UserAlreadyExistException("User already exist!");
+            throw new UsernameAlreadyTakenException("Username is already taken. Please choose another one!");
+        }
+        if(userRepository.findByEmailAddress(user.getEmailAddress()) != null) {
+            throw new EmailAddressAlreadyTakenException("Email address is already taken. Please use another one!");
         }
 
         phoenix.user.entity.User userEntity = new phoenix.user.entity.User();
-
         BeanUtils.copyProperties(user, userEntity);
         userEntity.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
@@ -71,7 +74,6 @@ public class UserServiceImpl implements UserService {
         userRepository.save(userEntity);
 
         String token = UUID.randomUUID().toString();
-
         createAndSaveUserToken(token, UserConfirmOperation.SIGNUP, userEntity);
         
         notificationService.sendMessage(user.getEmailAddress(), buildRegistrationNotification(userEntity, confirmSignupUrl + token));
@@ -138,13 +140,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void sendResetPasswordNotification(String userName, String resetPasswordUrl) {
         phoenix.user.entity.User userEntity = userRepository.findByUserName(userName);
-
         if (userEntity == null) {
             throw new UserNotFoundException("User with the given username is not found");
         }
 
         String token = UUID.randomUUID().toString();
-
         createAndSaveUserToken(token, UserConfirmOperation.RESET_PASSWORD, userEntity);
 
         notificationService.sendMessage(userEntity.getEmailAddress(), buildResetPasswordNotification(resetPasswordUrl + token));
@@ -161,13 +161,11 @@ public class UserServiceImpl implements UserService {
 
     private UserToken validateToken(UUID token) {
         UserToken userToken = userTokenRepository.findByToken(token.toString());
-
         if (userToken == null) {
             throw new IllegalArgumentException("Token not found");
         }
 
         Date currentDate = new Date();
-
         if(currentDate.after(userToken.getExpiryDate())) {
             throw new IllegalArgumentException("Token is expired");
         }

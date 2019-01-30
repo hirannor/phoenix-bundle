@@ -58,8 +58,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected PhoenixAuthenticationSuccessHandler phoenixAuthenticationSuccessHandler;
     protected PhoenixAuthenticationFailureHandler phoenixAuthenticationFailureHandler;
 
-    public SecurityConfiguration() { super(); }
-
     public SecurityConfiguration(AuthenticationEntryPoint authenticationEntryPoint,
                                      PhoenixAuthenticationSuccessHandler phoenixAuthenticationSuccessHandler, PhoenixAuthenticationFailureHandler phoenixAuthenticationFailureHandler) {
         this.authenticationEntryPoint = authenticationEntryPoint;

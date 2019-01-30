@@ -1,0 +1,45 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet author="mkarolyi" id="user_table:create:ddl:0.0.1" runOnChange="true">
+        <createTable tableName="USR_USER">
+            <column name="USERNAME" type="VARCHAR(20)">
+                <constraints primaryKey="true" primaryKeyName="PK_USR_USER_USERNAME" nullable="false"/>
+            </column>
+            <column name="PASSWORD" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="FIRSTNAME" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LASTNAME" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AGE" type="INT(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EMAILADDRESS" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="UQ_USR_USER_EMAILADDRESS"/>
+            </column>
+            <column name="ACTIVE" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="USR_ROLE">
+            <column name="USERNAME" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ROLE" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="USR_ROLE" columnNames="USERNAME, ROLE"/>
+
+        <addForeignKeyConstraint baseTableName="USR_ROLE" baseColumnNames="USERNAME" constraintName="FK_USR_USER_USERNAME" referencedTableName="USR_USER" referencedColumnNames="USERNAME"/>
+        <addForeignKeyConstraint baseTableName="USR_ROLE" baseColumnNames="ROLE" constraintName="FK_ROL_ROLE_ROLEID" referencedTableName="ROL_ROLE" referencedColumnNames="ROLE_ID"/>
+    </changeSet>
+
+</databaseChangeLog>

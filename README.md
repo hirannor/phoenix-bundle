@@ -4,6 +4,7 @@ Simple Java based web application, which uses Json Web Token Authentication & Au
 ## Technology stack
 - Spring-Boot
 - H2 (in memory db)
+- Liquibase
 - JPA & HIBERNATE
 - Swagger Open API
 - Angular 7
@@ -18,7 +19,7 @@ Simple Java based web application, which uses Json Web Token Authentication & Au
     
 ## Building and running the application
 
-Run the following maven command **mvn install -Pbuild-and-copy-angular-frontend** to build and copy angular UI to spring boot's static folder
+Run the following maven command **mvn install -Pdbdeployment, build-and-copy-angular-frontend** to initialize the database and to build and copy the angular UI to spring boot's static folder
 
 When the build is done run the following maven command **mvn spring-boot:run -Dspring-boot.run.profiles=production**
 in **phoenix-bundle/phoenix-web/** artifact
