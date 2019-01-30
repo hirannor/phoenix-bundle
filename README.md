@@ -23,6 +23,9 @@ Run the following maven command **mvn install -Pbuild-and-copy-angular-frontend*
 When the build is done run the following maven command **mvn spring-boot:run -Dspring-boot.run.profiles=production**
 in **phoenix-bundle/phoenix-web/** artifact
 
+## Application URL
+http://localhost:8080
+
 ## Swagger UI URL
 http://localhost:8080/swagger-ui.html
 
