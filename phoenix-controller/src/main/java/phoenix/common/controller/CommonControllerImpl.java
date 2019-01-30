@@ -2,6 +2,7 @@ package phoenix.common.controller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +19,16 @@ import java.util.UUID;
  * Spring Controller Implementation of {@link CommonApi}
  * @author mate.karolyi
  */
+@Profile("production")
 @RestController
 public class CommonControllerImpl implements CommonApi {
 
     private static final Logger LOGGER = LogManager.getLogger(CommonControllerImpl.class);
 
-    private UserService userService;
-    private HttpServletRequest httpServletRequest;
+    protected UserService userService;
+    protected HttpServletRequest httpServletRequest;
+
+    public CommonControllerImpl() { super(); }
 
     public CommonControllerImpl(UserService userService, HttpServletRequest httpServletRequest)
     {
@@ -56,9 +60,7 @@ public class CommonControllerImpl implements CommonApi {
         return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).header(HttpHeaders.LOCATION, getAppUrl(httpServletRequest)).build();
     }
 
-    private String getAppUrl(HttpServletRequest request) {
-        return "http://localhost:4200";
-        // uncomment the below line for production build
-        // return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+    protected String getAppUrl(HttpServletRequest request) {
+         return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
     }
 }

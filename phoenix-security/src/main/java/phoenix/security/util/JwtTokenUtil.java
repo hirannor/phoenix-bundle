@@ -9,7 +9,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,11 +29,12 @@ public class JwtTokenUtil {
 
     public static String generateToken(Authentication authentication) {
         try {
-            User user = (User) authentication.getPrincipal();
+            String userName = (String) authentication.getPrincipal();
+            Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>)authentication.getAuthorities();
             return JWT.create()
-                    .withSubject(user.getUsername())
+                    .withSubject(userName)
                     .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION))
-                    .withArrayClaim("role", convertGrantedAuthoritiesToString(user.getAuthorities()))
+                    .withArrayClaim("role", convertGrantedAuthoritiesToString(authorities))
                     .sign(HMAC512(SECRET_KEY.getBytes()));
         }
         catch(JWTCreationException ex) {

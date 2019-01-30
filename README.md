@@ -15,13 +15,19 @@ Simple Java based web application, which uses Json Web Token Authentication & Au
     - User Management (CRUD related operations)
 - User Role
     - User profile
-## Building the application
+    
+## Building and running the application
 
-**mvn install -Pbuild-and-copy-angular-frontend**
+Run the following maven command **mvn install -Pbuild-and-copy-angular-frontend** to build and copy angular UI to spring boot's static folder
 
-The mentioned profile builds and copy the Angular UI to spring boot's static folder. 
-When the build is done run **phoenix-bundle/phoenix-web/src/main/java/phoenix/SpringBootDemoApplication.java**
+When the build is done run the following maven command **mvn spring-boot:run -Dspring-boot.run.profiles=production**
+in **phoenix-bundle/phoenix-web/** artifact
 
+## Swagger UI URL
+http://localhost:8080/swagger-ui.html
+
+## H2 Database URL
+http://localhost:8080/h2
 
 ## Demo users for the application
 
