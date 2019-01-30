@@ -34,7 +34,7 @@ http://localhost:8080/swagger-ui.html
 **URL**:  http://localhost:8080/h2
 
 **Datasource:**
- - url: jdbc:h2:file:~/phoenixdb
+ - url: jdbc:h2:mem:phoenixdb
  - username: hirannor
  - password: pwnd
 
