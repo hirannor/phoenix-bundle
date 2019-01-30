@@ -16,13 +16,16 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: AdminHomeComponent,
-        outlet: 'adminContent'
+        redirectTo: 'home',
+        pathMatch: 'full'
+      },
+      {
+        path: 'home',
+        component: AdminHomeComponent
       },
       {
         path: 'usermanagement',
-        component: UserManagementComponent,
-        outlet: 'adminContent'
+        component: UserManagementComponent
       }
     ]
   },
@@ -33,8 +36,12 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: UserHomeComponent,
-        outlet: 'userContent'
+        redirectTo: 'home',
+        pathMatch: 'full'
+      },
+      {
+        path: 'home',
+        component: UserHomeComponent
       }
     ]
   },

@@ -1,3 +1,1 @@
-<div *ngIf="loaderService.isLoading | async">
-  <img src="../../../assets/images/loading.gif" class="center"/>
-</div>
+<div [ngClass]="(loaderService.isLoading | async) ? 'loading-img' : ''"></div>

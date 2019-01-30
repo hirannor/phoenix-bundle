@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {User} from "../../../models/user";
 import {AlertService, CommonService, UserService} from "../../../services";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
@@ -8,7 +8,7 @@ import {first} from "rxjs/operators";
   selector: 'phoenix-modal-edit',
   templateUrl: './modal-edit.component.html'
 })
-export class ModalEditComponent  implements OnInit {
+export class ModalEditComponent {
 
   @Input() user: User;
 
@@ -19,10 +19,8 @@ export class ModalEditComponent  implements OnInit {
 
   constructor(private userService: UserService, private commonService: CommonService, private alertService: AlertService, private activeModal: NgbActiveModal){
     this.user = new User();
-  }
-
-  ngOnInit(): void {
     this.loadAllRoles();
+
   }
 
   sendResetPasswordNotification(userName: string) {

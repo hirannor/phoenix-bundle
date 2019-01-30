@@ -10,18 +10,8 @@ import {AdminHomeComponent} from './components/admin/home';
 import {UserHomeComponent} from './components/user/home';
 import {AlertComponent, ModalComponent} from './directives';
 import {ErrorInterceptor, LoaderInterceptor, TokenInterceptor} from "./interceptors";
-import {
-  AdminContentComponent,
-  AdminFooterComponent,
-  AdminHeaderComponent,
-  AdminLayoutComponent
-} from "./components/admin/layout";
-import {
-  UserContentComponent,
-  UserFooterComponent,
-  UserHeaderComponent,
-  UserLayoutComponent
-} from "./components/user/layout";
+import {AdminFooterComponent, AdminHeaderComponent, AdminLayoutComponent} from "./components/admin/layout";
+import {UserFooterComponent, UserHeaderComponent, UserLayoutComponent} from "./components/user/layout";
 import {TokenStorage} from "./helpers/token.storage";
 import {NgbActiveModal, NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
 import {ModalSignupComponent} from "./components/signup";
@@ -50,11 +40,9 @@ import {LoaderComponent} from "./components/loader";
     UserManagementComponent,
     AdminLayoutComponent,
     AdminHeaderComponent,
-    AdminContentComponent,
     AdminFooterComponent,
     UserLayoutComponent,
     UserHeaderComponent,
-    UserContentComponent,
     UserFooterComponent,
     PhoenixMinDirective,
     PhoenixMaxDirective,
