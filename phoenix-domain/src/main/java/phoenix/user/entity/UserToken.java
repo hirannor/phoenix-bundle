@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "USR_RESET_PW_TOKEN")
-public class ResetPasswordToken {
+@Table(name = "USR_TOKEN_CONFIRM")
+public class UserToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,11 +19,14 @@ public class ResetPasswordToken {
 
     private Date expiryDate;
 
-    public  ResetPasswordToken() {
+    @Enumerated(EnumType.STRING)
+    private UserConfirmOperation userConfirmOperation;
+
+    public UserToken() {
         super();
     }
 
-    public ResetPasswordToken(String token, User user, Date expiryDate) {
+    public UserToken(String token, User user, Date expiryDate) {
         this.token = token;
         this.user = user;
         this.expiryDate = expiryDate;
@@ -59,5 +62,13 @@ public class ResetPasswordToken {
 
     public void setExpiryDate(Date expiryDate) {
         this.expiryDate = expiryDate;
+    }
+
+    public UserConfirmOperation getUserConfirmOperation() {
+        return userConfirmOperation;
+    }
+
+    public void setUserConfirmOperation(UserConfirmOperation userConfirmOperation) {
+        this.userConfirmOperation = userConfirmOperation;
     }
 }

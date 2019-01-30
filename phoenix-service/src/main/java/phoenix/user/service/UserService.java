@@ -23,7 +23,9 @@ public interface UserService {
      * Add a user to the store
      * @param user {@link User}
      */
-    void addUser(User user);
+    void signup(User user, String confirmSignupUrl);
+
+    void confirmSignup(UUID token);
 
     /**
      * Returns all users from a store

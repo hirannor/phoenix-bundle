@@ -26,6 +26,23 @@ paths:
       responses:
         201:
           description: "User registrated successfuly"
+  /common/signup/{token}:
+    get:
+      summary: "Confirm the registration"
+      description: "Confirm the registration"
+      operationId: "confirmSignup"
+      parameters:
+        - name: "token"
+          in: "path"
+          description: "UUID token of signup confirm"
+          required: true
+          type: "string"
+          format: "uuid"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Token not found"
   /common/resetPassword/{userName}:
     post:
       summary: "Sends a reset password notification for a user"
@@ -48,11 +65,11 @@ paths:
     get:
       summary: "Resets password for a user"
       description: "Resets password for a user"
-      operationId: "resetPassword"
+      operationId: "confirmResetPassword"
       parameters:
         - name: "token"
           in: "path"
-          description: "UUID token of reset passwword"
+          description: "UUID token of reset password confirmation"
           required: true
           type: "string"
           format: "uuid"

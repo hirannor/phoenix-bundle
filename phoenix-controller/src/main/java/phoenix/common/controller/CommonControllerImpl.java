@@ -33,7 +33,7 @@ public class CommonControllerImpl implements CommonApi {
     }
 
     @Override
-    public ResponseEntity<Void> resetPassword(UUID token) {
+    public ResponseEntity<Void> confirmResetPassword(UUID token) {
         userService.resetPassword(token);
         return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).header(HttpHeaders.LOCATION, getAppUrl(httpServletRequest)).build();
     }
@@ -46,8 +46,14 @@ public class CommonControllerImpl implements CommonApi {
 
     @Override
     public ResponseEntity<Void> signup(@Valid User user) {
-        userService.addUser(user);
+        userService.signup(user, getAppUrl(httpServletRequest) + "/common/signup/");
         return new ResponseEntity<Void>(HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<Void> confirmSignup(UUID token) {
+        userService.confirmSignup(token);
+        return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).header(HttpHeaders.LOCATION, getAppUrl(httpServletRequest)).build();
     }
 
     private String getAppUrl(HttpServletRequest request) {

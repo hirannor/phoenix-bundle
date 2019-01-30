@@ -9,11 +9,12 @@ import phoenix.notification.service.NotificationService;
 import phoenix.role.RoleType;
 import phoenix.role.entity.Role;
 import phoenix.user.dto.User;
-import phoenix.user.entity.ResetPasswordToken;
+import phoenix.user.entity.UserConfirmOperation;
+import phoenix.user.entity.UserToken;
 import phoenix.user.exception.UserAlreadyExistException;
 import phoenix.user.exception.UserNotFoundException;
-import phoenix.user.repository.ResetPasswordTokenRepository;
 import phoenix.user.repository.UserRepository;
+import phoenix.user.repository.UserTokenRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,13 +33,13 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private NotificationService notificationService;
-    private ResetPasswordTokenRepository resetPasswordTokenRepository;
+    private UserTokenRepository userTokenRepository;
 
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, NotificationService notificationService, ResetPasswordTokenRepository resetPasswordTokenRepository) {
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, NotificationService notificationService, UserTokenRepository userTokenRepository) {
         this.userRepository = userRepository;
         this.notificationService = notificationService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.resetPasswordTokenRepository = resetPasswordTokenRepository;
+        this.userTokenRepository = userTokenRepository;
     }
 
     @Override
@@ -53,7 +54,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUser(User user) {
+    public void signup(User user, String confirmSignupUrl) {
         if (userRepository.findByUserName(user.getUserName()) != null) {
             throw new UserAlreadyExistException("User already exist!");
         }
@@ -68,7 +69,23 @@ public class UserServiceImpl implements UserService {
         userEntity.setRole(role);
 
         userRepository.save(userEntity);
-        notificationService.sendMessage(user.getEmailAddress(), buildRegistrationNotification(userEntity));
+
+        String token = UUID.randomUUID().toString();
+
+        createAndSaveUserToken(token, UserConfirmOperation.SIGNUP, userEntity);
+        
+        notificationService.sendMessage(user.getEmailAddress(), buildRegistrationNotification(userEntity, confirmSignupUrl + token));
+    }
+
+    @Override
+    public void confirmSignup(UUID token) {
+        UserToken userToken = validateToken(token);
+
+        phoenix.user.entity.User user = userRepository.findByUserName(userToken.getUser().getUserName());
+        user.setActive(true);
+        userRepository.save(user);
+
+        notificationService.sendMessage(user.getEmailAddress(), buildSignupConfirmationNotification(user));
     }
 
     @Override
@@ -107,21 +124,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void resetPassword(UUID token) {
-        ResetPasswordToken resetPasswordToken = resetPasswordTokenRepository.findByToken(token.toString());
-
-        if (resetPasswordToken == null) {
-            throw new IllegalArgumentException("Reset password token not found");
-        }
-
-        Date currentDate = new Date();
-
-        if(currentDate.after(resetPasswordToken.getExpiryDate())) {
-            throw new IllegalArgumentException("Reset password token is expired");
-        }
+        UserToken userToken = validateToken(token);
 
         String generatedPassword = RandomStringUtils.randomAlphanumeric(8);
 
-        phoenix.user.entity.User userEntity = resetPasswordToken.getUser();
+        phoenix.user.entity.User userEntity = userToken.getUser();
         userEntity.setPassword(bCryptPasswordEncoder.encode(generatedPassword));
         userRepository.save(userEntity);
 
@@ -138,13 +145,34 @@ public class UserServiceImpl implements UserService {
 
         String token = UUID.randomUUID().toString();
 
-        ResetPasswordToken resetPasswordToken = new ResetPasswordToken();
-        resetPasswordToken.setExpiryDate(DateUtils.addMinutes(new Date(), TOKEN_EXPIRY_IN_MINUTES));
-        resetPasswordToken.setToken(token);
-        resetPasswordToken.setUser(userEntity);
-        resetPasswordTokenRepository.save(resetPasswordToken);
+        createAndSaveUserToken(token, UserConfirmOperation.RESET_PASSWORD, userEntity);
 
         notificationService.sendMessage(userEntity.getEmailAddress(), buildResetPasswordNotification(resetPasswordUrl + token));
+    }
+
+    private void createAndSaveUserToken(String token, UserConfirmOperation userConfirmOperation, phoenix.user.entity.User userEntity) {
+        UserToken userToken = new UserToken();
+        userToken.setExpiryDate(DateUtils.addMinutes(new Date(), TOKEN_EXPIRY_IN_MINUTES));
+        userToken.setToken(token);
+        userToken.setUser(userEntity);
+        userToken.setUserConfirmOperation(userConfirmOperation);
+        userTokenRepository.save(userToken);
+    }
+
+    private UserToken validateToken(UUID token) {
+        UserToken userToken = userTokenRepository.findByToken(token.toString());
+
+        if (userToken == null) {
+            throw new IllegalArgumentException("Token not found");
+        }
+
+        Date currentDate = new Date();
+
+        if(currentDate.after(userToken.getExpiryDate())) {
+            throw new IllegalArgumentException("Token is expired");
+        }
+
+        return userToken;
     }
 
     private String buildPasswordChangeNotification(phoenix.user.entity.User userEntity, String rawPassword) {
@@ -158,7 +186,7 @@ public class UserServiceImpl implements UserService {
         return sb.toString();
     }
 
-    private String buildRegistrationNotification(phoenix.user.entity.User userEntity) {
+    private String buildRegistrationNotification(phoenix.user.entity.User userEntity, String callbackUrl) {
         StringBuilder sb = new StringBuilder();
 
         sb.append("<h1>Dear " + userEntity.getFirstName() + " " + userEntity.getLastName() + " your registration was successful!</h1>");
@@ -172,6 +200,19 @@ public class UserServiceImpl implements UserService {
         sb.append("<li>Age: " + userEntity.getAge() + "</li>");
         sb.append("<li>E-mail: " + userEntity.getEmailAddress() + "</li>");
         sb.append("</ul>");
+        sb.append("<br>");
+        sb.append("<h1>In order to activate your account please click on the below</h1>");
+        sb.append("<a href=" + callbackUrl + ">link</a>");
+        sb.append("<br>");
+        sb.append("<p>This is an automaticly generated email.</p>");
+
+        return sb.toString();
+    }
+
+    private String buildSignupConfirmationNotification(phoenix.user.entity.User userEntity) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("<h1>Dear " + userEntity.getFirstName() + " " + userEntity.getLastName() + " your account was succesfuly activated!</h1>");
         sb.append("<br>");
         sb.append("<p>This is an automaticly generated email.</p>");
 

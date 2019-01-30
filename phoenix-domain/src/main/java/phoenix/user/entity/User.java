@@ -35,6 +35,8 @@ public class User implements Serializable {
 
     private int age;
 
+    private boolean active;
+
     @Column(name = "EMAILADDRESS", unique = true)
     private String emailAddress;
 
@@ -43,7 +45,7 @@ public class User implements Serializable {
         super();
     }
 
-    public User(String userName, String password, Role role, String firstName, String lastName, int age, String emailAddress) {
+    public User(String userName, String password, Role role, String firstName, String lastName, int age, String emailAddress, boolean active) {
         this.userName = userName;
         this.password = password;
         this.role = role;
@@ -51,6 +53,7 @@ public class User implements Serializable {
         this.lastName = lastName;
         this.age = age;
         this.emailAddress = emailAddress;
+        this.active = active;
     }
 
     public String getUserName() {
@@ -107,5 +110,13 @@ public class User implements Serializable {
 
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
