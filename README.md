@@ -9,8 +9,8 @@ Simple Java based web application, which uses Json Web Token Authentication & Au
 - Angular 7
 
 ## Current Features
-- Signup
-- Reset password (with notification)
+- Signup (with confirm notification)
+- Reset password (with confirm notification)
 - Admin Role
     - User Management (CRUD related operations)
 - User Role
