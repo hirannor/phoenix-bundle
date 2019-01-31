@@ -52,10 +52,4 @@ public class PhoenixJwtAuthorizationFilter extends OncePerRequestFilter {
 
         return grantedAuthorities;
     }
-
-//    @Override
-//    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-//        AntPathMatcher pathMatcher = new AntPathMatcher();
-//        return pathMatcher.match(null, request.getServletPath());
-//    }
 }

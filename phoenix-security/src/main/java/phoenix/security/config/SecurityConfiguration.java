@@ -2,7 +2,6 @@ package phoenix.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -28,7 +27,6 @@ import phoenix.user.repository.UserRepository;
  */
 @EnableWebSecurity
 @Configuration
-@Profile("production")
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     protected static final String PROTECTED_API = "/v1/api/**";

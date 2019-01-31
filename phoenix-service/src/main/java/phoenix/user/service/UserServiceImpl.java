@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
     public void confirmSignup(UUID token) {
         UserToken userToken = validateToken(token);
 
-        phoenix.user.entity.User user = userRepository.findByUserName(userToken.getUser().getUserName());
+        phoenix.user.entity.User user =  userToken.getUser();
         user.setActive(true);
         userRepository.save(user);
 
@@ -164,7 +164,6 @@ public class UserServiceImpl implements UserService {
         if (userToken == null) {
             throw new IllegalArgumentException("Token not found");
         }
-
         Date currentDate = new Date();
         if(currentDate.after(userToken.getExpiryDate())) {
             throw new IllegalArgumentException("Token is expired");
