@@ -36,7 +36,7 @@
 
     <profiles>
         <profile>
-            <id>dbdeployment</id>
+            <id>dbbootstrap</id>
             <build>
                 <plugins>
                     <plugin>
@@ -48,16 +48,10 @@
                         </configuration>
                         <executions>
                             <execution>
-                                <id>dropAll</id>
+                                <id>dbbootstrap</id>
                                 <phase>process-resources</phase>
                                 <goals>
                                     <goal>dropAll</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>update</id>
-                                <phase>process-resources</phase>
-                                <goals>
                                     <goal>update</goal>
                                 </goals>
                             </execution>
@@ -67,17 +61,4 @@
             </build>
         </profile>
     </profiles>
-
-     <!--<build>-->
-         <!--<plugins>-->
-             <!--<plugin>-->
-                 <!--<groupId>org.liquibase</groupId>-->
-                 <!--<artifactId>liquibase-maven-plugin</artifactId>-->
-                 <!--<version>${liquibase-maven-plugin.version}</version>-->
-                 <!--<configuration>-->
-                     <!--<propertyFile>src/main/resources/properties/liquibase.properties</propertyFile>-->
-                 <!--</configuration>-->
-             <!--</plugin>-->
-         <!--</plugins>-->
-     <!--</build>-->
 </project>

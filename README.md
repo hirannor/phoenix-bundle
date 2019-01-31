@@ -16,10 +16,13 @@ Simple Java based web application, which uses Json Web Token Authentication & Au
     - User Management (CRUD related operations)
 - User Role
     - User profile
-    
+  
+## Manual DB bootstrap
+
+Run **mvn clean package -Pdbbootstrap** on **phoenix-bundle/phoenix-core/** artifact
 ## Building and running the application
 
-Run the following maven command **mvn install -Pdbdeployment, build-and-copy-angular-frontend** to initialize the database and to build and copy the angular UI to spring boot's static folder
+Run the following maven command **mvn install -Pdbbootstrap, build-and-copy-angular-frontend** to initialize the database and to build and copy the angular UI to spring boot's static folder
 
 When the build is done run the following maven command **mvn spring-boot:run -Dspring-boot.run.profiles=production**
 in **phoenix-bundle/phoenix-web/** artifact
@@ -35,8 +38,8 @@ http://localhost:8080/swagger-ui.html
 
 **Datasource:**
  - url: jdbc:h2:file:~/phoenixdb
- - username: hirannor
- - password: pwnd
+ - username: sa
+ - password: 
 
 
 ## Demo users for the application
