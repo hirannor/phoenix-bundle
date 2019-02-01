@@ -1,6 +1,6 @@
 -- USERS START
 INSERT INTO USR_USER VALUES (
-  'admin', '$2a$04$BT2NWmlIgbX.OWtOwSlmpO3U3bQ5r/8Gd96WmrL112.SYqUSiiCNm', 'Mate', 'Karolyi', 27, 'phoenix.noreply.test@gmail.com', true
+  'admin', '$2a$04$BT2NWmlIgbX.OWtOwSlmpO3U3bQ5r/8Gd96WmrL112.SYqUSiiCNm', 'Mate', 'Karolyi', 27, 'hirannormatt@gmail.com', true
 );
 
 INSERT INTO USR_USER VALUES (
@@ -12,7 +12,7 @@ INSERT INTO USR_USER VALUES (
 );
 
 INSERT INTO USR_USER VALUES (
-  'user3', '$2a$04$BT2NWmlIgbX.OWtOwSlmpO3U3bQ5r/8Gd96WmrL112.SYqUSiiCNm', 'Miklos', 'Nagy', 15, 'test4@localhost', true
+  'user3', '$2a$04$BT2NWmlIgbX.OWtOwSlmpO3U3bQ5r/8Gd96WmrL112.SYqUSiiCNm', 'Miklos', 'Nagy', 18, 'test4@localhost', true
 );
 
 INSERT INTO USR_USER VALUES (

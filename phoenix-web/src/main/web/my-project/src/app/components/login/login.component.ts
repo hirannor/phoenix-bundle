@@ -9,6 +9,7 @@ import {RoleType} from "../../models/base";
 import {UserCredentials} from "../../models/user";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ModalSignupComponent} from "../signup/modal-signup.component";
+import {ModalForgotPasswordComponent} from "../forgotpassword/modal-forgot-password.component";
 
 @Component({
   templateUrl: './login.component.html',
@@ -52,9 +53,12 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  openModal() {
+  openSignupModal() {
     const modalRef = this.modalService.open(ModalSignupComponent);
-    modalRef.componentInstance.title = 'Signup';
+  }
+
+  openForgotPasswordModal() {
+    const modalRef = this.modalService.open(ModalForgotPasswordComponent);
   }
 
   routeByRole(role: String) {

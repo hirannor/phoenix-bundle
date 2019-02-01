@@ -19,6 +19,7 @@ import {ModalEditComponent, UserManagementComponent} from "./components/admin/us
 import {PhoenixMinDirective} from "./directives/validator/phoenix-min-validator.directive";
 import {PhoenixMaxDirective} from "./directives/validator/phoenix-max-validator.directive";
 import {LoaderComponent} from "./components/loader";
+import {ModalForgotPasswordComponent} from "./components/forgotpassword";
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import {LoaderComponent} from "./components/loader";
     AppComponent,
     ModalSignupComponent,
     ModalEditComponent,
+    ModalForgotPasswordComponent,
     LoginComponent,
     AdminHomeComponent,
     UserHomeComponent,
@@ -58,7 +60,8 @@ import {LoaderComponent} from "./components/loader";
   bootstrap: [AppComponent],
   entryComponents: [
     ModalSignupComponent,
-    ModalEditComponent
+    ModalEditComponent,
+    ModalForgotPasswordComponent
   ]
 })
 export class AppModule { }

@@ -70,13 +70,12 @@ public class UserServiceImpl implements UserService {
         Role role = new Role();
         role.setRoleType(RoleType.ROLE_USER);
         userEntity.setRole(role);
-
         userRepository.save(userEntity);
 
-        String token = UUID.randomUUID().toString();
+        UUID token = UUID.randomUUID();
         createAndSaveUserToken(token, UserConfirmOperation.SIGNUP, userEntity);
         
-        notificationService.sendMessage(user.getEmailAddress(), buildRegistrationNotification(userEntity, confirmSignupUrl + token));
+        notificationService.sendMessage(user.getEmailAddress(), buildRegistrationNotification(userEntity, confirmSignupUrl + token.toString()));
     }
 
     @Override
@@ -88,6 +87,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
         notificationService.sendMessage(user.getEmailAddress(), buildSignupConfirmationNotification(user));
+        userTokenRepository.deleteByToken(token);
     }
 
     @Override
@@ -135,6 +135,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(userEntity);
 
         notificationService.sendMessage(userEntity.getEmailAddress(), buildPasswordChangeNotification(userEntity, generatedPassword));
+        userTokenRepository.deleteByToken(token);
     }
 
     @Override
@@ -144,13 +145,13 @@ public class UserServiceImpl implements UserService {
             throw new UserNotFoundException("User with the given username is not found");
         }
 
-        String token = UUID.randomUUID().toString();
+        UUID token = UUID.randomUUID();
         createAndSaveUserToken(token, UserConfirmOperation.RESET_PASSWORD, userEntity);
 
-        notificationService.sendMessage(userEntity.getEmailAddress(), buildResetPasswordNotification(resetPasswordUrl + token));
+        notificationService.sendMessage(userEntity.getEmailAddress(), buildResetPasswordNotification(resetPasswordUrl + token.toString()));
     }
 
-    private void createAndSaveUserToken(String token, UserConfirmOperation userConfirmOperation, phoenix.user.entity.User userEntity) {
+    private void createAndSaveUserToken(UUID token, UserConfirmOperation userConfirmOperation, phoenix.user.entity.User userEntity) {
         UserToken userToken = new UserToken();
         userToken.setExpiryDate(DateUtils.addMinutes(new Date(), TOKEN_EXPIRY_IN_MINUTES));
         userToken.setToken(token);
@@ -160,7 +161,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private UserToken validateToken(UUID token) {
-        UserToken userToken = userTokenRepository.findByToken(token.toString());
+        UserToken userToken = userTokenRepository.findByToken(token);
         if (userToken == null) {
             throw new IllegalArgumentException("Token not found");
         }

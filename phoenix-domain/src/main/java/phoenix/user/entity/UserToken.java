@@ -2,6 +2,7 @@ package phoenix.user.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "USR_TOKEN_CONFIRM")
@@ -11,7 +12,7 @@ public class UserToken {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String token;
+    private UUID token;
 
     @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "USERNAME")
@@ -26,7 +27,7 @@ public class UserToken {
         super();
     }
 
-    public UserToken(String token, User user, Date expiryDate) {
+    public UserToken(UUID token, User user, Date expiryDate) {
         this.token = token;
         this.user = user;
         this.expiryDate = expiryDate;
@@ -40,11 +41,11 @@ public class UserToken {
         this.id = id;
     }
 
-    public String getToken() {
+    public UUID getToken() {
         return token;
     }
 
-    public void setToken(String token) {
+    public void setToken(UUID token) {
         this.token = token;
     }
 

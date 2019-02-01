@@ -29,7 +29,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     /**
      * Deletes a user by username
      * @param userName {@link String} username of user
+     * @return number of affected records
      */
     @Transactional
-    void deleteByUserName(String userName);
+    Integer deleteByUserName(String userName);
 }
