@@ -1,17 +1,17 @@
 {
   "/authenticate": {
     "target": "https://localhost:8443",
-    "secure": true,
+    "secure": false,
     "logLevel": "debug"
   },
   "/common/**": {
       "target": "https://localhost:8443",
-      "secure": true,
+      "secure": false,
       "logLevel": "debug"
   },
   "/v1/api/**": {
     "target": "https://localhost:8443",
-    "secure": true,
+    "secure": false,
     "logLevel": "debug"
   }
 }
