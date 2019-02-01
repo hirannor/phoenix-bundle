@@ -3,7 +3,9 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-    <include file="scripts/defaultconfig/0.0.1/dml/defaultconfig-role-dml-0.0.1.xml"/>
-    <include file="scripts/defaultconfig/0.0.1/dml/defaultconfig-resource-dml-0.0.1.xml"/>
+    <changeSet author="mkarolyi" id="resource:insert:dml:0.0.1" runOnChange="true">
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.test.a', 'en', 'English')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.test.a', 'de', 'Deutsch')</sql>
+    </changeSet>
 
 </databaseChangeLog>

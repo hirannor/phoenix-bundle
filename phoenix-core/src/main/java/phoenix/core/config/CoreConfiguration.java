@@ -14,12 +14,17 @@ import org.springframework.core.io.Resource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMailMessage;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Properties;
 
 /**
@@ -60,6 +65,25 @@ public class CoreConfiguration implements WebMvcConfigurer {
         return mimeMailMessage;
     }
 
+    @Bean
+    public LocaleResolver localeResolver() {
+        CookieLocaleResolver resolver = new CookieLocaleResolver();
+        resolver.setDefaultLocale(Locale.US);
+        return resolver;
+    }
+
+    @Bean
+    public LocaleChangeInterceptor getLocaleChangeInterceptor() {
+        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+        localeChangeInterceptor.setParamName("lang");
+        return localeChangeInterceptor;
+    }
+
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(getLocaleChangeInterceptor());
+    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

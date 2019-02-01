@@ -9,6 +9,11 @@
       "secure": false,
       "logLevel": "debug"
   },
+  "/resources": {
+    "target": "https://localhost:8443",
+    "secure": false,
+    "logLevel": "debug"
+  },
   "/v1/api/**": {
     "target": "https://localhost:8443",
     "secure": false,
