@@ -8,7 +8,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import phoenix.security.exception.AccountIsDisabledException;
 import phoenix.security.exception.AuthenticationMethodNotSupportedException;
 import phoenix.security.util.AuthenticationValidator;
 import phoenix.security.util.ObjectMapperUtil;
@@ -47,7 +46,7 @@ public class PhoenixJwtAuthenticationFilter extends AbstractAuthenticationProces
 
         User user = (User) ObjectMapperUtil.deserialize(request, User.class);
         if (StringUtils.isBlank(user.getUserName()) || StringUtils.isBlank(user.getPassword())) {
-            throw new AccountIsDisabledException("Username or password is not provided!");
+            throw new IllegalArgumentException("Username or password is not provided!");
         }
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword(), null);
