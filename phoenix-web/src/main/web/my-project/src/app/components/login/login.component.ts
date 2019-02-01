@@ -10,6 +10,7 @@ import {UserCredentials} from "../../models/user";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ModalSignupComponent} from "../signup/modal-signup.component";
 import {ModalForgotPasswordComponent} from "../forgotpassword/modal-forgot-password.component";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   templateUrl: './login.component.html',
@@ -19,6 +20,8 @@ import {ModalForgotPasswordComponent} from "../forgotpassword/modal-forgot-passw
 })
 export class LoginComponent implements OnInit {
 
+  selectedLanguage: string;
+  languages: string[];
   credentials: UserCredentials;
   adminUrl: string;
   userUrl: string;
@@ -26,11 +29,15 @@ export class LoginComponent implements OnInit {
   constructor(
     private route: ActivatedRoute, private router: Router,
     private authenticationService: AuthenticationService, private tokenStorage: TokenStorage,
-    private alertService: AlertService, private modalService: NgbModal) {
+    private alertService: AlertService, private modalService: NgbModal,
+    private translateService: TranslateService) {
 
     this.credentials = new UserCredentials();
     this.adminUrl = '/admin';
     this.userUrl = '/user'
+    this.languages = ['en', 'de'];
+    this.selectedLanguage = this.translateService.getDefaultLang();
+
   }
 
   ngOnInit() {
@@ -39,6 +46,10 @@ export class LoginComponent implements OnInit {
         this.alertService.error(params.get('error'))
       }
     })
+  }
+
+  onChange(language: string) {
+    this.translateService.use(language);
   }
 
   onSubmit() {

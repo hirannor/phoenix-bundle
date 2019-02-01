@@ -1,4 +1,4 @@
-package phoenix.core.message.entity;
+package phoenix.core.i18n.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

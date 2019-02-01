@@ -1,63 +1,63 @@
 <phoenix-modal title="Signup">
   <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
     <div class="form-group">
-      <label for="userName" class="label label-default">Username</label>
+      <label for="userName" class="label label-default">{{'phoenix.signup:Label.username' | translate}}</label>
       <input type="text" name="username" class="form-control" [(ngModel)]="user.userName" required #userName="ngModel" [ngClass]="{'is-invalid':userName.invalid}"/>
       <div *ngIf="userName.invalid && (userName.dirty || userName.touched)"
            class="alert alert-danger">
         <div *ngIf="userName.errors.required">
-          Username is required
+          {{'phoenix.signup:Field.username.required' | translate}}
         </div>
       </div>
     </div>
     <div class="form-group">
-      <label for="password" class="label label-default">Password</label>
+      <label for="password" class="label label-default">{{'phoenix.signup:Label.password' | translate}}</label>
       <input type="password" name="password" class="form-control" [(ngModel)]="user.password" required #password="ngModel" [ngClass]="{'is-invalid':password.invalid}"/>
       <div *ngIf="password.invalid && (userName.dirty || userName.touched)"
            class="alert alert-danger">
         <div *ngIf="password.errors.required">
-          Password is required
+          {{'phoenix.signup:Field.password.required' | translate}}
         </div>
       </div>
     </div>
     <div class="form-group">
-      <label for="emailAddress" class="label label-default">Email Address</label>
+      <label for="emailAddress" class="label label-default">{{'phoenix.signup:Label.emailAddress' | translate}}</label>
       <input type="text" name="emailaddress" class="form-control" [(ngModel)]="user.emailAddress" required #emailAddress="ngModel" [ngClass]="{'is-invalid':emailAddress.invalid}"/>
       <div *ngIf="emailAddress.invalid && (emailAddress.dirty || emailAddress.touched)"
            class="alert alert-danger">
         <div *ngIf="emailAddress.errors.required">
-          Email address is required
+          {{'phoenix.signup:Field.emailAddress.required' | translate}}
         </div>
       </div>
     </div>
     <div class="form-group">
-      <label for="firstName" class="label label-default">First Name</label>
+      <label for="firstName" class="label label-default">{{'phoenix.signup:Label.firstName' | translate}}</label>
       <input type="text" name="firstname" class="form-control" [(ngModel)]="user.firstName" required #firstName="ngModel" [ngClass]="{'is-invalid':firstName.invalid}"/>
       <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
            class="alert alert-danger">
         <div *ngIf="firstName.errors.required">
-          Firstname is required
+          {{'phoenix.signup:Field.firstName.required' | translate}}
         </div>
       </div>
     </div>
     <div class="form-group">
-      <label for="lastName" class="label label-default">Last Name</label>
+      <label for="lastName" class="label label-default">{{'phoenix.signup:Label.lastName' | translate}}</label>
       <input type="text" name="lastname" class="form-control" [(ngModel)]="user.lastName" required #lastName="ngModel" [ngClass]="{'is-invalid':lastName.invalid}"/>
       <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
            class="alert alert-danger">
         <div *ngIf="lastName.errors.required">
-          Lastname is required
+          {{'phoenix.signup:Field.lastName.required' | translate}}
         </div>
       </div>
     </div>
     <div class="form-group">
-      <label for="age" class="label label-default">Age</label>
+      <label for="age" class="label label-default">{{'phoenix.signup:Label.age' | translate }}</label>
       <input type="number" name="age" class="form-control" [(ngModel)]="user.age" required #age="ngModel"
              [ngClass]="{'is-invalid':age.invalid}" [min]="minAge" [max]="maxAge"/>
       <div *ngIf="age.invalid && (age.dirty || age.touched)"
            class="alert alert-danger">
         <div *ngIf="age.errors.required">
-          Age is required
+          {{'phoenix.signup:Field.age.required' | translate}}
         </div>
         <div *ngIf="age.errors?.min">
           Minimum age should be atleast {{minAge}}
@@ -67,6 +67,6 @@
         </div>
       </div>
     </div>
-    <button class="btn btn-primary" [disabled]="!signupForm.form.valid">Send</button>
+    <button class="btn btn-primary" [disabled]="!signupForm.form.valid">{{'phoenix.signup:Button.send' | translate}}</button>
   </form>
 </phoenix-modal>

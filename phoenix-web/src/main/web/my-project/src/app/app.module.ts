@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -20,12 +20,23 @@ import {PhoenixMinDirective} from "./directives/validator/phoenix-min-validator.
 import {PhoenixMaxDirective} from "./directives/validator/phoenix-max-validator.directive";
 import {LoaderComponent} from "./components/loader";
 import {ModalForgotPasswordComponent} from "./components/forgotpassword";
+import {HttpResourceLoader} from "./core/translation/http-resource-loader";
+import {MissingTranslationHandler, TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {PhoenixMissingTranslationHandler} from "./core/translation/phoenix-missing-translation-handler";
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    TranslateModule.forRoot({
+      missingTranslationHandler: {provide: MissingTranslationHandler, useClass: PhoenixMissingTranslationHandler},
+      loader: {
+        provide: TranslateLoader,
+        useClass: HttpResourceLoader,
+        deps: [HttpClient]
+      }
+    }),
     AppRoutingModule,
     NgbModalModule
 ],

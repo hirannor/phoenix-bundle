@@ -38,6 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected static final String MAIN_ENTRY_POINT = "/authenticate";
     protected static final String[] AUTH_WHITELIST = {
             "/",
+            "/?lang=**",
             "/common/**",
             "/h2/**",
             "/v2/api-docs",
@@ -49,7 +50,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/webjars/**",
             "/index.html",
             "/favicon.ico",
-            "/*.js"
+            "/*.js",
+            "/resources"
     };
 
     protected AuthenticationEntryPoint authenticationEntryPoint;

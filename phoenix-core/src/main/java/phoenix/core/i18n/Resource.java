@@ -1,15 +1,13 @@
-package phoenix.core.message;
+package phoenix.core.i18n;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.support.AbstractMessageSource;
-import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
-import phoenix.core.message.entity.MessageSource;
-import phoenix.core.message.repository.MessageSourceRepository;
+import phoenix.core.i18n.entity.MessageSource;
+import phoenix.core.i18n.repository.MessageSourceRepository;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
@@ -18,7 +16,7 @@ import java.util.Locale;
 import java.util.Map;
 
 @Component
-public class Resource extends AbstractMessageSource implements ResourceLoaderAware {
+public class Resource extends AbstractMessageSource {
 
     private final Map<String, Map<String, String>>  resourceMap = new HashMap<String, Map<String, String>>();
 
@@ -28,12 +26,8 @@ public class Resource extends AbstractMessageSource implements ResourceLoaderAwa
     @Autowired
     public Resource(MessageSourceRepository messageSourceRepository) {
         this.messageSourceRepository = messageSourceRepository;
-        reload();
     }
 
-    public Resource() {
-        reload();
-    }
 
     @Cacheable("resources")
     public List<MessageSource> getLocalizedMessages() {
@@ -50,11 +44,6 @@ public class Resource extends AbstractMessageSource implements ResourceLoaderAwa
         String msg = getText(code, locale);
         MessageFormat result = createMessageFormat(msg, locale);
         return result;
-    }
-
-    @Override
-    public void setResourceLoader(ResourceLoader resourceLoader) {
-        this.resourceLoader = (resourceLoader != null ? resourceLoader : new DefaultResourceLoader());
     }
 
     private String getText(String code, Locale locale) {
@@ -75,24 +64,20 @@ public class Resource extends AbstractMessageSource implements ResourceLoaderAwa
         List<MessageSource> messageSourceList = messageSourceRepository.findAll();
 
         for(MessageSource messageSource : messageSourceList) {
-            if(map.get(messageSource.getCode()) == null) {
-                Map<String, String> localeTextMap = new HashMap<String, String>(0);
+            if(map.get(messageSource.getLocale()) == null) {
+                Map<String, String> codeTextMap = new HashMap<String, String>(0);
 
-                localeTextMap.put(messageSource.getLocale().getLanguage(), messageSource.getText());
-                map.put(messageSource.getCode(), localeTextMap);
-            }
-            else {
-                Map<String, String> localeTextMap = map.get(messageSource.getCode());
-                if(localeTextMap.get(messageSource.getLocale()) == null) {
-                    localeTextMap.put(messageSource.getLocale().getLanguage(), messageSource.getText());
-                }
+                codeTextMap.put(messageSource.getCode(), messageSource.getText());
+                map.put(messageSource.getLocale().getLanguage(), codeTextMap);
+
+            } else {
+               Map<String, String> codeTextMap = map.get(messageSource.getLocale().getLanguage());
+               if(codeTextMap.get(messageSource.getCode()) != null) {
+                   codeTextMap.put(messageSource.getCode(), messageSource.getText());
+               }
+
             }
         }
         return map;
-    }
-
-    public void reload() {
-        resourceMap.clear();
-        resourceMap.putAll(loadTexts());
     }
 }

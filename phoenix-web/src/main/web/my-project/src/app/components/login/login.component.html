@@ -1,28 +1,32 @@
 <div class="login-container">
   <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-      <div class="form-group">
-        <label for="userName" class="label label-default">Username</label>
-        <input type="text" name="username" class="form-control" [(ngModel)]="credentials.userName" required #userName="ngModel"/>
-        <div *ngIf="userName.invalid && (userName.dirty || userName.touched)"
-              class="alert alert-danger">
-          <div *ngIf="userName.errors.required">
-            Username is required.
-          </div>
+    <div class="form-group">
+      <label for="userName" class="label label-default">{{'phoenix.login:Label.username' | translate}}</label>
+      <input type="text" name="username" class="form-control" [(ngModel)]="credentials.userName" required #userName="ngModel"/>
+      <div *ngIf="userName.invalid && (userName.dirty || userName.touched)"
+           class="alert alert-danger">
+        <div *ngIf="userName.errors.required">
+          {{'phoenix.login:Field.username.required' | translate}}}
         </div>
       </div>
-      <div class="form-group">
-        <label for="password" class="label label-default">Password</label>
-        <input type="password" name="password" class="form-control" [(ngModel)]="credentials.password" required #password="ngModel"/>
-        <div *ngIf="password.invalid && (password.dirty || password.touched)"
-             class="alert alert-danger">
-          <div *ngIf="password.errors.required">
-            Password is required.
-          </div>
+    </div>
+    <div class="form-group">
+      <label for="password" class="label label-default">{{'phoenix.login:Label.password' | translate}}</label>
+      <input type="password" name="password" class="form-control" [(ngModel)]="credentials.password" required #password="ngModel"/>
+      <div *ngIf="password.invalid && (password.dirty || password.touched)"
+           class="alert alert-danger">
+        <div *ngIf="password.errors.required">
+          {{'phoenix.login:Field.password.required' | translate}}}
         </div>
       </div>
-      <button class="btn btn-primary" [disabled]="!loginForm.form.valid">Login</button>
+    </div>
+    <button class="btn btn-primary" [disabled]="!loginForm.form.valid">{{'phoenix.login:Button.login' | translate}}</button>
   </form>
-  <button class="btn btn-primary" (click)="openSignupModal()">Signup</button>
-  <button class="btn btn-primary" (click)="openForgotPasswordModal()">Forgot Password</button>
+  <button class="btn btn-primary" (click)="openSignupModal()">{{'phoenix.login:Button.signup' | translate}}</button>
+  <button class="btn btn-primary" (click)="openForgotPasswordModal()">{{'phoenix.login:Button.forgotPassword' | translate}}</button>
+  <select class="browser-default custom-select" [(ngModel)]="selectedLanguage" name="first" (change)="onChange($event.target.value)">
+    <option *ngFor="let o of languages">
+      {{o}}
+    </option>
+  </select>
 </div>
-
