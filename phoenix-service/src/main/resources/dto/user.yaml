@@ -19,5 +19,7 @@ definitions:
         type: integer
       emailAddress:
         type: string
+      active:
+        type: boolean
 
 paths: {}

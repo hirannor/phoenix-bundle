@@ -6,4 +6,5 @@ export class User {
   lastName: string;
   age: number;
   emailAddress: string;
+  active: boolean;
 }
