@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import phoenix.core.i18n.Resource;
 import phoenix.security.filter.PhoenixJwtAuthenticationFilter;
 import phoenix.security.filter.PhoenixJwtAuthorizationFilter;
 import phoenix.security.handler.PhoenixAuthenticationFailureHandler;
@@ -67,7 +68,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(getAuthenticationProvider(null));
+        auth.authenticationProvider(getAuthenticationProvider(null, null));
     }
 
     @Bean("authenticationManagerBean")
@@ -107,7 +108,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public AuthenticationProvider getAuthenticationProvider(UserRepository userRepository) {
-        return new PhoenixAuthenticationProvider(userRepository, bCryptPasswordEncoder());
+    public AuthenticationProvider getAuthenticationProvider(UserRepository userRepository, Resource resource) {
+        return new PhoenixAuthenticationProvider(userRepository, bCryptPasswordEncoder(), resource);
     }
 }

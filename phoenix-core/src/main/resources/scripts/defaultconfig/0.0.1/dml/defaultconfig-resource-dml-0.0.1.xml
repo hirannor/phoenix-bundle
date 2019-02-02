@@ -59,6 +59,12 @@
         <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.modal:Button.close', 'en', 'Close')</sql>
         <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.modal:Button.close', 'de', 'Abschließen')</sql>
 
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.authentication.exception:CredentialsNotFound', 'en', 'No credentials found in context.')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.authentication.exception:BadCredentials', 'en', 'Authentication Failed. Wrong password is provided.')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.authentication.exception:InsufficientAuthentication', 'en', 'User has no roles assigned.')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.authentication.exception:AccountIsDisabled', 'en', 'Account is parmanently disabled!')</sql>
+
+
     </changeSet>
 
 </databaseChangeLog>

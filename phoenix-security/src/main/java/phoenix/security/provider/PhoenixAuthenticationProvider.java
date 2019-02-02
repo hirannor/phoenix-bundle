@@ -1,5 +1,6 @@
 package phoenix.security.provider;
 
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -8,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import phoenix.core.i18n.Resource;
 import phoenix.security.exception.AccountIsDisabledException;
 import phoenix.user.entity.User;
 import phoenix.user.repository.UserRepository;
@@ -23,11 +25,13 @@ public class PhoenixAuthenticationProvider implements AuthenticationProvider {
 
     private UserRepository userRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private Resource resource;
 
-    public PhoenixAuthenticationProvider(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder)
+    public PhoenixAuthenticationProvider(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, Resource resource)
     {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.resource = resource;
     }
 
     @Override
@@ -38,19 +42,19 @@ public class PhoenixAuthenticationProvider implements AuthenticationProvider {
         User user = userRepository.findByUserName(username);
         if (user == null)
         {
-            throw new AuthenticationCredentialsNotFoundException("No credentials found in context.");
+            throw new AuthenticationCredentialsNotFoundException(resource.getMessage("phoenix.authentication.exception:CredentialsNotFound", null, LocaleContextHolder.getLocale()));
         }
         if (!isPasswordMatches(rawPassword, user.getPassword()))
         {
-            throw new BadCredentialsException("Authentication Failed. Wrong password is provided.");
+            throw new BadCredentialsException(resource.getMessage("phoenix.authentication.exception:BadCredentials", null, LocaleContextHolder.getLocale()));
         }
         if (user.getRole() == null)
         {
-            throw new InsufficientAuthenticationException("User has no roles assigned.");
+            throw new InsufficientAuthenticationException(resource.getMessage("phoenix.authentication.exception:InsufficientAuthentication", null, LocaleContextHolder.getLocale()));
         }
         if(!user.isActive())
         {
-            throw new AccountIsDisabledException("Account is parmanently disabled!");
+            throw new AccountIsDisabledException(resource.getMessage("phoenix.authentication.exception:AccountIsDisabled", null,  LocaleContextHolder.getLocale()));
         }
         GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().getRoleType().getValue());
 

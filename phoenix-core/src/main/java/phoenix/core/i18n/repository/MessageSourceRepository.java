@@ -4,6 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import phoenix.core.i18n.entity.MessageSource;
 
+/**
+ * @author mate.karolyi
+ */
 @Repository
 public interface MessageSourceRepository extends JpaRepository<MessageSource,Long> {
+
 }

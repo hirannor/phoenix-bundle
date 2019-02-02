@@ -11,6 +11,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ModalSignupComponent} from "../signup/modal-signup.component";
 import {ModalForgotPasswordComponent} from "../forgotpassword/modal-forgot-password.component";
 import {TranslateService} from "@ngx-translate/core";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   templateUrl: './login.component.html',
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute, private router: Router,
     private authenticationService: AuthenticationService, private tokenStorage: TokenStorage,
     private alertService: AlertService, private modalService: NgbModal,
-    private translateService: TranslateService) {
+    private translateService: TranslateService, private http: HttpClient) {
 
     this.credentials = new UserCredentials();
     this.adminUrl = '/admin';
@@ -50,6 +51,7 @@ export class LoginComponent implements OnInit {
 
   onChange(language: string) {
     this.translateService.use(language);
+
   }
 
   onSubmit() {

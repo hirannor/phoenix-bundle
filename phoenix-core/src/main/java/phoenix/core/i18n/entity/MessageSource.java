@@ -8,6 +8,9 @@ import java.io.Serializable;
 import java.util.Locale;
 import java.util.Objects;
 
+/**
+ * @author mate.karolyi
+ */
 @Table(name = "RSC_RESOURCE")
 @Entity
 @IdClass(MessageSource.MessageSourcePK.class)

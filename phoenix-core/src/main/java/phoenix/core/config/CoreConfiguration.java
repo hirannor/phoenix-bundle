@@ -7,6 +7,7 @@ import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -33,6 +34,7 @@ import java.util.Properties;
  * @author mate.karolyi
  */
 @Configuration
+@EnableCaching
 @EnableConfigurationProperties(EmailConfigurationProperties.class)
 public class CoreConfiguration implements WebMvcConfigurer {
 
@@ -67,8 +69,9 @@ public class CoreConfiguration implements WebMvcConfigurer {
 
     @Bean
     public LocaleResolver localeResolver() {
-        CookieLocaleResolver resolver = new CookieLocaleResolver();
-        resolver.setDefaultLocale(Locale.US);
+        //TODO: implement a custom locale resolver
+        CookieLocaleResolver resolver = new CookieLocaleResolver ();
+        resolver.setDefaultLocale(Locale.ENGLISH);
         return resolver;
     }
 
@@ -82,7 +85,7 @@ public class CoreConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(getLocaleChangeInterceptor());
+        registry.addInterceptor(getLocaleChangeInterceptor()).addPathPatterns("/*");
     }
 
     @Override
