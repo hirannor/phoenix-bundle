@@ -29,13 +29,13 @@ When the build is done run the following maven command **mvn spring-boot:run**
 in **phoenix-bundle/phoenix-web/** artifact
 
 ## Application URL
-http://localhost:8080
+https://localhost:8443
 
 ## Swagger UI URL
-http://localhost:8080/swagger-ui.html
+https://localhost:8443/swagger-ui.html
 
 ## H2 Database 
-**URL**:  http://localhost:8080/h2
+**URL**:  https://localhost:8443/h2
 
 **Datasource:**
  - url: jdbc:h2:file:~/phoenixdb
