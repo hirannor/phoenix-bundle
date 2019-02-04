@@ -1,19 +1,17 @@
-<div class="container">
-  <div class="center">
-    <h1> Usermanagement </h1>
+    <h1> {{'phoenix.userManagement.title' | translate}} </h1>
 
     <table class="table">
       <thead>
       <tr>
-        <th scope="col">Username</th>
-        <th scope="col">Role</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Email</th>
-        <th scope="col">Age</th>
-        <th scope="col">Status</th>
-        <th scope="col">Remove</th>
-        <th scope="col">Edit</th>
+        <th scope="col">{{'phoenix.userManagement:Table.head.username' | translate}}</th>
+        <th scope="col">{{'phoenix.userManagement:Table.head.role' | translate}}</th>
+        <th scope="col">{{'phoenix.userManagement:Table.head.firstName' | translate}}</th>
+        <th scope="col">{{'phoenix.userManagement:Table.head.lastName' | translate}}</th>
+        <th scope="col">{{'phoenix.userManagement:Table.head.emailAddress' | translate}}</th>
+        <th scope="col">{{'phoenix.userManagement:Table.head.age' | translate}}</th>
+        <th scope="col">{{'phoenix.userManagement:Table.head.status' | translate}}</th>
+        <th scope="col">{{'phoenix.userManagement:Table.head.remove' | translate}}</th>
+        <th scope="col">{{'phoenix.userManagement:Table.head.edit' | translate}}</th>
       </tr>
       </thead>
       <tbody>
@@ -24,15 +22,15 @@
         <td>{{user.lastName}}</td>
         <td>{{user.emailAddress}}</td>
         <td>{{user.age}}</td>
-        <td>{{user.active === true ? 'ACTIVE' : 'DISABLED'}}</td>
         <td>
-          <button type="button" class="btn btn-danger" (click)="deleteUser(user.userName)">Remove</button>
+          {{user.active === true ? 'ACTIVE' : 'DISABLED'}}
         </td>
         <td>
-          <button type="button" class="btn btn-primary" (click)="openEditModal(user)">EDIT</button>
+          <button type="button" class="btn btn-danger" (click)="deleteUser(user.userName)">{{'phoenix.userManagement:Button.remove' | translate}}</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-primary" (click)="openEditModal(user)">{{'phoenix.userManagement:Button.edit' | translate}}</button>
         </td>
       </tr>
       </tbody>
     </table>
-  </div>
-</div>

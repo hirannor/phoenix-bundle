@@ -2,6 +2,6 @@ import {MissingTranslationHandler, MissingTranslationHandlerParams} from '@ngx-t
 
 export class PhoenixMissingTranslationHandler implements MissingTranslationHandler {
   handle(params: MissingTranslationHandlerParams) {
-    return "{{'" + params.key + "' | translate}}";
+    return "Resource not resolved:{{'" + params.key + "' | translate}}";
   }
 }

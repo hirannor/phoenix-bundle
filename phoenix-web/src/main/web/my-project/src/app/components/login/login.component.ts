@@ -51,7 +51,6 @@ export class LoginComponent implements OnInit {
 
   onChange(language: string) {
     this.translateService.use(language);
-
   }
 
   onSubmit() {

@@ -5,6 +5,7 @@ import {User} from "../../../models/user";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ModalEditComponent} from "./modal-edit.component";
 import * as _ from 'lodash';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'user-management',
@@ -15,7 +16,7 @@ export class UserManagementComponent implements OnInit {
 
   users: User[] = [];
 
-  constructor(private userService: UserService, private modalService: NgbModal) {
+  constructor(private userService: UserService, private modalService: NgbModal, private translateService: TranslateService) {
   }
 
   ngOnInit() {

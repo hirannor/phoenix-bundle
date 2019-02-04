@@ -1,0 +1,66 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet author="mkarolyi" id="resource-de:insert:dml:0.0.1" runOnChange="true">
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.login:Button.login', 'de', 'Anmeldung')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.login:Button.signup', 'de', 'Anmelden')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.login:Button.forgotPassword', 'de', 'Passwort vergessen')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.login:Label.username', 'de', 'Benutzername')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.login:Label.password', 'de', 'Passwort')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.login:Field.username.required', 'de', 'Bitte eine Benutzername eingeben.')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.login:Field.password.required', 'de', 'Bitte eine Passwort eingeben.')</sql>
+
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.signup:Label.username', 'de', 'Benutzername')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.signup:Label.password', 'de', 'Passwort')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.signup:Label.emailAddress', 'de', 'Email-Addresse')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.signup:Label.firstName', 'de', 'Vorname')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.signup:Label.lastName', 'de', 'Nachname')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.signup:Label.age', 'de', 'Alter')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.signup:Field.username.required', 'de', 'Bitte eine Benutzername eingeben.')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.signup:Field.password.required', 'de', 'Bitte eine Passwort eingeben')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.signup:Field.emailAddress.required', 'de', 'Bitte eine Email-Address eingeben.')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.signup:Field.firstName.requred', 'de', 'Bitte eine Vorname eingeben.')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.signup:Field.lastName.required', 'de', 'Bitte eine Nachname eingeben.')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.signup:Field.age.required', 'de', 'Bitte eine Alter eingeben.')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.signup:Button.sded', 'de', 'Sendung')</sql>
+
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.resetpassword:Field.username.required', 'de', 'Bitte eine Benutzername eingeben.')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.resetpassword:Label.username', 'de', 'Benutzername')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.resetpassword:Button.send', 'de', 'Sendung')</sql>
+
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.modal:Button.close', 'de', 'Abschließen')</sql>
+
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.home:Text.welcomeText', 'de', 'Wilkommen #{user.firstName} #{user.lastName}')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.home:Text.userDetails', 'de', 'Benutzer Einzelheiten:')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.home:Text.role', 'de', 'Rolle:')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.home:Text.emailAddress', 'de', 'Email-Addresse:')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.home:Text.age', 'de', 'Alter:')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.home:Text.paragraph', 'de', ' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet mi at ante iaculis pulvinar. Praesdet congue,
+            ipsum vel rhoncus placerat, orci elit lacinia purus, non hdedrerit sem justo vel elit. Cras nec tortor sit amet diam
+            malesuada convallis id non orci. Donec in semper sem. Nullam condimdetum tempor malesuada. Morbi mollis ex ut
+            elemdetum tempus. Interdum et malesuada fames ac ante ipsum primis in faucibus.')</sql>
+
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.userManagement.title', 'de', 'Benutzermanagement')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.userManagement:Table.head.username', 'de', 'Benutzername')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.userManagement:Table.head.role', 'de', 'Rolle')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.userManagement:Table.head.firstName', 'de', 'Vorname')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.userManagement:Table.head.lastName', 'de', 'Nachname')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.userManagement:Table.head.emailAddress', 'de', 'Email-Addresse')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.userManagement:Table.head.age', 'de', 'Age')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.userManagement:Table.head.status', 'de', 'Status')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.userManagement:Table.head.remove', 'de', 'Löschung')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.userManagement:Table.head.edit', 'de', 'Bearbeitung')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.userManagement:Button.remove', 'de', 'Löschung')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.userManagement:Button.edit', 'de', 'Bearbeitung')</sql>
+
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.user.account.status.enabled', 'de', 'Aktiviert')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.user.account.status.disabled', 'de', 'Deaktiviert')</sql>
+
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.admin.header:Text.home', 'de', 'Home')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.admin.header:Text.userManagement', 'de', 'Benutzermanagement')</sql>
+        <sql>INSERT INTO RSC_RESOURCE(CODE, LOCALE, TEXT) VALUES ('phoenix.admin.header:Text.logout', 'de', 'Ausloggen')</sql>
+
+    </changeSet>
+</databaseChangeLog>

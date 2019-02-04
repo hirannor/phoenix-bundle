@@ -11,7 +11,7 @@
             <column name="LOCALE" type="VARCHAR(5)">
                 <constraints nullable="false"/>
             </column>
-            <column name="TEXT" type="VARCHAR(300)">
+            <column name="TEXT" type="VARCHAR(1000)">
                 <constraints nullable="false"/>
             </column>
         </createTable>

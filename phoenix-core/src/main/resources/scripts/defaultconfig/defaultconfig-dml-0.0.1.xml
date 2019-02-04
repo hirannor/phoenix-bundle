@@ -4,6 +4,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <include file="scripts/defaultconfig/0.0.1/dml/defaultconfig-role-dml-0.0.1.xml"/>
-    <include file="scripts/defaultconfig/0.0.1/dml/defaultconfig-resource-dml-0.0.1.xml"/>
+    <include file="scripts/defaultconfig/0.0.1/dml/defaultconfig-resource-en-dml-0.0.1.xml"/>
+    <include file="scripts/defaultconfig/0.0.1/dml/defaultconfig-resource-de-dml-0.0.1.xml"/>
 
 </databaseChangeLog>

@@ -1,14 +1,9 @@
 <div class="jumbotron">
-  <h1>Welcome {{currentUser.firstName}}  {{currentUser.lastName}}</h1>
-  <p><b>User details:</b></p>
-  <p>Role: {{currentUser.role}}</p>
-  <p>Email-address: {{currentUser.emailAddress}}</p>
-  <p>Age: {{currentUser.age}}
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut imperdiet mi at ante iaculis pulvinar. Praesent congue,
-    ipsum vel rhoncus placerat, orci elit lacinia purus, non hendrerit sem justo vel elit. Cras nec tortor sit amet diam
-    malesuada convallis id non orci. Donec in semper sem. Nullam condimentum tempor malesuada. Morbi mollis ex ut
-    elementum tempus. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-  </p>
+  <h1> {{ 'phoenix.home:Text.welcomeText' | translate:{user: currentUser} }}</h1>
+  <p><b>{{'phoenix.home:Text.userDetails' | translate}}</b></p>
+  <p>{{'phoenix.home:Text.role' | translate}} {{currentUser.role}}</p>
+  <p>{{'phoenix.home:Text.emailAddress' | translate}} {{currentUser.emailAddress}}</p>
+  <p>{{'phoenix.home:Text.age' | translate}} {{currentUser.age}}
+  <p>{{'phoenix.home:Text.paragraph' | translate}}</p>
 </div>
 
